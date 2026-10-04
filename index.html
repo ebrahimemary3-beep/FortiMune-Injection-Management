@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
-<title>FortiMune | Injection Management v2.9 Production</title>
+<title>FortiMune | Injection Management v2.8 Production</title>
 <style>
 :root{--blue:#056db7;--blue2:#0b4e80;--green:#119b5a;--orange:#ed7100;--red:#c93434;--purple:#6846c2;--bg:#f3f6f9;--card:#fff;--line:#dce5ec;--text:#17324d;--muted:#6d7d8b;--shadow:0 8px 24px #17324d12}
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Tahoma,sans-serif;background:var(--bg);color:var(--text)}
@@ -219,13 +219,6 @@ body[data-device="desktop"] .wrap{width:min(100% - 56px,var(--ui-max))}
   .password-modal-card{padding:22px;border-radius:20px}
   .password-modal-card .actions{flex-direction:column}
 }
-
-/* v2.9 user-facing polish */
-.brand-fallback{display:flex;align-items:center;justify-content:center;width:148px;height:48px;padding:0 16px!important;border-radius:12px;background:#fff;color:#075f9e;font-weight:950;letter-spacing:1.2px;font-size:18px;box-shadow:0 2px 10px #001b2d20}.brand-fallback:after{content:"FORTIMUNE"}.brand-fallback img{display:none!important}
-.datetime-field{display:flex;flex-direction:column;gap:6px}.datetime-field span{font-size:11px;color:var(--muted);padding-right:2px}.datetime-field input{direction:ltr;text-align:left}
-.request-guide-card{background:linear-gradient(180deg,#ffffff,#f8fbfd);border-color:#dbe8f0}.request-guide-card h3{margin:0 0 6px;font-size:19px}.request-guide-card>p{margin:0;color:#64798b;font-size:13px;line-height:1.8}.guide-icon{width:38px;height:38px;border-radius:12px;background:#e4f8ed;color:#087744;display:flex;align-items:center;justify-content:center;font-weight:950;margin-bottom:10px}.guide-list{display:grid;gap:8px;margin-top:18px}.guide-list>div{display:grid;grid-template-columns:34px 1fr;column-gap:10px;align-items:center;padding:10px 0;border-top:1px solid #e7eef3}.guide-list span{grid-row:span 2;width:30px;height:30px;border-radius:9px;background:#edf5fa;color:#0a6ca9;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}.guide-list b{font-size:13px}.guide-list small{color:#718292;font-size:11px;line-height:1.5}
-.area-panel{background:linear-gradient(180deg,#fff,#f8fbfd)}.area-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.area-tile{padding:13px;border:1px solid #dce8ef;border-radius:14px;background:#fff;display:flex;align-items:center;gap:9px}.area-tile small{color:#718292;font-size:10px;margin-right:auto}.area-check{width:24px;height:24px;border-radius:8px;background:#e5f7ed;color:#0b8a50;display:flex;align-items:center;justify-content:center;font-weight:900}.area-tile b{font-size:13px}
-@media(max-width:700px){.brand-fallback{width:120px;height:42px;font-size:15px}.datetime-field input{font-size:15px}.request-guide-card{order:2}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -269,7 +262,7 @@ body[data-device="desktop"] .wrap{width:min(100% - 56px,var(--ui-max))}
 
 <div id="app" class="hidden">
 <header>
-  <div class="brand"><img src="fortimune-logo.png" alt="FortiMune" onerror="this.style.display='none';this.parentElement.classList.add('brand-fallback')"></div>
+  <div class="brand"><img src="fortimune-logo.png" alt="FortiMune"></div>
   <div class="userbox"><button class="account-btn" onclick="openPasswordChange(false)" title="تغيير كلمة المرور">🔑 تغيير كلمة المرور</button><button class="notify-btn" onclick="toggleNotifications()" title="Notifications">🔔<span id="notifyCount" class="notify-count hidden">0</span></button><span id="who"></span><button onclick="logout()">خروج</button></div>
 </header>
 <div class="wrap">
@@ -280,8 +273,8 @@ body[data-device="desktop"] .wrap{width:min(100% - 56px,var(--ui-max))}
 </div>
 
 <script>
-/* FortiMune v2.9 Production Supabase Runtime */
-const FORTIMUNE_SUPABASE_URL = "https://wysthgotuzqqidsxyobw.supabase.co";
+/* FortiMune v2.8 Production Supabase Runtime */
+const FORTIMUNE_SUPABASE_URL = "https://wysthgotuzqzqidsxyobw.supabase.co";
 const FORTIMUNE_SUPABASE_PUBLISHABLE_KEY = "sb_publishable_OcrZKZ_wXEpnypKNGA_gCA_BULRAoUC";
 let FORTIMUNE_AUTH_ENABLED = false;
 let fortimuneSupabase = null;
@@ -513,26 +506,20 @@ async function loadProductionProfile(authUser){
       .select("region_id,is_primary")
       .eq("profile_id",authUser.id)
       .order("is_primary",{ascending:false});
-    if(assignmentError) throw new Error(`AREA_ASSIGNMENT: ${assignmentError.message}`);
-    if(Array.isArray(assignments) && assignments.length){
+    if(!assignmentError && Array.isArray(assignments) && assignments.length){
       const ids=assignments.map(x=>x.region_id).filter(Boolean);
-      const {data: regions,error: regionsError}=await fortimuneSupabase
+      const {data: regions}=await fortimuneSupabase
         .from("regions")
         .select("id,name,route")
         .in("id",ids);
-      if(regionsError) throw new Error(`REGIONS: ${regionsError.message}`);
       const byId=new Map((regions||[]).map(r=>[r.id,r]));
       areaIds=assignments.map(a=>{
         const r=byId.get(a.region_id);
-        const name=String(r?.name || r?.route || "").trim();
-        const route=String(r?.route || "").trim();
-        return REGION_NAME_TO_CODE[name] || REGION_NAME_TO_CODE[route] || AREA_REGION_MAP[route] || AREA_REGION_MAP[name];
+        const name=r?.name || r?.route || "";
+        return REGION_NAME_TO_CODE[name] || REGION_NAME_TO_CODE[r?.route||""];
       }).filter(Boolean);
     }
-  }catch(e){
-    // Keep login functional; Assigned Areas will remain empty until the regions read policy is available.
-    console.warn(e);
-  }
+  }catch(_e){}
 
   // Backward-compatible primary area fallback.
   if(!areaIds.length && profile.region_id){
@@ -709,7 +696,6 @@ function render(){
  document.getElementById("tabs").innerHTML=tabsForRole().map(([id,n])=>`<button class="tab ${tab===id?"active":""}" onclick="tab='${id}';render()">${n}</button>`).join("");
  document.getElementById("content").innerHTML=(VIEWS[tab]||VIEWS.home)();
  bind();
- if(tab==="newRequest") initBatchDateTime();
  updateNotificationBadge();
 }
 function metric(label,value,cls=""){return `<div class="card kpi ${cls}"><div class="muted">${label}</div><div class="metric">${value}</div></div>`}
@@ -935,7 +921,7 @@ function homeView(){
 
   ${isTopManagementRole(session?.role)?`<section class="management-command" style="margin-bottom:16px"><div class="panel-card"><div class="panel-head"><div><div class="eyebrow dark">EXECUTIVE COMMAND CENTER</div><h2>لوحة الإدارة العليا</h2></div><span class="live-badge"><i></i> Live</span></div><div class="command-actions">${tabsForRole(session?.role).includes("requests")?`<button class="command-action" onclick="tab='requests';render()"><b>كل الطلبات</b><small>متابعة الـpipeline بالكامل</small></button>`:""}${tabsForRole(session?.role).includes("approvals")?`<button class="command-action" onclick="tab='approvals';render()"><b>Approvals</b><small>الطلبات التي تحتاج قرار</small></button>`:""}${tabsForRole(session?.role).includes("balances")?`<button class="command-action" onclick="tab='balances';balanceViewMode='executive';render()"><b>Customer Balance Intelligence</b><small>قراءة الرصيد حسب المنطقة والعميل والمنتج</small></button>`:""}${tabsForRole(session?.role).includes("daily")?`<button class="command-action" onclick="tab='daily';render()"><b>Daily Injection Report</b><small>التنفيذ الفعلي والتقارير اليومية</small></button>`:""}</div></div><div class="panel-card"><div class="panel-head"><div><div class="eyebrow dark">SYSTEM CONTROLS</div><h2>مؤشرات سريعة</h2></div></div><div class="management-insight-grid"><div class="management-insight"><small>Open</small><b>${open}</b></div><div class="management-insight"><small>Approval</small><b>${approvals}</b></div><div class="management-insight"><small>Assigned</small><b>${assigned}</b></div><div class="management-insight"><small>Executed</small><b>${done}</b></div><div class="management-insight"><small>Customers</small><b>${visibleCustomers().length}</b></div></div></div></section>`:""}
 
-  ${areas.length?`<section class="panel-card area-panel"><div class="panel-head"><div><div class="eyebrow dark">AREA ACCESS</div><h2>المناطق المخصصة</h2></div><span class="scope-badge">${areas.length} Areas</span></div><div class="area-grid">${areas.map(a=>`<div class="area-tile"><span class="area-check">✓</span><b>${esc(a)}</b><small>منطقة مخصصة</small></div>`).join("")}</div></section>`:""}
+  ${areas.length?`<section class="panel-card area-panel"><div class="panel-head"><div><div class="eyebrow dark">ACCESS SCOPE</div><h2>المناطق المسموح بها</h2></div><span class="scope-badge">${areas.length} Areas</span></div><div class="area-grid">${areas.map(a=>`<div class="area-tile"><span class="area-check">✓</span><b>${esc(a)}</b><small>Assigned Area</small></div>`).join("")}</div></section>`:""}
 
   ${isTopManagementRole(session?.role)?`<section class="panel-card team-panel"><div class="panel-head"><div><div class="eyebrow dark">INJECTION TEAMS</div><h2>لقطة العهدة التشغيلية</h2></div></div><div class="team-grid">${INJECTION_TEAMS.map(t=>`<div class="team-tile"><div class="team-title">${esc(t)}</div>${PRODUCTS.slice(0,3).map(p=>`<div class="team-line"><span>${esc(p.name)}</span><b>${teamBalance(t,p.id)}</b></div>`).join("")}</div>`).join("")}</div></section>`:""}
   ${isTopManagementRole(session?.role)?topManagementBalanceInsights():""}`;
@@ -983,10 +969,10 @@ function openEngineerRequest(id){
 function newRequestView(){
  return `<div class="section"><h2>تسجيل طلب حقن دفعة</h2></div><div class="two">
  <div class="card">
- <label>موعد الدفعة <span class="required">*</span></label><div class="datetime-field"><input id="batchAt" type="datetime-local" autocomplete="off"><span>يمكن اختيار أي تاريخ ووقت مناسبين للدفعة</span></div>
+ <label>موعد الدفعة <span class="required">*</span></label><input id="batchAt" type="datetime-local">
  <label>اسم العميل كما يظهر في التقرير <span class="required">*</span></label>
  <select id="customerId">${visibleCustomers().map(c=>`<option value="${c.id}">${esc(c.name)} — ${esc(c.id)} — ${esc(c.region)}</option>`).join("")}</select>
-
+ ${session?.role==="sales"?`<div class="muted" style="margin-top:6px">يتم عرض العملاء داخل الـAssigned Areas فقط.</div>`:""}
  <label>اسم المعمل <span class="required">*</span></label>
  <input id="lab" type="text" placeholder="اكتب اسم المعمل يدويًا">
  <label>عدد الدفعة <span class="required">*</span></label>
@@ -1009,15 +995,13 @@ function newRequestView(){
  <div class="preview" id="balanceBox">اختار منتجًا أو أكثر لعرض الرصيد المتاح لكل منتج.</div>
  <div class="actions"><button class="primary" onclick="createRequest()">تسجيل طلب الحقن</button></div>
  </div>
- <div class="card request-guide-card">
-   <div class="guide-icon">✓</div>
-   <h3>مراجعة الطلب</h3>
-   <p>راجع بيانات الدفعة، العميل، المعمل، والكميات المطلوبة قبل تسجيل الطلب.</p>
-   <div class="guide-list">
-     <div><span>01</span><b>موعد الدفعة</b><small>اختر التاريخ والوقت المناسبين للدفعة.</small></div>
-     <div><span>02</span><b>المنتجات</b><small>يمكن اختيار أكثر من منتج للدفعة نفسها.</small></div>
-     <div><span>03</span><b>الكميات</b><small>أدخل الكمية المطلوبة لكل منتج بدقة.</small></div>
-   </div>
+ <div class="card"><h3>Customer Balance Rule</h3>
+ <p>يتم اختيار <b>Customer Balance Code</b> هنا فقط، ويرتبط بكل المنتجات المختارة.</p>
+ <p>المهندس لاحقًا لن يرى هذا الحقل.</p>
+ <p>لو كل المنتجات أرصدتها كافية، الطلب يمشي مباشرة للـInjection Team Manager.</p>
+ <p>لو أي منتج رصيده غير كافٍ، الطلب كله يتحول إلى <b>Approval</b> لمدير الشركة/القطاع.</p>
+ <div class="alert warning">الخصم النهائي يعتمد على <b>Actual Injected Quantity</b> لكل منتج عند Close Request، وليس Requested Quantity.</div>
+ <div class="alert">يمكن أن يحتوي نفس الطلب على عدة Products لنفس الدفعة.</div>
  </div></div>`
 }
 function toggleProduct(pid){
@@ -1043,13 +1027,6 @@ function updateBalanceBox(){
  }).join("");
  el.className="preview "+(insufficient?"danger":"success");
  el.innerHTML=`<b>${esc(c.name)}</b><br>${html}`;
-}
-function initBatchDateTime(){
- const el=document.getElementById("batchAt");
- if(!el || el.value) return;
- const d=new Date();
- d.setMinutes(d.getMinutes()-d.getTimezoneOffset());
- el.value=d.toISOString().slice(0,16);
 }
 function createRequest(){
  const c=db.customers.find(x=>x.id===document.getElementById("customerId").value);
@@ -1379,7 +1356,5 @@ function bind(){
    updateBalanceBox();
  }
 }
-const fortimuneBatchObserver=new MutationObserver(()=>{if(document.getElementById("batchAt"))initBatchDateTime();});
-fortimuneBatchObserver.observe(document.body,{childList:true,subtree:true});
 </script>
 </body></html>
