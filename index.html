@@ -408,6 +408,7 @@ const TOP_MANAGEMENT=[
  {role:"executive_manager",name:"Walid Abdelaal",title:"Executive Manager"}
 ];
 function isTopManagementRole(role){return ["sales_manager","product_manager","executive_manager"].includes(role)}
+function canSettleCustody(){return session?.employeeId==="EMP-015"}
 function teamBalance(team,productId){
  const row=db.teamBalances[team]||{};
  return Number(row[productId]||0);
@@ -421,12 +422,12 @@ function addCustodyPending(r){
  r.custodySettlement={status:"pending",team:r.injectionTeam,createdAt:now(),items};
  db.custodyTransactions.push({id:"CUST-"+Date.now(),requestId:r.id,team:r.injectionTeam,status:"pending",items,createdAt:now()});
 }
-function topManagementUsers(){return TOP_MANAGEMENT}
+function topManagementUsers(){return TOP_MANAGEMENT.filter(m=>m.role==="sales_manager")}
 function custodyPendingRequests(){
  return db.requests.filter(r=>r.status==="done" && r.source==="فريق الحقن" && custodyStatus(r)==="pending");
 }
 function settleCustody(id){
- if(!isTopManagementRole(session?.role)) return alert("هذه العملية متاحة للـTop Management فقط.");
+ if(!canSettleCustody()) return alert("صرف العهدة المستهلكة متاح للدكتور Sayed Abo Shal فقط.");
  const r=db.requests.find(x=>x.id===id);
  if(!r || custodyStatus(r)!=="pending") return alert("العهدة غير متاحة للتسوية.");
  const team=r.injectionTeam;
@@ -708,8 +709,11 @@ function tabsForRole(){
  }
  a=[["home","الرئيسية"]];
  if(session.role==="sales")a.push(["newRequest","تسجيل طلب حقن"],["requests","طلباتي"],["balances","أرصدة العملاء"]);
- if(session.role==="sales_manager"||session.role==="product_manager"||session.role==="executive_manager")
-   a.push(["requests","كل الطلبات"],["approvals","طلبات الـApproval"],["custody","صرف العهدة المستهلكة"],["daily","Daily Injection Report"],["balances","أرصدة العملاء"],["audit","Audit Trail"]);
+ if(session.role==="sales_manager"||session.role==="product_manager"||session.role==="executive_manager") {
+   a.push(["requests","كل الطلبات"],["approvals","طلبات الـApproval"]);
+   if(session.employeeId==="EMP-015") a.push(["custody","صرف العهدة المستهلكة"]);
+   a.push(["daily","Daily Injection Report"],["balances","أرصدة العملاء"],["audit","Audit Trail"]);
+ }
  if(session.role==="company_manager")a.push(["approvals","طلبات الـApproval"]);
  if(session.role==="injection_manager")a.push(["inbox","الطلبات الواردة"],["assigned","الموزعة والمتابعة"]);
  if(session.role==="injection_manager" && hasEngineerAccess())a.push(["myJobs","طلبات الحقن الموجهة لي"]);
@@ -1250,7 +1254,7 @@ async function closeRequest(id){
  // Completion notifications: requester + injection manager + all Top Management.
  addNotification({recipientEmployeeId:r.createdByEmployeeId,recipientEmail:r.createdByEmail,recipientName:r.createdBy,requestId:r.id,title:"تم غلق طلب الحقن بنجاح",message:`${r.id} — تم تنفيذ وغلق الطلب بنجاح. يمكنك الآن فتح صورة تقرير الحقن وإرسالها للعميل.`,type:"completed"});
  addNotification({recipientEmployeeId:"EMP-018",recipientEmail:"ashraf.mostafa@ift-online.com",recipientName:INJECTION_TEAM_MANAGER,requestId:r.id,title:"تم غلق طلب الحقن بنجاح",message:`${r.id} — المهندس ${r.engineerName||session.name} أغلق الطلب بنجاح. التقرير متاح للمراجعة.`,type:"completed"});
- TOP_MANAGEMENT.forEach(m=>addNotification({recipientName:m.name,requestId:r.id,title:"تم غلق طلب الحقن بنجاح",message:`${r.id} — تم إغلاق الطلب. تقرير الحقن والكميات الفعلية متاحان للمراجعة.${r.source==="فريق الحقن"?" صرف العهدة المستهلكة متاح للتسوية.":""}`,type:"completed"}));
+ TOP_MANAGEMENT.forEach(m=>addNotification({recipientName:m.name,requestId:r.id,title:"تم غلق طلب الحقن بنجاح",message:`${r.id} — تم إغلاق الطلب. تقرير الحقن والكميات الفعلية متاحان للمراجعة.${r.source==="فريق الحقن" && m.role==="sales_manager"?" صرف العهدة المستهلكة متاح للتسوية.":""}`,type:"completed"}));
  audit(`Closed request; actual batch=${r.actualBatchQty}; actual injected=${r.actualQty}; electronic signature captured; report saved; custody=${r.source==="فريق الحقن"?"pending":"not_applicable"}`,r);
  save();
  alert(`تم Close Request بنجاح.\nActual Batch = ${r.actualBatchQty}\nActual Injected = ${r.actualQty}\nتم تسجيل صورة التقرير والإمضاء الإلكتروني وتحديث الأرصدة.\n\nتم إرسال Notification للزميل الذي أنشأ الطلب ومدير الفريق الحالي ومدير البيع/القطاع.`);
