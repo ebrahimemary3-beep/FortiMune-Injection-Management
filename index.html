@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
-<title>FortiMune | Injection Management v4.0 Workflow</title>
+<title>FortiMune | Operations & Injection Management V5</title>
 <style>
 :root{--blue:#056db7;--blue2:#0b4e80;--green:#119b5a;--orange:#ed7100;--red:#c93434;--purple:#6846c2;--bg:#f3f6f9;--card:#fff;--line:#dce5ec;--text:#17324d;--muted:#6d7d8b;--shadow:0 8px 24px #17324d12}
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Tahoma,sans-serif;background:var(--bg);color:var(--text)}
@@ -676,10 +676,18 @@ button:focus-visible{outline:3px solid #64b5e6;outline-offset:3px}
 .request-progress .passed.stage-pending{background:#e4f2ff;color:#146a9d}.request-progress .passed.stage-assigned{background:#eee7ff;color:#6844b0}.request-progress .passed.stage-in_progress{background:#fff3cf;color:#936911}.request-progress .passed.stage-done{background:#e0f5ea;color:#16774c}.request-progress .current{box-shadow:0 0 0 1px currentColor;font-weight:700}
 .app-messages{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:10050;width:min(92vw,470px);display:grid;gap:10px;pointer-events:none}.app-message{pointer-events:auto;display:flex;align-items:flex-start;gap:12px;padding:17px;border-radius:17px;border:1px solid;box-shadow:0 12px 36px #16324724;text-align:right;white-space:pre-line;background:#fff;color:#213b4d;animation:message-enter .2s ease}.app-message.success{background:#eaf9f0;border-color:#addfc3;color:#156843}.app-message.warning{background:#fff5e5;border-color:#f0d39c;color:#885c12}.app-message.error{background:#fff0ef;border-color:#efb6b1;color:#a03430}.message-symbol{flex-shrink:0;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#ffffff9c;font-size:20px;font-weight:800}.message-copy{flex:1;font-size:14px;line-height:1.7}.message-dismiss{border:0;background:transparent;color:inherit;font-size:24px;padding:0 3px;cursor:pointer}.app-confirm-overlay{position:fixed;inset:0;background:#102d4166;backdrop-filter:blur(4px);z-index:10060;display:grid;place-items:center;padding:20px}.app-confirm{width:min(100%,460px);background:#fff;border-radius:24px;padding:26px;box-shadow:0 24px 70px #09233340;text-align:right;border-top:5px solid #e6a133}.app-confirm h3{margin:0 0 14px;color:#8e621c}.app-confirm p{line-height:1.8;color:#425c6d}.app-confirm .actions{justify-content:flex-start}@keyframes message-enter{from{opacity:0;translate:0 -8px}to{opacity:1;translate:0 0}}@media(prefers-reduced-motion:reduce){.app-message{animation:none}}
 </style>
-</head>
+<style>
+.report-file-input{display:none!important}.upload-zone{grid-template-columns:44px minmax(0,1fr)!important}.report-upload-actions{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;min-width:0}.upload-zone .report-upload-actions button{grid-column:auto!important;width:100%;min-height:48px;justify-self:stretch!important;white-space:nowrap;padding:10px 8px}.report-preview-small{grid-column:1/-1;width:100%;max-height:210px;object-fit:contain;border-radius:12px;background:#eef4f8}.report-preview-small[hidden]{display:none!important}#photoStatus{overflow-wrap:anywhere}.execution-validation{line-height:1.7}.execution-submit:disabled{opacity:1;background:#f5dfc4;color:#826748;cursor:not-allowed}.execution-submit:not(:disabled){background:#e87819;color:#fff}.execution-footer{bottom:100px}.execution-shell{padding-bottom:22px}
+#tabs.single-tab .tab{flex:0 0 112px!important;min-width:112px!important;width:112px!important}#tabs.single-tab{justify-content:center!important;overflow:hidden!important}#tabs .tab-label{height:15px!important;line-height:15px!important;transform:none!important;transition:none!important}#tabs .tab-icon{flex-shrink:0!important;transform:none!important}#tabs .tab{transform:none!important;transition:background-color .15s!important}@media(max-width:600px){.execution-footer{position:static;margin-bottom:12px}.upload-zone{padding:12px}.execution-shell{padding-bottom:12px}}
+</style><style>/* v5 visual system */
+:root{--v5-blue:#086caa;--v5-ink:#193447;--v5-muted:#647d8e}body{color:var(--v5-ink)}#content{padding-bottom:155px}.v5-hero{background:linear-gradient(125deg,#09364f,#086ca8 65%,#0a8cba);padding:34px;border-radius:28px;color:white;position:relative;overflow:hidden;box-shadow:0 16px 40px #075e9120}.v5-hero:after{content:'';position:absolute;width:240px;height:240px;border:40px solid #ffffff08;border-radius:50%;left:-90px;top:-60px;pointer-events:none}.v5-hero small,.v5-heading small{letter-spacing:2px;font-size:11px;font-weight:800}.v5-hero h1{font-size:clamp(24px,4vw,36px);margin:14px 0}.v5-hero p{color:#d5e8f3;line-height:1.9}.v5-hero-meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.v5-hero-meta span{background:#ffffff10;border:1px solid #ffffff24;padding:7px 14px;border-radius:30px;font-size:12px}.v5-section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:26px 0 14px}.v5-section-head h3{margin:0}.v5-section-head>span{font-size:12px;color:var(--v5-muted)}.v5-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:20px 0}.v5-stat{background:white;border:1px solid #dde7ed;border-top:4px solid var(--tone,#0879b3);border-radius:20px;padding:20px;text-align:right;color:var(--v5-ink);box-shadow:0 5px 15px #19344705;display:flex;flex-direction:column;gap:12px;transition:transform .15s}.v5-stat:hover{transform:translateY(-3px)}.v5-stat strong{font-size:38px;line-height:1}.v5-stat span{font-size:13px;color:#526d7e}.v5-stat small{font-size:11px;color:var(--tone)}.blue{--tone:#086caa;--wash:#eaf5fc}.purple{--tone:#7653bb;--wash:#f0ebfb}.green{--tone:#119b66;--wash:#e6f6ee}.yellow{--tone:#c69a16;--wash:#fff6d8}.orange{--tone:#de871d;--wash:#fff1df}.red{--tone:#ce4656;--wash:#fff0f1}.v5-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.v5-tile{position:relative;text-align:right;display:flex;align-items:flex-start;flex-direction:column;background:white;color:var(--v5-ink);border:1px solid #dce7ed;border-radius:22px;padding:24px;min-height:180px;box-shadow:0 8px 20px #18394d05}.v5-tile-icon{width:46px;height:46px;display:grid;place-items:center;background:var(--wash);color:var(--tone);border-radius:15px;font-size:25px;margin-bottom:17px}.v5-tile b{font-size:19px}.v5-tile p{margin:10px 0 0;font-size:13px;color:var(--v5-muted);line-height:1.8}.v5-arrow{position:absolute;left:24px;top:30px;color:var(--tone);font-size:23px}.v5-heading{margin:20px 0}.v5-heading small{color:var(--v5-blue)}.v5-heading h2{margin:10px 0;font-size:28px}.v5-heading p{color:var(--v5-muted);line-height:1.8}.v5-segments{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}.v5-segments button{background:white;color:#486479;border:1px solid #d8e5ec;padding:11px 18px;border-radius:13px;font-size:13px}.v5-segments .selected{background:#086caa;color:white;border-color:#086caa}.v5-report-bar{display:flex;align-items:center;justify-content:space-between;margin:15px 0;color:var(--v5-muted)}.v5-table{overflow:auto;border:1px solid #dbe5ec;border-radius:18px;background:white}.v5-table table{min-width:900px;width:100%;border-collapse:collapse}.v5-table th{background:#edf4f8;white-space:nowrap;color:#35566c;padding:16px}.v5-table td{padding:16px;border-top:1px solid #ffffff88}.v5-table .movement-invoice{background:#e8f7ef}.v5-table .movement-return{background:#ffeded}.v5-table .movement-consumption{background:#fff7dc}.v5-ref{display:block;font-size:10px;color:#728998;direction:ltr;max-width:180px;overflow-wrap:anywhere;margin-top:5px}.tabs .tab{min-width:0}.tabs .tab-label{white-space:normal;font-size:11px;line-height:1.35}.mobile-request-meta .v5-farm{grid-column:1/-1}.card select[multiple]{height:auto;min-height:135px}button.v5-stat,button.v5-tile{cursor:pointer}button.v5-tile:hover{border-color:var(--tone)}button:focus-visible{outline:3px solid #6fc5ef;outline-offset:3px}@media(max-width:640px){.v5-hero{padding:25px 22px;border-radius:24px}.v5-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.v5-stat{padding:17px;min-width:0}.v5-stat strong{font-size:33px}.v5-grid{grid-template-columns:1fr}.v5-tile{min-height:145px;padding:21px}.v5-section-head>span{max-width:120px;text-align:left}.tabs{gap:2px;padding:10px 8px}.tabs .tab{padding:8px 3px}.tabs .tab-icon{width:42px;height:42px}.v5-heading h2{font-size:25px}.v5-segments button{padding:10px 13px}.v5-table td{padding:12px}}
+
+.hidden{display:none!important}#tabs .tab .tab-label{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;font-size:9px!important;line-height:1.35!important;min-height:24px;display:flex!important;align-items:center;justify-content:center}#tabs .tab{height:80px!important;min-width:0!important}#tabs .tab .tab-icon svg{width:21px;height:21px}.v5-tile-icon svg{width:25px;height:25px}@media(max-width:640px){.v5-stats>.v5-stat:last-child:nth-child(odd){grid-column:1/-1}}
+.app-header .brand.brand-fallback{padding:0 8px!important;font-size:12px!important;letter-spacing:.4px!important;max-width:120px!important;flex-shrink:0}.header-icon-btn svg{width:21px;height:21px}@media(max-width:640px){.execution-progress{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:4px!important;font-size:9px!important}.execution-progress i{display:none!important}.execution-progress span{white-space:normal!important;text-align:center;line-height:1.6}}
+</style></head>
 <body>
 <div id="login" class="login">
-  <img src="fortimune-logo.png" alt="FortiMune" onerror="this.style.display='none';this.parentElement.classList.add('brand-fallback')">
+  <img src="fortimune-logo.png" alt="FortiMune" onerror="this.style.display='none'">
   <h1>نظام إدارة طلبات الحقن</h1>
   <div class="muted">Customer Balance • Injection Requests • Daily Report</div>
   <label>Official Outlook Email</label>
@@ -724,7 +732,7 @@ button:focus-visible{outline:3px solid #64b5e6;outline-offset:3px}
       <strong id="who"></strong>
     </div>
     <div class="header-actions">
-      <button class="header-icon-btn account-btn" onclick="openPasswordChange(false)" title="تغيير كلمة المرور" aria-label="تغيير كلمة المرور">🔑</button>
+      <button class="header-icon-btn account-btn" onclick="openPasswordChange(false)" title="تغيير كلمة المرور" aria-label="تغيير كلمة المرور"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="4"/><path d="m11 11 10 10M17 17l3-3M14 14l3-3"/></svg></button>
       <button class="header-icon-btn notify-btn" onclick="toggleNotifications()" id="notificationToggle" title="الإشعارات" aria-label="الإشعارات" aria-controls="notificationPanel" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg><span id="notifyCount" class="notify-count hidden">0</span></button>
       <button class="header-icon-btn logout-btn" onclick="logout()" title="خروج" aria-label="خروج">↪</button>
     </div>
@@ -1208,6 +1216,7 @@ function tabIcon(id){
 function render(){
  const allowed=tabsForRole().map(x=>x[0]);
  if(!allowed.includes(tab)) tab=allowed[0];
+ document.getElementById("tabs").classList.toggle("single-tab",primaryTabsForRole().length===1);
  document.getElementById("tabs").innerHTML=primaryTabsForRole().map(([id,n])=>{const navCount=(id==="inbox"&&session?.role==="injection_manager")?db.requests.filter(r=>["pending","approved"].includes(r.status)).length:0;return `<button class="tab ${(tab===id||(id==="services"&&!["home","newRequest","requests","balances","inbox","assigned","myJobs"].includes(tab)))?"active":""}" onclick="tab='${id}';render()"><span class="tab-icon">${tabIcon(id)}${navCount?`<i class="nav-count">${navCount}</i>`:""}</span><span class="tab-label">${n}</span></button>`}).join("");
  document.getElementById("content").innerHTML=(VIEWS[tab]||VIEWS.home)();
  bind();
@@ -1233,7 +1242,7 @@ function customerCard(c){
 }
 function requestTable(arr,actionMode=""){
  if(!arr.length)return `<div class="card empty">لا توجد طلبات.</div>`;
- const rows=arr.map(r=>`<tr><td>${esc(r.id)}</td><td>${fmtBatchDate(r.batchAt)}</td><td>${esc(r.customerName)}</td><td>${esc(r.region)}</td><td>${esc(r.lab)}</td><td>${itemSummary(r)}</td><td>${itemSummary(r)}</td><td>${r.actualItems?itemSummary(r,"actualQty"):"—"}</td><td>${esc(r.source)}</td><td>${esc(r.injectionTeam||"—")}</td><td>${esc(r.engineerName||"—")}</td><td>${badge(r.status)}</td><td>${actionFor(r,actionMode)}</td></tr>`).join("");
+ const rows=arr.map(r=>`<tr><td>${esc(r.id)}</td><td>${fmtBatchDate(r.batchAt)}</td><td>${esc(r.customerName)}</td><td>${esc(r.region)}</td><td>${esc(r.farmName||"غير مسجل")}</td><td>${esc(r.lab)}</td><td>${itemSummary(r)}</td><td>${itemSummary(r)}</td><td>${r.actualItems?itemSummary(r,"actualQty"):"—"}</td><td>${esc(r.source)}</td><td>${esc(r.injectionTeam||"—")}</td><td>${esc(r.engineerName||"—")}</td><td>${badge(r.status)}</td><td>${actionFor(r,actionMode)}</td></tr>`).join("");
  const cards=arr.map(r=>`
    <article class="mobile-request-card ${r.status||""}">
      <div class="mobile-request-top">
@@ -1244,7 +1253,7 @@ function requestTable(arr,actionMode=""){
      <div class="mobile-request-meta">
        <div><small>📅 الموعد</small><b>${fmtBatchDate(r.batchAt)}</b></div>
        <div><small>📍 المنطقة</small><b>${esc(r.region)}</b></div>
-       <div><small>🧪 المعمل</small><b>${esc(r.lab)}</b></div>
+       <div class="v5-farm"><small>المزرعة • طريقة التطبيق</small><b>${esc(r.farmName||"غير مسجل")} • ${methodName(r.injectionMethod)}</b></div><div><small>🧪 المعمل</small><b>${esc(r.lab)}</b></div>
        <div><small>📦 المصدر</small><b>${esc(r.source)}</b></div>
      </div>
      <div class="mobile-request-products"><small>المنتجات المطلوبة</small><div>${itemSummary(r)}</div></div>
@@ -1254,14 +1263,14 @@ function requestTable(arr,actionMode=""){
      </div>`:""}
      <div class="request-progress">${requestProgress(r)}</div>${r.managerNotes?`<p class="muted">${esc(r.managerNotes)}</p>`:""}<div class="mobile-request-action">${actionFor(r,actionMode)} ${canUpdateRequest(r)?`<button class="ghost" onclick="openStatusUpdate('${r.id}')">تحديث الحالة</button>`:""}</div>
    </article>`).join("");
- return `<div class="request-desktop-table"><div style="overflow:auto"><table><thead><tr><th>Request</th><th>موعد الدفعة</th><th>العميل</th><th>المنطقة</th><th>المعمل</th><th>المنتجات</th><th>الكميات المطلوبة</th><th>Actual</th><th>المصدر</th><th>الفريق</th><th>المهندس</th><th>الحالة</th><th>Action</th></tr></thead><tbody>${rows}</tbody></table></div></div>
+ return `<div class="request-desktop-table"><div style="overflow:auto"><table><thead><tr><th>Request</th><th>موعد الدفعة</th><th>العميل</th><th>المنطقة</th><th>المزرعة</th><th>المعمل</th><th>المنتجات</th><th>الكميات المطلوبة</th><th>Actual</th><th>المصدر</th><th>الفريق</th><th>المهندس</th><th>الحالة</th><th>Action</th></tr></thead><tbody>${rows}</tbody></table></div></div>
  <div class="request-mobile-list">${cards}</div>`;
 }
 function actionFor(r,mode){
- if(mode==="approval"&&r.status==="approval")return `<button class="green" onclick="approveRequest('${r.id}')">Approve</button> <button class="red" onclick="rejectRequest('${r.id}')">Reject</button>`;
+ if(canSettleCustody()&&r.status==="approval")return `<button class="green" onclick="approveRequest('${r.id}')">Approve</button> <button class="red" onclick="rejectRequest('${r.id}')">Reject</button>`;
  if(mode==="inbox"&&["pending","approved","postponed","not_executed"].includes(r.status))return `<button class="green" onclick="openAssign('${r.id}')">مراجعة وتوزيع</button>`;
  if(mode==="jobs"&&["assigned","in_progress"].includes(r.status))return `<button class="orange" onclick="openClose('${r.id}')">Close Request</button>`;
- if(r.status==="done" && session && (session.role==="injection_manager"||session.role==="company_manager"||session.role==="accounts"||isTopManagementRole(session.role)||session.employeeId===r.createdByEmployeeId||session.employeeId===r.assignedByEmployeeId||session.employeeId===r.engineerEmployeeId))return `<button class="green" onclick="viewCompletedRequest('${r.id}')">View Report</button>`;
+ if(r.status==="done" && session && (session.role==="injection_manager"||session.role==="company_manager"||session.role==="accounts"||isTopManagementRole(session.role)||(session.role==="sales"&&customerIsVisible(db.customers.find(c=>c.id===r.customerId)||{}))||session.employeeId===r.createdByEmployeeId||session.employeeId===r.assignedByEmployeeId||session.employeeId===r.engineerEmployeeId))return `<button class="green" onclick="viewCompletedRequest('${r.id}')">View Report</button>`;
  return canUpdateRequest(r)?`<button class="ghost" onclick="openStatusUpdate('${r.id}')">تحديث حالة الدفعة</button>`:"—";
 }
 let balanceAreaFilter="ALL";
@@ -1512,7 +1521,7 @@ function engineerJobsView(){
      <div class="row"><b>${esc(r.id)}</b>${badge(r.status)}</div>
      <div class="row"><span>موعد الدفعة</span><b>${fmtBatchDate(r.batchAt)}</b></div>
      <div class="row"><span>العميل</span><b>${esc(r.customerName)}</b></div>
-     <div class="row"><span>المعمل</span><b>${esc(r.lab)}</b></div>
+     <div class="row"><span>المزرعة</span><b>${esc(r.farmName||"غير مسجل")}</b></div><div class="row"><span>طريقة التطبيق</span><b>${methodName(r.injectionMethod)}</b></div><div class="row"><span>المعمل</span><b>${esc(r.lab)}</b></div>
      <div class="row"><span>عدد الدفعة</span><b>${esc(r.batchQty)}</b></div>
      <div class="row"><span>المنتجات</span><b>${itemSummary(r)}</b></div>
      <div class="row"><span>المصدر</span><b>${esc(r.source)}${r.injectionTeam?` — ${esc(r.injectionTeam)}`:""}</b></div>
@@ -1574,7 +1583,8 @@ function newRequestView(){
          <select id="customerId" ${customers.length?"":"disabled"}>${customerOptions}</select>
          <div class="field-hint">يظهر هنا العملاء داخل الـAssigned Areas الخاصة بك فقط.</div>
        </div>
-       <div>
+       <div><label>اسم المزرعة *</label><input id="farmName" maxlength="160" required placeholder="اكتب اسم المزرعة يدويًا"></div>
+ <div>
          <label>اسم المعمل <span class="required">*</span></label>
          <input id="lab" type="text" placeholder="اكتب اسم المعمل يدويًا">
        </div>
@@ -1639,12 +1649,13 @@ function createRequest(){
  const c=db.customers.find(x=>x.id===document.getElementById("customerId").value);
  if(!c || !customerIsVisible(c)) return appMessage("هذا العميل خارج الـAssigned Areas الخاصة بك.");
  const at=document.getElementById("batchAt").value;
+ const farmName=document.getElementById("farmName").value.trim();
  const lab=document.getElementById("lab").value.trim();
  const batchQty=Number(document.getElementById("batchQty").value);
  const source=document.getElementById("source").value;
  const lines=selectedProductLines().map(x=>({productId:x.product.id,productName:x.product.name,requestedQty:x.qty}));
- if(!at||!c||!lab||!Number.isSafeInteger(batchQty)||batchQty<1||!lines.length||lines.some(x=>!Number.isSafeInteger(x.requestedQty)||x.requestedQty<1))
-   return appMessage("أكمل موعد الدفعة، اسم المعمل، عدد الدفعة، واختار منتجًا واحدًا على الأقل مع كمية لكل منتج.");
+ if(!at||!c||!farmName||!lab||!Number.isSafeInteger(batchQty)||batchQty<1||!lines.length||lines.some(x=>!Number.isSafeInteger(x.requestedQty)||x.requestedQty<1))
+   return appMessage("أكمل اسم المزرعة وموعد الدفعة، اسم المعمل، عدد الدفعة، واختار منتجًا واحدًا على الأقل مع كمية لكل منتج.");
  const checks=lines.map(i=>{
    const balance=Number(c.balances[i.productId]||0),reserved=getReserved(c.id,i.productId),available=balance-reserved;
    return {...i,balance,reserved,available,insufficient:i.requestedQty>available};
@@ -1652,7 +1663,7 @@ function createRequest(){
  const needsApproval=checks.some(x=>x.insufficient);
  const r={
    id:"REQ-"+crypto.randomUUID().slice(0,8).toUpperCase(),
-   batchAt:at,customerId:c.id,customerCode:c.id,customerName:c.name,region:c.region,lab,batchQty,
+   batchAt:at,customerId:c.id,customerCode:c.id,customerName:c.name,region:c.region,farmName,lab,batchQty,
    items:lines,
    productId:lines[0].productId,productName:lines[0].productName,requestedQty:lines.reduce((a,x)=>a+x.requestedQty,0),
    source,injectionTeam:null,engineerId:null,engineerName:null,engineerEmail:null,status:needsApproval?"approval":"pending",
@@ -1702,10 +1713,11 @@ function openAssign(id){
  if(session?.role!=="injection_manager"||!r||!["pending","approved","postponed","not_executed"].includes(r.status))return appMessage("التوزيع متاح لمدير الحقن فقط.");
  const candidates=ENGINEERS; // All four named injection engineers are eligible for assignment across all regions.
  document.getElementById("content").innerHTML=`<div class="card"><h2>مراجعة وتوزيع ${r.id}</h2>
- <div class="two"><div><p><b>موعد:</b> ${fmtBatchDate(r.batchAt)}</p><p><b>العميل:</b> ${esc(r.customerName)}</p><p><b>المعمل:</b> ${esc(r.lab)}</p><p><b>عدد الدفعة:</b> ${r.batchQty}</p><p><b>المنتجات:</b> ${itemSummary(r)}</p><p><b>المصدر:</b> ${esc(r.source)}</p><p><b>مدير فريق الحقن:</b> ${esc(INJECTION_TEAM_MANAGER)}</p></div>
+ <div class="two"><div><p><b>موعد:</b> ${fmtBatchDate(r.batchAt)}</p><p><b>العميل:</b> ${esc(r.customerName)}</p><p><b>المزرعة:</b> ${esc(r.farmName||"غير مسجل")}</p><p><b>المعمل:</b> ${esc(r.lab)}</p><p><b>عدد الدفعة:</b> ${r.batchQty}</p><p><b>المنتجات:</b> ${itemSummary(r)}</p><p><b>المصدر:</b> ${esc(r.source)}</p><p><b>مدير فريق الحقن:</b> ${esc(INJECTION_TEAM_MANAGER)}</p></div>
  <div>${r.source==="فريق الحقن"?`<label>Emergency Injection Team</label><select id="team">${INJECTION_TEAMS.map(t=>`<option>${t}</option>`).join("")}</select>`:`<div class="alert">المصدر ليس فريق الحقن، لذلك لا يوجد Team Assignment.</div>`}
  <label>Assigned Engineer</label><select id="engineer" onchange="updateEngineerRoute()">${(candidates.length?candidates:ENGINEERS).map(e=>`<option value="${e.id}">${e.name}</option>`).join("")}</select>
  <div class="route-box"><b>خط السير:</b> <span id="engineerRoute" data-route="${esc(r.region)}">${esc(r.region)}</span></div>
+ <label>طريقة تطبيق اللقاح *</label><select id="injectionMethod"><option value="">اختار الطريقة</option><option value="manual">يدوي</option><option value="machines">ماكينات</option></select>
  <label>Manager Notes</label><textarea id="managerNotes"></textarea></div></div>
  <div class="actions"><button class="green" onclick="assignRequest('${r.id}')">اعتماد وإرسال للمهندس</button><button class="ghost" onclick="render()">رجوع</button></div></div>`;
 }
@@ -1719,6 +1731,7 @@ function updateEngineerRoute(){
 function assignRequest(id){
  const r=db.requests.find(x=>x.id===id),e=ENGINEERS.find(x=>x.id===document.getElementById("engineer").value);
  if(session?.role!=="injection_manager"||!r||!e||!["pending","approved","postponed","not_executed"].includes(r.status))return appMessage("تعذر توزيع الطلب لهذا الحساب أو الحالة.");
+ const method=document.getElementById("injectionMethod").value;if(!["manual","machines"].includes(method))return appMessage("اختار طريقة تطبيق اللقاح.");r.injectionMethod=method;
  r.injectionTeam=r.source==="فريق الحقن"?document.getElementById("team").value:null;
  r.engineerId=e.id;r.engineerName=e.name;r.engineerEmployeeId=e.id;r.engineerEmail=e.email||"";
  r.managerNotes=document.getElementById("managerNotes").value;r.assignedBy=session.role==="injection_manager"?INJECTION_TEAM_MANAGER:session.name;r.assignedByEmployeeId=session.employeeId;r.injectionManagerName=INJECTION_TEAM_MANAGER;r.assignedAt=now();r.status="assigned";
@@ -1733,7 +1746,7 @@ function openClose(id){
   if(!r)return;
   if(!["assigned","in_progress"].includes(r.status) || !isAssignedEngineer(r)) return appMessage("الطلب غير متاح للتنفيذ لهذا الحساب.");
   if(r.status==="assigned"){r.status="in_progress";trackRequest(r,"in_progress","بدأ المهندس التنفيذ");notifyManagers(r,"بدأ تنفيذ طلب الحقن","in_progress");notifyRequester(r,"طلبك قيد التنفيذ");save();}
-  selectedReportFile=null;
+  selectedReportFile=null;if(reportPreviewUrl){URL.revokeObjectURL(reportPreviewUrl);reportPreviewUrl=null}
   document.getElementById("content").innerHTML=`<div class="execution-shell">
     <div class="execution-hero">
       <div><div class="eyebrow">EXECUTION CENTER</div><h1>تنفيذ وإغلاق طلب الحقن</h1><p>${esc(r.id)} • ${esc(r.customerName)}</p></div>
@@ -1747,7 +1760,7 @@ function openClose(id){
           <div><small>موعد الدفعة</small><b>${fmtBatchDate(r.batchAt)}</b></div>
           <div><small>العميل</small><b>${esc(r.customerName)}</b></div>
           <div><small>المنطقة</small><b>${esc(r.region)}</b></div>
-          <div><small>المعمل</small><b>${esc(r.lab)}</b></div>
+          <div><small>المزرعة</small><b>${esc(r.farmName||"غير مسجل")}</b></div><div><small>طريقة التطبيق</small><b>${methodName(r.injectionMethod)}</b></div><div><small>المعمل</small><b>${esc(r.lab)}</b></div>
           <div><small>عدد الدفعة</small><b>${esc(r.batchQty)}</b></div>
           <div><small>مصدر الأمبولات</small><b>${esc(r.source)}</b></div>
           ${r.injectionTeam?`<div><small>فريق الحقن</small><b>${esc(r.injectionTeam)}</b></div>`:""}
@@ -1760,12 +1773,12 @@ function openClose(id){
         <input id="actualBatchQty" class="execution-input" type="number" min="0" value="${r.batchQty||0}" placeholder="العدد الفعلي" oninput="validateCloseForm()">
         <div class="actual-section"><div class="eyebrow dark">ACTUAL AMPOULES</div><div class="actual-list">${requestItems(r).map(i=>`<div class="actual-row"><div><b>${esc(i.productName)}</b><small>المطلوب ${i.requestedQty} أمبول</small></div><input id="actual-${i.productId}" class="actual-qty" type="number" min="0" value="${i.requestedQty}" oninput="validateCloseForm()"><span>أمبول</span></div>`).join("")}</div></div>
         <label>Comments</label><textarea id="comments" class="execution-input" placeholder="اكتب ملاحظات تنفيذ الدفعة..." oninput="validateCloseForm()"></textarea>
-        <div class="upload-zone"><div class="upload-icon">↑</div><div><b>صورة تقرير الحقن</b><small>مطلوبة قبل الإغلاق • JPG / PNG</small></div><input id="reportPhoto" type="file" accept="image/*" onchange="handleReportPhoto(this)"><button type="button" class="ghost" onclick="document.getElementById('cameraPhoto').click()">📷 الكاميرا</button><input id="cameraPhoto" type="file" accept="image/*" capture="environment" class="hidden" onchange="handleReportPhoto(this)"></div>
+        <div class="upload-zone"><div class="upload-icon" aria-hidden="true">↑</div><div><b>صورة تقرير الحقن</b><small>اختر الصورة أو التقط التقرير بالكاميرا</small></div><div class="report-upload-actions"><button type="button" class="primary" onclick="document.getElementById('reportPhoto').click()">↑ اختيار صورة</button><button type="button" class="ghost" onclick="document.getElementById('cameraPhoto').click()">📷 الكاميرا</button></div><input id="reportPhoto" type="file" accept="image/*" class="report-file-input" onchange="handleReportPhoto(this)"><input id="cameraPhoto" type="file" accept="image/*" capture="environment" class="report-file-input" onchange="handleReportPhoto(this)"><img id="selectedReportPreview" class="report-preview-small" hidden alt="معاينة صورة تقرير الحقن"></div>
         <div id="photoStatus" class="signature-status">يجب رفع صورة التقرير قبل الإغلاق.</div>
         <div class="signature-section"><div class="execution-card-head mini"><div><span class="eyebrow dark">E-SIGNATURE</span><h3>الإمضاء الإلكتروني للمهندس <span class="required">*</span></h3></div></div><div class="signature-wrap"><canvas id="signaturePad" class="signature-pad"></canvas><div class="signature-actions"><button type="button" class="ghost" onclick="clearSignature()">مسح الإمضاء</button></div><div id="signatureStatus" class="signature-status">ارسم الإمضاء بإصبعك أو بالماوس.</div></div></div>
       </div>
     </div>
-    <div class="execution-footer"><div class="execution-validation">✓ لا يمكن الإغلاق قبل اكتمال الكمية الفعلية + التقرير + الإمضاء</div><div class="actions"><button id="closeSubmitBtn" class="orange execution-submit" disabled onclick="closeRequest('${r.id}')">إغلاق الطلب واعتماد التنفيذ</button><button class="ghost" onclick="tab='myJobs';render()">رجوع</button></div></div>
+    <div class="execution-footer"><div id="closeValidation" class="execution-validation" role="status" aria-live="polite"></div><div class="actions"><button id="closeSubmitBtn" class="orange execution-submit" disabled onclick="closeRequest('${r.id}')">إغلاق الطلب واعتماد التنفيذ</button><button class="ghost" onclick="tab='myJobs';render()">رجوع</button></div></div>
   </div>`;
   selectedReportFile=null; signatureHasInk=false; signatureDrawing=false; initSignaturePad(); validateCloseForm();
 }
@@ -1797,29 +1810,33 @@ function initSignaturePad(){
 function clearSignature(){
  if(!signatureCanvas||!signatureCtx)return;
  signatureCtx.clearRect(0,0,signatureCanvas.width,signatureCanvas.height);
- signatureHasInk=false;updateSignatureStatus();
+ signatureHasInk=false;updateSignatureStatus();validateCloseForm();
 }
 function updateSignatureStatus(){
  const el=document.getElementById("signatureStatus");
  if(el)el.textContent=signatureHasInk?"تم تسجيل الإمضاء الإلكتروني.":"ارسم الإمضاء بإصبعك على الموبايل أو بالماوس على الكمبيوتر.";
 }
 let selectedReportFile=null;
+let reportPreviewUrl=null;
 function handleReportPhoto(input){
- const file=input?.files?.[0]||null;
- if(file)selectedReportFile=file;
+ const file=input?.files?.[0];if(!file)return;
+ if(file.type&&!file.type.startsWith('image/')){input.value='';appMessage('اختر ملف صورة صالح لتقرير الحقن.','warning');return}
+ selectedReportFile=file;
+ if(reportPreviewUrl)URL.revokeObjectURL(reportPreviewUrl);
+ reportPreviewUrl=URL.createObjectURL(file);
+ const preview=document.getElementById('selectedReportPreview');if(preview){preview.src=reportPreviewUrl;preview.hidden=false}
  validateCloseForm();
 }
 function validateCloseForm(){
  const photo=selectedReportFile || document.getElementById("reportPhoto")?.files?.[0] || document.getElementById("cameraPhoto")?.files?.[0];
- const btn=document.getElementById("closeSubmitBtn");
- const photoStatus=document.getElementById("photoStatus");
- const actualBatch=Number(document.getElementById("actualBatchQty")?.value||0);
- const comments=(document.getElementById("comments")?.value||"").trim();
- const actualInputs=[...document.querySelectorAll("input[id^=actual-]")];
- const quantitiesValid=actualInputs.length>0 && actualInputs.every(el=>el.value!=="" && Number(el.value)>=0);
- if(photoStatus)photoStatus.textContent=photo?`تم اختيار صورة التقرير: ${photo.name}`:"يجب رفع صورة التقرير قبل الإغلاق — يمكنك اختيار ملف أو فتح الكاميرا.";
- const ready=actualBatch>0 && quantitiesValid && comments.length>0 && !!photo && !!signatureHasInk;
- if(btn)btn.disabled=!ready;
+ const btn=document.getElementById("closeSubmitBtn"),photoStatus=document.getElementById("photoStatus");
+ const actualBatch=Number(document.getElementById("actualBatchQty")?.value||0),comments=(document.getElementById("comments")?.value||"").trim();
+ const inputs=[...document.querySelectorAll("input[id^=actual-]")];
+ const valid=inputs.length>0&&inputs.every(el=>el.value!==""&&Number.isSafeInteger(Number(el.value))&&Number(el.value)>=0)&&inputs.some(el=>Number(el.value)>0);
+ const missing=[];if(!Number.isSafeInteger(actualBatch)||actualBatch<=0)missing.push('عدد الدفعة الفعلي');if(!valid)missing.push('كميات الأمبولات الصحيحة');if(!comments)missing.push('ملاحظات التنفيذ');if(!photo)missing.push('صورة التقرير');if(!signatureHasInk)missing.push('الإمضاء');
+ if(photoStatus){photoStatus.textContent=photo?`✓ تم اختيار صورة التقرير: ${photo.name}`:'اختر صورة التقرير من الملفات أو الكاميرا.';photoStatus.style.color=photo?'#16774c':''}
+ const status=document.getElementById('closeValidation');if(status)status.textContent=missing.length?'لاستكمال الإغلاق: '+missing.join(' • '):'✓ البيانات مكتملة — يمكنك إغلاق الطلب واعتماد التنفيذ';
+ if(btn){btn.disabled=missing.length>0;btn.setAttribute('aria-describedby','closeValidation')}
 }
 async function fileToImageData(file){
  return new Promise((resolve,reject)=>{
@@ -1874,7 +1891,7 @@ function viewCompletedRequest(id){
  const r=db.requests.find(x=>x.id===id);
  if(!r || r.status!=="done")return appMessage("التقرير غير متاح أو لم يتم إغلاق الطلب بعد.");
  closeNotificationPanel();
- const canView = session && (session.employeeId===r.createdByEmployeeId || session.employeeId===r.assignedByEmployeeId || session.employeeId===r.engineerEmployeeId || isTopManagementRole(session.role) || session.role==="company_manager" || session.role==="injection_manager" || session.role==="accounts");
+ const canView = session && ((session.role==="sales" && customerIsVisible(db.customers.find(c=>c.id===r.customerId)||{})) || session.employeeId===r.createdByEmployeeId || session.employeeId===r.assignedByEmployeeId || session.employeeId===r.engineerEmployeeId || isTopManagementRole(session.role) || session.role==="company_manager" || session.role==="injection_manager" || session.role==="accounts");
  if(!canView)return appMessage("ليس لديك صلاحية عرض تقرير هذا الطلب.");
  document.getElementById("content").innerHTML=`<div class="section"><h2>Completed Request — ${esc(r.id)}</h2><span class="badge b-done">تم التنفيذ</span></div>
  <div class="two">
@@ -1883,7 +1900,7 @@ function viewCompletedRequest(id){
    <div class="row"><span>موعد الدفعة</span><b>${fmtBatchDate(r.batchAt)}</b></div>
    <div class="row"><span>اسم العميل</span><b>${esc(r.customerName)}</b></div>
    <div class="row"><span>المنطقة</span><b>${esc(r.region)}</b></div>
-   <div class="row"><span>المعمل</span><b>${esc(r.lab)}</b></div>
+   <div class="row"><span>المزرعة</span><b>${esc(r.farmName||"غير مسجل")}</b></div><div class="row"><span>طريقة التطبيق</span><b>${methodName(r.injectionMethod)}</b></div><div class="row"><span>المعمل</span><b>${esc(r.lab)}</b></div>
    <div class="row"><span>عدد الدفعة المطلوب</span><b>${esc(r.batchQty)}</b></div>
    <div class="row"><span>عدد الدفعة الفعلي</span><b>${esc(r.actualBatchQty)}</b></div>
    <div class="row"><span>مصدر الأمبولات</span><b>${esc(r.source)}</b></div>
@@ -2128,11 +2145,102 @@ function appConfirm(message){return new Promise(resolve=>{
 })}
 function notificationType(n){return n.type||(/يحتاج.*موافق|موافقتك/.test(n.title||'')?'approval':'regular')}
 function fmtBatchDate(value){if(!value)return '—';const date=String(value).slice(0,10);if(/^\d{4}-\d{2}-\d{2}$/.test(date)){const [y,m,d]=date.split('-');return `${d}/${m}/${y}`}return '—'}
+// v5: area-scoped operations, linked dashboard and reporting.
+let followFilter='ALL';
+const navGroup={newRequest:'operations',invoices:'operations',returns:'operations',balances:'customers',movement:'customers',requests:'follow',inbox:'follow',assigned:'follow',myJobs:'follow',jobs:'follow',approvals:'follow',daily:'reports',custody:'reports',audit:'reports',services:'reports'};
+const finRole=()=>canAddInvoice();
+let financialPending5={};
+const go=(page)=>{tab=page;render()};
+function tabsForRole(){
+ const a=[['home','الرئيسية'],['follow','متابعة الحقن'],['reports','التقارير']];
+ if(finRole()||session.role==='accounts')a.splice(1,0,['customers','العملاء']);
+ if(finRole())a.splice(2,0,['operations','تسجيل العمليات']);
+ const ids=['requests','daily'];
+ if(finRole())ids.push('newRequest','invoices','returns','balances','movement');
+ if(session.role==='accounts')ids.push('balances');
+ if(session.role==='injection_manager')ids.push('inbox','assigned');
+ if(hasEngineerAccess())ids.push('myJobs','jobs','close');
+ if(canSettleCustody())ids.push('approvals','custody');
+ if(isTopManagementRole(session.role))ids.push('audit');
+ ids.push('services');return a.concat(ids.map(id=>[id,id]));
+}
+function primaryTabsForRole(){return tabsForRole().filter(([id])=>['home','customers','operations','follow','reports'].includes(id))}
+function icon5(id){const paths={home:'<path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-8h6v8"/>',customers:'<circle cx="9" cy="7" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M17 4a3 3 0 0 1 0 6M19 14a5 5 0 0 1 3 5v2"/>',operations:'<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 7v10M7 12h10"/>',follow:'<path d="M9 5h12M9 12h12M9 19h12"/><circle cx="4" cy="5" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="19" r="1"/>',reports:'<path d="M4 3v18h17M8 17v-6M13 17V7M18 17V4"/>'};return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[id]||paths.operations}</svg>`}
+function tabIcon(id){return icon5(id)}
+render=function(){
+ if(!session)return;const allowed=tabsForRole().map(x=>x[0]);if(!allowed.includes(tab))tab='home';
+ const tabs=document.getElementById('tabs');tabs.classList.remove('single-tab');
+ tabs.innerHTML=primaryTabsForRole().map(([id,n])=>`<button class="tab ${(navGroup[tab]||tab)===id?'active':''}" onclick="go('${id}')"><span class="tab-icon">${tabIcon(id)}</span><span class="tab-label">${n}</span></button>`).join('');
+ document.getElementById('content').innerHTML=(VIEWS[tab]||VIEWS.home)();bind();updateNotificationBadge();
+};
+function title5(k,t,p=''){return `<div class="v5-heading"><small>${k}</small><h2>${t}</h2>${p?`<p>${p}</p>`:''}</div>`}
+function tile5(icon,title,desc,page,color='blue'){return `<button class="v5-tile ${color}" onclick="go('${page}')"><span class="v5-tile-icon">${icon5(navGroup[page]||page)}</span><b>${title}</b><p>${desc}</p><span class="v5-arrow">←</span></button>`}
+function accessibleRequests(){return db.requests.filter(r=>session.role==='engineer'?isAssignedEngineer(r):session.role==='sales'?customerIsVisible(db.customers.find(c=>c.id===r.customerId)||{}):r.status!=='approval'||canSettleCustody()||r.createdByEmployeeId===session.employeeId)}
+function openFollow(status='ALL'){followFilter=status;go('follow')}
+function home5(){const rows=accessibleRequests(),counts=s=>rows.filter(r=>s.includes(r.status)).length;
+ const stats=[['الدفعات المسجلة',['pending','approved'],'blue'],['تم التوزيع',['assigned'],'purple'],['قيد التنفيذ',['in_progress'],'yellow'],['تم الحقن والإغلاق',['done'],'green']];
+ if(canSettleCustody())stats.unshift(['بانتظار موافقتك',['approval'],'orange']);
+ return `<section class="v5-home"><div class="v5-hero"><small>FORTIMUNE • OPERATIONS / V5</small><h1>مرحبًا، ${esc(session.name)}</h1><p>كل خطوة واضحة. من تسجيل الدفعة إلى اعتماد التنفيذ.</p><div class="v5-hero-meta"><span>${esc(session.title||session.role)}</span><span>${esc(session.employeeId)}</span></div></div><div class="v5-section-head"><h3>نظرة على التشغيل</h3><span>اضغط على الكارت لعرض الدفعات</span></div><div class="v5-stats">${stats.map(([label,s,color])=>`<button class="v5-stat ${color}" onclick="openFollow('${s.join(',')}')"><span>${label}</span><strong>${counts(s)}</strong><small>عرض التفاصيل ←</small></button>`).join('')}</div><div class="v5-section-head"><h3>ابدأ من هنا</h3></div><div class="v5-grid">${finRole()?tile5('＋','تسجيل عملية','دفعة حقن، فاتورة بيع أو مرتجع','operations'):tile5('☷','متابعة التنفيذ','الدفعات المسندة إليك وحالاتها','follow')}${finRole()?tile5('◉','العملاء والأرصدة',`${visibleCustomers().length} عميل ضمن نطاق صلاحيتك`,'customers','green'):tile5('▥','تقارير الحقن','الكميات الفعلية وطرق التطبيق','reports','green')}${tile5('▥','التقارير والتصدير','اختر الفترة والفلاتر ثم صدّر Excel','reports','purple')}</div><div class="v5-section-head"><h3>آخر الدفعات</h3><button class="ghost" onclick="openFollow()">عرض الكل</button></div>${requestTable(rows.slice().sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt))).slice(0,3),session.role==='engineer'?'jobs':session.role==='injection_manager'?'inbox':'')}</section>`;
+}
+function operations5(){return title5('REGISTER AN OPERATION','تسجيل العمليات','كل عملية مسجلة تؤثر على الرصيد في وقتها الصحيح')+`<div class="v5-grid">${tile5('✚','تسجيل دفعة حقن','اسم المزرعة والموعد والمنتجات — الخصم عند الإغلاق فقط','newRequest')}${tile5('＋','فاتورة بيع','إضافة كميات إلى رصيد العميل برقم تلقائي','invoices','green')}${tile5('↩','تسجيل مرتجع','خصم من الرصيد الحالي مع منع التجاوز','returns','red')}</div>`}
+function customers5(){return title5('CUSTOMER WORKSPACE','العملاء','الأرصدة وحركة كل عميل في منطقتك')+`<div class="v5-grid">${tile5('◉','أرصدة العملاء','رصيد كل صنف والحجوزات الحالية','balances')}${finRole()?tile5('↔','حركة العملاء','فواتير البيع والمرتجعات والاستهلاك مع Excel','movement','green'):''}</div>`}
+function reports5(){return title5('REPORTING CENTER','التقارير','الفترة التي تختارها، والتفاصيل التي تحتاجها')+`<div class="v5-grid">${tile5('▥','تقرير الحقن','كل المصادر والمناطق والفرق وطرق التطبيق','daily')}${finRole()?tile5('↔','تقرير حركة العملاء','فواتير • مرتجعات • استهلاك','movement','green'):''}${canSettleCustody()?tile5('▣','العهدة المستهلكة','تسوية فرق الحقن وتصدير التفاصيل','custody','orange'):''}${isTopManagementRole(session.role)?tile5('◈','سجل العمليات','متابعة العمليات المسجلة','audit','purple'):''}</div>`}
+function follow5(){const filters=[['ALL','الكل'],['approval','موافقة مطلوبة'],['pending,approved','مسجل'],['assigned','تم التوزيع'],['in_progress','قيد التنفيذ'],['done','تم الحقن'],['postponed,not_executed,cancelled,rejected','حالات أخرى']].filter(([k])=>k!=='approval'||canSettleCustody());const rows=accessibleRequests().filter(r=>followFilter==='ALL'||followFilter.split(',').includes(r.status));
+ return (hasEngineerAccess()?`<div class="v5-report-bar"><button class="primary" onclick="go('myJobs')">مهامي — تنفيذ وإغلاق الدفعات</button></div>`:'')+title5('BATCH TRACKING','متابعة دفعات الحقن',`${rows.length} دفعة ضمن الفلتر المختار`)+`<div class="v5-segments">${filters.map(([k,n])=>`<button class="${followFilter===k?'selected':''}" onclick="openFollow('${k}')">${n}</button>`).join('')}</div>`+requestTable(rows.slice().reverse(),canSettleCustody()&&followFilter==='approval'?'approval':session.role==='injection_manager'?'inbox':session.role==='engineer'?'jobs':'');}
+function financialForm(kind){if(!finRole())return '<div class="alert danger">لا تملك صلاحية تسجيل هذه العملية.</div>';const ret=kind==='return',prefix=ret?'ret':'inv',customers=visibleCustomers();return title5(ret?'CUSTOMER RETURN':'SALES INVOICE',ret?'تسجيل مرتجع':'تسجيل فاتورة بيع',ret?'يُرفض المرتجع إذا تجاوز الرصيد الحالي لأي صنف':'رقم العملية تلقائي؛ الكميات تضاف إلى رصيد العميل')+`<div class="request-form-card"><div class="request-form-grid"><div><label>العميل *</label><select id="${ret?'returnCustomer':'invoiceCustomer'}">${customers.map(c=>`<option value="${esc(c.id)}">${esc(c.name)} — ${esc(c.region)}</option>`).join('')}</select></div><div><label>التاريخ *</label><input type="date" id="${ret?'returnDate':'invoiceDate'}" value="${new Date().toISOString().slice(0,10)}"></div></div><div class="product-checklist">${PRODUCTS.map(p=>`<div class="product-item"><label>${esc(p.name)}</label><input id="${prefix}-${p.id}" type="number" min="0" step="1" value="0"></div>`).join('')}</div><div class="actions"><button class="${ret?'red':'green'}" onclick="${ret?'saveReturn':'saveInvoice'}()">${ret?'حفظ المرتجع وخصم الرصيد':'حفظ الفاتورة وإضافة الرصيد'}</button></div></div>`}
+function financialSave(kind){if(!finRole())return;const ret=kind==='return',prefix=ret?'ret':'inv',c=db.customers.find(c=>c.id===document.getElementById(ret?'returnCustomer':'invoiceCustomer').value),date=document.getElementById(ret?'returnDate':'invoiceDate').value,items=PRODUCTS.map(p=>({productId:p.id,productName:p.name,qty:Number(document.getElementById(prefix+'-'+p.id).value)})).filter(i=>i.qty!==0);
+ if(!c||!customerIsVisible(c)||!/^\d{4}-\d{2}-\d{2}$/.test(date)||!items.length||items.some(i=>!Number.isSafeInteger(i.qty)||i.qty<=0))return appMessage('أكمل العميل والتاريخ وكميات صحيحة موجبة.');
+ if(ret&&items.some(i=>i.qty>Number(c.balances[i.productId]||0)))return appMessage('Request Declined — تم رفض المرتجع: الكمية أكبر من رصيد العميل الحالي.');
+ const signature=JSON.stringify([session.employeeId,c.id,date,items]);const prior=financialPending5[kind];const id=prior?.signature===signature?prior.id:(ret?'RET-':'INV-')+crypto.randomUUID();financialPending5[kind]={signature,id};const record={id,number:id,date,customerId:c.id,customerName:c.name,region:c.region,items,createdBy:session.name,createdByEmployeeId:session.employeeId,createdAt:now()};
+ items.forEach(i=>{const before=Number(c.balances[i.productId]||0),change=i.qty*(ret?-1:1);c.balances[i.productId]=before+change;(db.movements||=[]).push({date:now(),businessDate:date,[ret?'returnId':'invoiceId']:id,movementType:kind,customer:c.name,customerCode:c.id,productId:i.productId,product:i.productName,change,balanceBefore:before,balanceAfter:before+change})});
+ (db[ret?'returns':'invoices']||=[]).push(record);audit(ret?'Customer return':'Sales invoice');save();appMessage(ret?'تم تسجيل المرتجع وخصم الرصيد بنجاح.':'تم تسجيل الفاتورة وإضافة الرصيد بنجاح.');tab='movement';render();
+}
+saveInvoice=function(){financialSave('invoice')};function saveReturn(){financialSave('return')}
+const movementFilter={from:'',to:'',region:'ALL',customers:[],type:'ALL'};
+function setMovementFilter(k,v){movementFilter[k]=v;if(k==='region')movementFilter.customers=[];render()}
+function reportCustomers(){return visibleCustomers().filter(c=>movementFilter.region==='ALL'||c.region===movementFilter.region)}
+function movementRows(){const customers=reportCustomers(),ids=new Set(customers.map(c=>c.id)),selected=movementFilter.customers.filter(id=>ids.has(id)),groups=new Map();
+ for(const m of db.movements||[]){if(!ids.has(m.customerCode)||selected.length&&!selected.includes(m.customerCode))continue;const type=m.returnId?'return':m.invoiceId?'invoice':m.requestId?'consumption':m.movementType;if(!['invoice','return','consumption'].includes(type))continue;
+ const opId=m.returnId||m.invoiceId||m.requestId||m.id;const financial=(type==='invoice'?db.invoices:db.returns)||[],record=financial.find(i=>i.id===opId);const d=String(record?.date||m.businessDate||m.date||'').slice(0,10);
+ if(movementFilter.from&&d<movementFilter.from||movementFilter.to&&d>movementFilter.to||movementFilter.type!=='ALL'&&movementFilter.type!==type)continue;
+ const key=[opId||m.date,m.customerCode,type].join('|');if(!groups.has(key))groups.set(key,{id:opId||'—',date:d,type,customer:m.customer,region:customers.find(c=>c.id===m.customerCode)?.region,qty:{},details:[]});const row=groups.get(key),pid=m.productId||PRODUCTS.find(p=>p.name===m.product)?.id;if(pid)row.qty[pid]=(row.qty[pid]||0)+Number(m.change||0);row.details.push(m);
+ }return [...groups.values()].sort((a,b)=>b.date.localeCompare(a.date));}
+const typeLabels={invoice:'فاتورة بيع',return:'مرتجع',consumption:'استهلاك'};
+function movement5(){if(!finRole())return '<div class="alert danger">التقرير غير متاح لهذا الحساب.</div>';const rows=movementRows(),customers=reportCustomers();return title5('CUSTOMER MOVEMENT','تقرير حركة العملاء','اختار الفترة والعملاء ونوع الحركة')+`<div class="v5-report-bar"><button class="green" onclick="exportMovement5()">تصدير Excel ↓</button><span>${rows.length} عملية</span></div><div class="card"><div class="request-form-grid"><div><label>من تاريخ</label><input type="date" value="${esc(movementFilter.from)}" onchange="setMovementFilter('from',this.value)"></div><div><label>إلى تاريخ</label><input type="date" value="${esc(movementFilter.to)}" onchange="setMovementFilter('to',this.value)"></div><div><label>المنطقة</label><select onchange="setMovementFilter('region',this.value)">${['ALL',...new Set(visibleCustomers().map(c=>c.region))].map(a=>`<option ${movementFilter.region===a?'selected':''} value="${esc(a)}">${a==='ALL'?'كل مناطقي':esc(a)}</option>`).join('')}</select></div><div><label>العملاء — يمكن اختيار أكثر من عميل</label><select multiple size="4" onchange="setMovementFilter('customers',Array.from(this.selectedOptions).map(o=>o.value).filter(Boolean))"><option value="" ${!movementFilter.customers.length?'selected':''}>كل عملاء المنطقة</option>${customers.map(c=>`<option value="${esc(c.id)}" ${movementFilter.customers.includes(c.id)?'selected':''}>${esc(c.name)}</option>`).join('')}</select></div></div></div><div class="v5-segments">${[['ALL','الكل'],...Object.entries(typeLabels)].map(([k,n])=>`<button class="${movementFilter.type===k?'selected':''}" onclick="setMovementFilter('type','${k}')">${n}</button>`).join('')}</div>${movementFilter.from&&movementFilter.to&&movementFilter.from>movementFilter.to?'<div class="alert danger">تاريخ البداية يجب ألا يتجاوز النهاية.</div>':''}<div class="v5-table"><table><thead><tr><th>التاريخ</th><th>العميل</th><th>الحركة</th>${PRODUCTS.map(p=>`<th>${esc(p.name)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr class="movement-${r.type}"><td>${fmtBatchDate(r.date)}</td><td>${esc(r.customer)}<small class="v5-ref">${esc(r.id)}</small></td><td>${typeLabels[r.type]}</td>${PRODUCTS.map(p=>`<td>${r.qty[p.id]||'—'}</td>`).join('')}</tr>`).join('')||`<tr><td colspan="${PRODUCTS.length+3}">لا توجد حركات ضمن الفلاتر المختارة.</td></tr>`}</tbody></table></div>`}
+const injectionFilter={from:'',to:'',region:'ALL',source:'ALL',team:'ALL',method:'ALL',product:'ALL'};
+function setInjectionFilter(k,v){injectionFilter[k]=v;render()}
+function injectionRows5(){return accessibleRequests().filter(r=>{const f=injectionFilter,d=String(r.closedAt||'').slice(0,10);return r.status==='done'&&(!f.from||d>=f.from)&&(!f.to||d<=f.to)&&(f.region==='ALL'||r.region===f.region)&&(f.source==='ALL'||r.source===f.source)&&(f.team==='ALL'||r.injectionTeam===f.team)&&(f.method==='ALL'||r.injectionMethod===f.method)&&(f.product==='ALL'||(r.actualItems||[]).some(i=>i.productId===f.product&&Number(i.actualQty)>0))})}
+function methodName(x){return x==='manual'?'يدوي':x==='machines'?'ماكينات':'غير مسجل'}
+function injection5(){const f=injectionFilter,rows=injectionRows5(),sel=(key,label,opts)=>`<div><label>${label}</label><select onchange="setInjectionFilter('${key}',this.value)">${[['ALL','الكل'],...opts].map(([v,n])=>`<option value="${esc(v)}" ${f[key]===v?'selected':''}>${esc(n)}</option>`).join('')}</select></div>`;return title5('INJECTION REPORT','تقرير الحقن','الدفعات المغلقة حسب تاريخ التقرير الفعلي — جميع المصادر')+`<div class="v5-report-bar"><button class="green" onclick="exportInjection5()">تصدير Excel ↓</button><span>${rows.length} دفعة منفذة</span></div><div class="card request-form-grid"><div><label>من تاريخ</label><input type="date" value="${f.from}" onchange="setInjectionFilter('from',this.value)"></div><div><label>إلى تاريخ</label><input type="date" value="${f.to}" onchange="setInjectionFilter('to',this.value)"></div>${sel('region','المنطقة',[...new Set(accessibleRequests().map(r=>r.region))].map(x=>[x,x]))}${sel('source','المصدر',['الشركة','المعمل','فريق الحقن'].map(x=>[x,x]))}${sel('team','فريق الحقن',INJECTION_TEAMS.map(x=>[x,x]))}${sel('method','طريقة التطبيق',[['manual','يدوي'],['machines','ماكينات']])}${sel('product','الصنف',PRODUCTS.map(p=>[p.id,p.name]))}</div><div class="v5-stats"><div class="v5-stat blue"><span>دفعات منفذة</span><strong>${rows.length}</strong></div><div class="v5-stat green"><span>العدد الفعلي</span><strong>${rows.reduce((s,r)=>s+Number(r.actualBatchQty||0),0).toLocaleString()}</strong></div><div class="v5-stat purple"><span>أمبولات مستهلكة${f.product==='ALL'?'':' للصنف المختار'}</span><strong>${rows.reduce((s,r)=>s+(r.actualItems||[]).filter(i=>f.product==='ALL'||i.productId===f.product).reduce((a,i)=>a+Number(i.actualQty||0),0),0)}</strong></div></div><div class="v5-table"><table><thead><tr>${['التاريخ','العميل','المزرعة','المنطقة','المصدر','الفريق','المهندس','التطبيق','العدد الفعلي',...PRODUCTS.map(p=>p.name)].map(x=>`<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr><td>${fmtBatchDate(r.closedAt)}</td><td>${esc(r.customerName)}</td><td>${esc(r.farmName||'غير مسجل')}</td><td>${esc(r.region)}</td><td>${esc(r.source)}</td><td>${esc(r.injectionTeam||'—')}</td><td>${esc(r.engineerName)}</td><td>${methodName(r.injectionMethod)}</td><td>${Number(r.actualBatchQty||0)}</td>${PRODUCTS.map(p=>`<td>${(r.actualItems||[]).find(i=>i.productId===p.id)?.actualQty||'—'}</td>`).join('')}</tr>`).join('')||`<tr><td colspan="${9+PRODUCTS.length}">لا توجد دفعات ضمن هذه الفترة والفلاتر.</td></tr>`}</tbody></table></div>`}
+Object.assign(VIEWS,{home:home5,operations:operations5,customers:customers5,follow:follow5,reports:reports5,invoices:()=>financialForm('invoice'),returns:()=>financialForm('return'),movement:movement5,daily:injection5});
+// Self-contained Excel writer: no CDN dependency, RTL sheets and movement colors.
+function excelBytes5(sheets){const enc=new TextEncoder(),xml=s=>String(s??'').replace(/[\x00-\x08\x0b\x0c\x0e-\x1f]/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'),col=n=>{let s='';for(n++;n;n=Math.floor((n-1)/26))s=String.fromCharCode(65+(n-1)%26)+s;return s};
+ const files=[],add=(n,s)=>files.push([n,enc.encode(s)]),ns='http://schemas.openxmlformats.org/spreadsheetml/2006/main';
+ add('[Content_Types].xml',`<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>${sheets.map((s,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}</Types>`);
+ add('_rels/.rels','<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>');
+ add('xl/workbook.xml',`<workbook xmlns="${ns}" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>${sheets.map((s,i)=>`<sheet name="${xml(s.name)}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join('')}</sheets></workbook>`);
+ add('xl/_rels/workbook.xml.rels',`<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${sheets.map((s,i)=>`<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join('')}<Relationship Id="styles" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`);
+ const fills=['FFFFFFFF','FF075E91','FFE4F6EC','FFFFE8E8','FFFFF3CD'];add('xl/styles.xml',`<styleSheet xmlns="${ns}"><fonts count="2"><font><sz val="11"/><name val="Arial"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Arial"/></font></fonts><fills count="6"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill>${fills.slice(1).map(c=>`<fill><patternFill patternType="solid"><fgColor rgb="${c}"/><bgColor indexed="64"/></patternFill></fill>`).join('')}</fills><borders count="1"><border/></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="5">${[0,2,3,4,5].map((fill,i)=>`<xf numFmtId="0" fontId="${i===1?1:0}" fillId="${fill}" borderId="0" xfId="0" applyFill="1" applyAlignment="1"><alignment horizontal="right" vertical="center" wrapText="1" readingOrder="2"/></xf>`).join('')}</cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`);
+ sheets.forEach((s,i)=>{const width=Math.max(...s.rows.map(r=>r.length),1);add(`xl/worksheets/sheet${i+1}.xml`,`<worksheet xmlns="${ns}"><sheetViews><sheetView workbookViewId="0" rightToLeft="1"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><sheetFormatPr defaultRowHeight="24"/><cols>${Array.from({length:width},(_,j)=>`<col min="${j+1}" max="${j+1}" width="${j===1?32:23}" customWidth="1"/>`).join('')}</cols><sheetData>${s.rows.map((row,k)=>`<row r="${k+1}">${row.map((v,j)=>{const style=k===0?1:(s.styles?.[k]||0),ref=col(j)+(k+1);return typeof v==='number'&&Number.isFinite(v)?`<c r="${ref}" s="${style}"><v>${v}</v></c>`:`<c r="${ref}" s="${style}" t="inlineStr"><is><t xml:space="preserve">${xml(v)}</t></is></c>`}).join('')}</row>`).join('')}</sheetData><autoFilter ref="A1:${col(width-1)}${Math.max(s.rows.length,1)}"/></worksheet>`)});
+ const chunks=[],central=[],u16=n=>[n&255,(n>>>8)&255],u32=n=>[n&255,(n>>>8)&255,(n>>>16)&255,(n>>>24)&255];let offset=0;
+ for(const [name,body] of files){const n=enc.encode(name);let crc=0xffffffff;for(const b of body){crc^=b;for(let k=0;k<8;k++)crc=(crc>>>1)^((crc&1)?0xedb88320:0)}crc=(crc^0xffffffff)>>>0;
+ const local=new Uint8Array([...u32(0x04034b50),...u16(20),...u16(0x800),...u16(0),...u16(0),...u16(33),...u32(crc),...u32(body.length),...u32(body.length),...u16(n.length),...u16(0),...n]);chunks.push(local,body);
+ central.push(new Uint8Array([...u32(0x02014b50),...u16(20),...u16(20),...u16(0x800),...u16(0),...u16(0),...u16(33),...u32(crc),...u32(body.length),...u32(body.length),...u16(n.length),...u16(0),...u16(0),...u16(0),...u16(0),...u32(0),...u32(offset),...n]));offset+=local.length+body.length;
+ }const length=central.reduce((s,c)=>s+c.length,0),end=new Uint8Array([...u32(0x06054b50),...u16(0),...u16(0),...u16(files.length),...u16(files.length),...u32(length),...u32(offset),...u16(0)]),parts=[...chunks,...central,end],out=new Uint8Array(parts.reduce((s,p)=>s+p.length,0));let at=0;parts.forEach(p=>{out.set(p,at);at+=p.length});return out;
+}
+function downloadExcel5(name,sheets){const bytes=excelBytes5(sheets),url=URL.createObjectURL(new Blob([bytes],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'})),a=document.createElement('a');a.href=url;a.download=name+'.xlsx';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);appMessage('تم تجهيز ملف Excel حسب الفلاتر المختارة.');}
+function validRange5(f){if(f.from&&f.to&&f.from>f.to){appMessage('تاريخ البداية يجب ألا يتجاوز النهاية.');return false}return true}
+function exportMovement5(){if(!finRole()||!validRange5(movementFilter))return;const rows=movementRows();downloadExcel5('FortiMune-Customer-Movement',[{name:'حركة العملاء',rows:[['التاريخ','العميل','المنطقة','نوع الحركة','رقم العملية',...PRODUCTS.map(p=>p.name)],...rows.map(r=>[r.date,r.customer,r.region,typeLabels[r.type],r.id,...PRODUCTS.map(p=>r.qty[p.id]||0)])],styles:[1,...rows.map(r=>({invoice:2,return:3,consumption:4})[r.type])]},{name:'تفاصيل الأرصدة',rows:[['التاريخ','العميل','الحركة','العملية','الصنف','التغير','الرصيد قبل','الرصيد بعد'],...rows.flatMap(r=>r.details.map(m=>[r.date,r.customer,typeLabels[r.type],r.id,m.product,Number(m.change),m.balanceBefore??'',m.balanceAfter??'']))]},{name:'الفلاتر',rows:[['الفلتر','القيمة'],['من',movementFilter.from||'كل التواريخ'],['إلى',movementFilter.to||'كل التواريخ'],['المنطقة',movementFilter.region],['العملاء',movementFilter.customers.length?reportCustomers().filter(c=>movementFilter.customers.includes(c.id)).map(c=>c.name).join(' • '):'كل عملاء المنطقة'],['الحركة',typeLabels[movementFilter.type]||'الكل']]}])}
+function exportInjection5(){if(!validRange5(injectionFilter))return;const rows=injectionRows5();downloadExcel5('FortiMune-Injection-Report',[{name:'تقرير الحقن',rows:[['تاريخ الإغلاق','موعد الدفعة','الطلب','العميل','المزرعة','المنطقة','المعمل','المصدر','الفريق','المهندس','التطبيق','عدد الدفعة الفعلي',...PRODUCTS.map(p=>p.name)],...rows.map(r=>[String(r.closedAt).slice(0,10),String(r.batchAt).slice(0,10),r.id,r.customerName,r.farmName||'غير مسجل',r.region,r.lab,r.source,r.injectionTeam||'',r.engineerName,methodName(r.injectionMethod),Number(r.actualBatchQty||0),...PRODUCTS.map(p=>Number((r.actualItems||[]).find(i=>i.productId===p.id)?.actualQty||0))])]},{name:'الفلاتر',rows:[['الفلتر','القيمة'],...Object.entries(injectionFilter)]}])}
+exportCustodyExcel=function(){if(!canSettleCustody()||!validRange5({from:custodyFrom,to:custodyTo}))return;downloadExcel5('FortiMune-Custody',[{name:'تفاصيل العهدة',rows:custodyExportRows()}])};
+exportCustomerBalances=function(){if(!finRole()&&session.role!=='accounts')return;const customers=balanceFilteredCustomers();downloadExcel5('FortiMune-Customer-Balances',[{name:'أرصدة العملاء',rows:[['المنطقة','كود العميل','العميل',...PRODUCTS.map(p=>p.name),'الإجمالي'],...customers.map(c=>[c.region,c.id,c.name,...PRODUCTS.map(p=>Number(c.balances[p.id]||0)),customerBalanceTotal(c)])]}])};
+exportCustodyExcel=function(){if(!canSettleCustody()||!validRange5({from:custodyFrom,to:custodyTo}))return;const selected=filteredCustodyRequests(),summary=[['الفريق','الصنف','الأمبولات المستهلكة']];INJECTION_TEAMS.forEach(t=>PRODUCTS.forEach(p=>{const qty=selected.filter(r=>r.injectionTeam===t).reduce((s,r)=>s+(r.actualItems||[]).filter(i=>i.productId===p.id).reduce((a,i)=>a+Number(i.actualQty||0),0),0);if(qty)summary.push([t,p.name,qty])}));downloadExcel5('FortiMune-Custody',[{name:'تفاصيل العهدة',rows:[['تاريخ التقرير','رقم الطلب','الفريق','العميل','المزرعة','المنطقة','المعمل','المهندس','التطبيق','الصنف','المطلوب','المستهلك','حالة التسوية','تاريخ التسوية','اعتمد بواسطة'],...selected.flatMap(r=>(r.actualItems||[]).map(i=>[String(r.closedAt||'').slice(0,10),r.id,r.injectionTeam,r.customerName,r.farmName||'غير مسجل',r.region,r.lab,r.engineerName,methodName(r.injectionMethod),i.productName,Number(i.requestedQty||0),Number(i.actualQty||0),custodyStatus(r)==='settled'?'تمت التسوية':'معلقة',String(r.custodySettlement?.settledAt||'').slice(0,10),r.custodySettlement?.settledBy||'']))]},{name:'ملخص الفرق والأصناف',rows:summary}])};
+
 // Shared operations are committed atomically by Supabase, never by uploading a client snapshot.
 let cloudReady=false,cloudBusy=false,cloudTimer=null,cloudRevision=0;
 const localSave=save;
 function cloudStatus(message,ok=false){let el=document.getElementById('sharedStatus');if(!el){el=document.createElement('div');el.id='sharedStatus';el.className='alert';document.querySelector('#app .wrap')?.prepend(el);}el.className='alert '+(ok?'success':'warning');el.textContent=message;}
-function applyCloudState(result){if(!result?.state)return;db=result.state;db.invoices||=[];db.notifications||=[];db.movements||=[];db.audit||=[];db.custodyTransactions||=[];db.teamBalances||={};db.usersMaster||=[];cloudRevision=result.revision||0;localSave();updateNotificationBadge();if(!document.getElementById('notificationPanel')?.classList.contains('hidden'))renderNotifications();}
+function applyCloudState(result){if(!result?.state)return;db=result.state;db.invoices||=[];db.returns||=[];db.notifications||=[];db.movements||=[];db.audit||=[];db.custodyTransactions||=[];db.teamBalances||={};db.usersMaster||=[];cloudRevision=result.revision||0;localSave();updateNotificationBadge();if(!document.getElementById('notificationPanel')?.classList.contains('hidden'))renderNotifications();}
 async function fetchCloudState(){const {data,error}=await fortimuneSupabase.rpc('fortimune_v4_read');if(error)throw error;if(!data?.state)throw new Error('NOT_INITIALIZED');applyCloudState(data);cloudReady=true;cloudStatus('متصل • الطلبات والإشعارات مشتركة بين الحسابات',true);return data;}
 async function connectSharedWorkflow(){
  clearInterval(cloudTimer);cloudReady=false;
@@ -2142,9 +2250,10 @@ async function connectSharedWorkflow(){
 async function initializeSharedWorkflow(){if(!canSettleCustody()||cloudBusy)return;if(!await appConfirm('سيتم استخدام البيانات الحالية على هذا الجهاز كنقطة البداية المشتركة لكل الحسابات. راجع أرصدة العملاء والطلبات أولًا. هذه العملية متاحة مرة واحدة فقط.'))return;cloudBusy=true;try{const {data,error}=await fortimuneSupabase.rpc('fortimune_v4_action',{operation:'initialize',payload:{state:db}});if(error)throw error;applyCloudState(data);await connectSharedWorkflow();}catch(e){appMessage('لم تتم التهيئة: '+e.message)}finally{cloudBusy=false}}
 const originalRender=render;render=function(){originalRender();if(session&&!cloudReady)cloudStatus('البيانات المشتركة غير متصلة؛ الحفظ متوقف لحين تفعيل الاتصال.');};
 const originalProfileLoad=loadProductionProfile;loadProductionProfile=async function(user){const profile=await originalProfileLoad(user);setTimeout(()=>{if(session?.authUserId===profile.authUserId)connectSharedWorkflow();},150);return profile;};
-const originalLogout=logout;logout=async function(){if(cloudBusy)return appMessage('انتظر انتهاء حفظ العملية.');clearInterval(cloudTimer);cloudReady=false;await originalLogout();};
+const originalLogout=logout;logout=async function(){if(cloudBusy)return appMessage('انتظر انتهاء حفظ العملية.');clearInterval(cloudTimer);cloudReady=false;financialPending5={};movementFilter.customers=[];movementFilter.region='ALL';followFilter='ALL';await originalLogout();};
 function changePayload(operation,id,before){
  if(operation==='create'){const old=new Set(before.requests.map(r=>r.id));return db.requests.find(r=>!old.has(r.id));}
+ if(operation==='return'){const old=new Set((before.returns||[]).map(i=>i.id));return db.returns.find(i=>!old.has(i.id));}
  if(operation==='invoice'){const old=new Set((before.invoices||[]).map(i=>i.id));return db.invoices.find(i=>!old.has(i.id));}
  if(operation==='mark_read')return {ids:db.notifications.filter(n=>n.readAt&&!before.notifications.find(o=>o.id===n.id)?.readAt).map(n=>n.id)};
  const r=db.requests.find(r=>r.id===id);return r?{...r,expectedStatus:before.requests.find(r=>r.id===id)?.status}:null;
@@ -2163,13 +2272,14 @@ function wrapSharedMutation(name,operation){const original=window[name];window[n
  db=before;
  const {data,error}=await fortimuneSupabase.rpc('fortimune_v4_action',{operation,payload});if(error)throw error;
  applyCloudState(data);if(!['start','mark_read'].includes(operation))originalRender();cloudStatus('تم الحفظ والمزامنة بنجاح',true);
+ if(operation==='invoice'||operation==='return')delete financialPending5[operation];
  if(operation==='create'){document.querySelectorAll('.fortimune-result-overlay').forEach(e=>e.remove());const created=db.requests.find(r=>r.id===payload.id);showRequestResult(created?.status==='approval');}
  if(operation==='mark_read')renderNotifications();
  messages.forEach(m=>originalAlert(m));
  }catch(e){document.querySelectorAll('.fortimune-result-overlay').forEach(e=>e.remove());if(before)db=before;originalAlert('لم يتم حفظ العملية: '+e.message);if(before)localSave();}
  finally{window.appMessage=originalAlert;save=originalSave;render=originalRender;showRequestResult=originalResult;cloudBusy=false;}
 };}
-[['createRequest','create'],['approveRequest','approve'],['rejectRequest','reject'],['assignRequest','assign'],['openClose','start'],['closeRequest','close'],['saveStatusUpdate','status'],['saveInvoice','invoice'],['settleCustody','settle'],['markNotificationRead','mark_read'],['markAllNotificationsRead','mark_read']].forEach(([name,op])=>wrapSharedMutation(name,op));
+[['createRequest','create'],['approveRequest','approve'],['rejectRequest','reject'],['assignRequest','assign'],['openClose','start'],['closeRequest','close'],['saveStatusUpdate','status'],['saveInvoice','invoice'],['saveReturn','return'],['settleCustody','settle'],['markNotificationRead','mark_read'],['markAllNotificationsRead','mark_read']].forEach(([name,op])=>wrapSharedMutation(name,op));
 
 </script>
 </body></html>
