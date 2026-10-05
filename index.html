@@ -670,7 +670,13 @@ button:focus-visible{outline:3px solid #64b5e6;outline-offset:3px}
 @media(max-width:600px){.notification-panel{right:max(8px,env(safe-area-inset-right))!important;left:max(8px,env(safe-area-inset-left))!important;width:auto!important}.notification-heading{padding:16px}.notification-list{max-height:calc(100dvh - 245px - env(safe-area-inset-top) - env(safe-area-inset-bottom))}}
 @media(prefers-reduced-motion:reduce){.notification-panel{animation:none}.notify-btn{transition:none}}
 </style>
-<style>.request-progress{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0;font-size:11px}.request-progress span{padding:7px 9px;border-radius:8px;background:#f1f4f7;color:#7b8a98}.request-progress .passed{background:#e1f5ed;color:#087744}.invoice-record{margin:12px 0}.mobile-request-action{display:flex;gap:8px;flex-wrap:wrap}</style></head>
+<style>.request-progress{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0;font-size:11px}.request-progress span{padding:7px 9px;border-radius:8px;background:#f1f4f7;color:#7b8a98}.request-progress .passed{background:#e1f5ed;color:#087744}.invoice-record{margin:12px 0}.mobile-request-action{display:flex;gap:8px;flex-wrap:wrap}</style>
+<style>
+.notification-item,.notification-item.unread{background:#fff!important}.notification-item.notice-approval,.notification-item.notice-approval.unread{background:#fff4e3!important;border-color:#efc185}.notification-item.notice-approval.unread{border-right-color:#d88919!important}.notice-approval .notification-unread-dot{background:#d88919}.notice-kind{display:inline-block;font-size:11px;border-radius:20px;padding:4px 9px;margin-bottom:8px;background:#fff0d5;color:#975707}
+.request-progress .passed.stage-pending{background:#e4f2ff;color:#146a9d}.request-progress .passed.stage-assigned{background:#eee7ff;color:#6844b0}.request-progress .passed.stage-in_progress{background:#fff3cf;color:#936911}.request-progress .passed.stage-done{background:#e0f5ea;color:#16774c}.request-progress .current{box-shadow:0 0 0 1px currentColor;font-weight:700}
+.app-messages{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:10050;width:min(92vw,470px);display:grid;gap:10px;pointer-events:none}.app-message{pointer-events:auto;display:flex;align-items:flex-start;gap:12px;padding:17px;border-radius:17px;border:1px solid;box-shadow:0 12px 36px #16324724;text-align:right;white-space:pre-line;background:#fff;color:#213b4d;animation:message-enter .2s ease}.app-message.success{background:#eaf9f0;border-color:#addfc3;color:#156843}.app-message.warning{background:#fff5e5;border-color:#f0d39c;color:#885c12}.app-message.error{background:#fff0ef;border-color:#efb6b1;color:#a03430}.message-symbol{flex-shrink:0;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#ffffff9c;font-size:20px;font-weight:800}.message-copy{flex:1;font-size:14px;line-height:1.7}.message-dismiss{border:0;background:transparent;color:inherit;font-size:24px;padding:0 3px;cursor:pointer}.app-confirm-overlay{position:fixed;inset:0;background:#102d4166;backdrop-filter:blur(4px);z-index:10060;display:grid;place-items:center;padding:20px}.app-confirm{width:min(100%,460px);background:#fff;border-radius:24px;padding:26px;box-shadow:0 24px 70px #09233340;text-align:right;border-top:5px solid #e6a133}.app-confirm h3{margin:0 0 14px;color:#8e621c}.app-confirm p{line-height:1.8;color:#425c6d}.app-confirm .actions{justify-content:flex-start}@keyframes message-enter{from{opacity:0;translate:0 -8px}to{opacity:1;translate:0 0}}@media(prefers-reduced-motion:reduce){.app-message{animation:none}}
+</style>
+</head>
 <body>
 <div id="login" class="login">
   <img src="fortimune-logo.png" alt="FortiMune" onerror="this.style.display='none';this.parentElement.classList.add('brand-fallback')">
@@ -743,7 +749,7 @@ function initSupabaseClient(){
   try{fortimuneSupabase=window.supabase.createClient(FORTIMUNE_SUPABASE_URL,FORTIMUNE_SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});FORTIMUNE_AUTH_ENABLED=true;return true;}catch(e){FORTIMUNE_AUTH_ENABLED=false;fortimuneSupabase=null;return false;}
 }
 function toggleConnectionSetup(){const el=document.getElementById("connectionSetup");if(!el)return;el.classList.toggle("auth-hidden");if(!el.classList.contains("auth-hidden")){document.getElementById("supabaseKeyInput").value=FORTIMUNE_SUPABASE_PUBLISHABLE_KEY;setConnectionStatus(FORTIMUNE_AUTH_ENABLED,"الاتصال جاهز للاختبار");}}
-async function saveSupabaseKey(){const key=String(document.getElementById("supabaseKeyInput")?.value||"").trim();if(!key)return alert("ضع Supabase Publishable/Anon Key أولاً.");if(/service_role|sb_secret/i.test(key))return alert("هذا المفتاح Secret/Service Role وغير مسموح داخل التطبيق. استخدم Publishable/Anon Key فقط.");localStorage.setItem("fortimuneSupabasePublishableKey",key);FORTIMUNE_SUPABASE_PUBLISHABLE_KEY=key;if(!initSupabaseClient())return alert("تعذر إنشاء اتصال Supabase. راجع المفتاح.");try{const {error}=await fortimuneSupabase.auth.getSession();if(error)throw error;setConnectionStatus(true,"Supabase متصل بنجاح ✓");alert("تم تهيئة اتصال FortiMune بنجاح.");}catch(e){setConnectionStatus(false,"فشل اختبار الاتصال");alert(`فشل اختبار الاتصال:
+async function saveSupabaseKey(){const key=String(document.getElementById("supabaseKeyInput")?.value||"").trim();if(!key)return appMessage("ضع Supabase Publishable/Anon Key أولاً.");if(/service_role|sb_secret/i.test(key))return appMessage("هذا المفتاح Secret/Service Role وغير مسموح داخل التطبيق. استخدم Publishable/Anon Key فقط.");localStorage.setItem("fortimuneSupabasePublishableKey",key);FORTIMUNE_SUPABASE_PUBLISHABLE_KEY=key;if(!initSupabaseClient())return appMessage("تعذر إنشاء اتصال Supabase. راجع المفتاح.");try{const {error}=await fortimuneSupabase.auth.getSession();if(error)throw error;setConnectionStatus(true,"Supabase متصل بنجاح ✓");appMessage("تم تهيئة اتصال FortiMune بنجاح.");}catch(e){setConnectionStatus(false,"فشل اختبار الاتصال");appMessage(`فشل اختبار الاتصال:
 ${e.message||e}`);}}
 function clearSupabaseKey(){localStorage.removeItem("fortimuneSupabasePublishableKey");FORTIMUNE_SUPABASE_PUBLISHABLE_KEY="";FORTIMUNE_AUTH_ENABLED=false;fortimuneSupabase=null;setConnectionStatus(false,"تم مسح مفتاح الاتصال");}
 async function restoreAuthSession(){if(!initSupabaseClient())return;try{const {data,error}=await fortimuneSupabase.auth.getSession();if(error||!data?.session)return;const profile=await loadProductionProfile(data.session.user);session=profile;document.getElementById("login").classList.add("hidden");document.getElementById("app").classList.remove("hidden");document.getElementById("who").textContent=`${profile.name} • ${roleName(profile.role)}`;tab="home";render();if(!passwordWasChanged(data.session.user)) showPasswordModal(true);}catch(e){try{await fortimuneSupabase.auth.signOut();}catch(_e){}}}
@@ -831,7 +837,8 @@ function renderNotifications(){
  panel.innerHTML=`<div class="notification-heading"><div class="notification-heading-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></div><div><h3 id="notificationTitle">الإشعارات</h3><p>${unread?`${unread} إشعار غير مقروء`:"أنت متابع كل التحديثات"}</p></div><button class="notification-close" onclick="closeNotificationPanel(true)" aria-label="إغلاق الإشعارات">×</button></div>
  ${ns.length?`<div class="notification-toolbar"><span>${ns.length} إشعار</span><button class="ghost" onclick="markAllNotificationsRead()" ${unread?"":"disabled"}>تحديد الكل كمقروء</button></div>`:""}
  <div class="notification-list">`+
- (ns.length?ns.map(n=>`<article class="notification-item ${n.readAt?"":"unread"}">
+ (ns.length?ns.map(n=>`<article class="notification-item notice-${notificationType(n)} ${n.readAt?"":"unread"}">
+ ${notificationType(n)==='approval'?'<span class="notice-kind">موافقة على الرصيد</span>':''}
  <div class="notification-item-title"><b>${esc(n.title)}</b>${!n.readAt?'<span class="notification-unread-dot" title="غير مقروء"></span>':""}</div>
  <time class="notification-time">${fmtDate(n.createdAt)}</time>
  <p class="notification-message">${esc(n.message)}</p>
@@ -893,14 +900,14 @@ function custodyPendingRequests(){
  return db.requests.filter(r=>r.status==="done" && r.source==="فريق الحقن" && custodyStatus(r)==="pending");
 }
 function settleCustody(id){
- if(!canSettleCustody()) return alert("صرف العهدة المستهلكة متاح للدكتور Sayed Abo Shal فقط.");
+ if(!canSettleCustody()) return appMessage("صرف العهدة المستهلكة متاح للدكتور Sayed Abo Shal فقط.");
  const r=db.requests.find(x=>x.id===id);
- if(!r || custodyStatus(r)!=="pending") return alert("العهدة غير متاحة للتسوية.");
+ if(!r || custodyStatus(r)!=="pending") return appMessage("العهدة غير متاحة للتسوية.");
  const team=r.injectionTeam;
  const items=r.actualItems||[];
  const shortages=items.map(i=>({i,before:teamBalance(team,i.productId)})).filter(x=>Number(x.i.actualQty)>x.before);
  if(shortages.length){
-   return alert("الرصيد الحالي لفريق الحقن غير كافٍ لبعض المنتجات:\n"+shortages.map(x=>`${x.i.productName}: المتاح ${x.before} / المطلوب ${x.i.actualQty}`).join("\n"));
+   return appMessage("الرصيد الحالي لفريق الحقن غير كافٍ لبعض المنتجات:\n"+shortages.map(x=>`${x.i.productName}: المتاح ${x.before} / المطلوب ${x.i.actualQty}`).join("\n"));
  }
  items.forEach(i=>{
    const before=teamBalance(team,i.productId);
@@ -912,7 +919,7 @@ function settleCustody(id){
  db.custodyTransactions.push({id:"CUST-"+Date.now(),requestId:r.id,team,status:"settled",items,settledBy:session.name,settledAt:now()});
  audit("Settled consumed custody; team balance deducted by actual injected quantities",r);
  save();
- alert("تم صرف العهدة المستهلكة واعتماد الخصم من رصيد فريق الحقن.");
+ appMessage("تم صرف العهدة المستهلكة واعتماد الخصم من رصيد فريق الحقن.");
  render();
 }
 function legacyCustodyView(){
@@ -1106,7 +1113,7 @@ async function submitPasswordChange(){
     });
     if(error) throw error;
     document.getElementById("passwordModal").classList.add("hidden");
-    alert("تم تغيير كلمة المرور بنجاح ✓");
+    appMessage("تم تغيير كلمة المرور بنجاح ✓");
   }catch(e){
     passwordError(e?.message||String(e));
   }finally{
@@ -1124,10 +1131,10 @@ async function login(){
  const email=normalizeEmail(document.getElementById("loginUser").value);
  const password=document.getElementById("loginPass").value;
  const button=document.querySelector('#login button.primary');
- if(!email)return alert("اكتب الـOfficial Outlook Email.");
- if(!password)return alert("اكتب كلمة المرور.");
+ if(!email)return appMessage("اكتب الـOfficial Outlook Email.");
+ if(!password)return appMessage("اكتب كلمة المرور.");
  if(!FORTIMUNE_AUTH_ENABLED || !fortimuneSupabase){
-   if(!initSupabaseClient()) return alert("تعذر الاتصال بخدمة الدخول. يرجى المحاولة مرة أخرى.");
+   if(!initSupabaseClient()) return appMessage("تعذر الاتصال بخدمة الدخول. يرجى المحاولة مرة أخرى.");
  }
  try{
    if(button){button.disabled=true;button.textContent="جاري تسجيل الدخول…";}
@@ -1146,8 +1153,8 @@ async function login(){
  }catch(err){
    try{await fortimuneSupabase.auth.signOut();}catch(_e){}
    const msg=err?.message || String(err);
-   if(/invalid login credentials/i.test(msg)) return alert("بيانات الدخول غير صحيحة. استخدم الـOfficial Outlook Email وكلمة المرور الحالية في Supabase Authentication.");
-   alert(`تعذر تسجيل الدخول:\n${msg}`);
+   if(/invalid login credentials/i.test(msg)) return appMessage("بيانات الدخول غير صحيحة. استخدم الـOfficial Outlook Email وكلمة المرور الحالية في Supabase Authentication.");
+   appMessage(`تعذر تسجيل الدخول:\n${msg}`);
  }finally{
    if(button){button.disabled=false;button.textContent="دخول";}
  }
@@ -1226,7 +1233,7 @@ function customerCard(c){
 }
 function requestTable(arr,actionMode=""){
  if(!arr.length)return `<div class="card empty">لا توجد طلبات.</div>`;
- const rows=arr.map(r=>`<tr><td>${esc(r.id)}</td><td>${fmtDate(r.batchAt)}</td><td>${esc(r.customerName)}</td><td>${esc(r.region)}</td><td>${esc(r.lab)}</td><td>${itemSummary(r)}</td><td>${itemSummary(r)}</td><td>${r.actualItems?itemSummary(r,"actualQty"):"—"}</td><td>${esc(r.source)}</td><td>${esc(r.injectionTeam||"—")}</td><td>${esc(r.engineerName||"—")}</td><td>${badge(r.status)}</td><td>${actionFor(r,actionMode)}</td></tr>`).join("");
+ const rows=arr.map(r=>`<tr><td>${esc(r.id)}</td><td>${fmtBatchDate(r.batchAt)}</td><td>${esc(r.customerName)}</td><td>${esc(r.region)}</td><td>${esc(r.lab)}</td><td>${itemSummary(r)}</td><td>${itemSummary(r)}</td><td>${r.actualItems?itemSummary(r,"actualQty"):"—"}</td><td>${esc(r.source)}</td><td>${esc(r.injectionTeam||"—")}</td><td>${esc(r.engineerName||"—")}</td><td>${badge(r.status)}</td><td>${actionFor(r,actionMode)}</td></tr>`).join("");
  const cards=arr.map(r=>`
    <article class="mobile-request-card ${r.status||""}">
      <div class="mobile-request-top">
@@ -1235,7 +1242,7 @@ function requestTable(arr,actionMode=""){
      </div>
      <div class="mobile-request-customer">${esc(r.customerName)}</div>
      <div class="mobile-request-meta">
-       <div><small>📅 الموعد</small><b>${fmtDate(r.batchAt)}</b></div>
+       <div><small>📅 الموعد</small><b>${fmtBatchDate(r.batchAt)}</b></div>
        <div><small>📍 المنطقة</small><b>${esc(r.region)}</b></div>
        <div><small>🧪 المعمل</small><b>${esc(r.lab)}</b></div>
        <div><small>📦 المصدر</small><b>${esc(r.source)}</b></div>
@@ -1425,7 +1432,7 @@ function injectionManagerHomeView(){
      ${needsAction.length?`<div class="manager-action-list">${needsAction.map(r=>`
        <button class="manager-action-row" onclick="openAssign('${r.id}')">
          <span class="manager-action-icon">↓</span>
-         <span class="manager-action-copy"><b>${esc(r.customerName)}</b><small>${esc(r.id)} • ${fmtDate(r.batchAt)} • ${esc(r.region)}</small></span>
+         <span class="manager-action-copy"><b>${esc(r.customerName)}</b><small>${esc(r.id)} • ${fmtBatchDate(r.batchAt)} • ${esc(r.region)}</small></span>
          <span class="manager-action-status">${r.status==="approved"?"Approved":"New"}</span>
          <span class="manager-action-arrow">‹</span>
        </button>`).join("")}</div>`:`<div class="manager-empty">✓ لا توجد طلبات تحتاج إجراء الآن.</div>`}
@@ -1503,7 +1510,7 @@ function engineerJobsView(){
  <div class="grid">${mine.map(r=>`
    <div class="card" style="cursor:pointer;border-right:5px solid var(--purple)" onclick="openEngineerRequest('${r.id}')">
      <div class="row"><b>${esc(r.id)}</b>${badge(r.status)}</div>
-     <div class="row"><span>موعد الدفعة</span><b>${fmtDate(r.batchAt)}</b></div>
+     <div class="row"><span>موعد الدفعة</span><b>${fmtBatchDate(r.batchAt)}</b></div>
      <div class="row"><span>العميل</span><b>${esc(r.customerName)}</b></div>
      <div class="row"><span>المعمل</span><b>${esc(r.lab)}</b></div>
      <div class="row"><span>عدد الدفعة</span><b>${esc(r.batchQty)}</b></div>
@@ -1514,11 +1521,11 @@ function engineerJobsView(){
 }
 function openEngineerRequest(id){
  const r=db.requests.find(x=>x.id===id);
- if(!r || !["assigned","in_progress","postponed","not_executed"].includes(r.status) || !isAssignedEngineer(r)) return alert("الطلب غير متاح لهذا المهندس.");
+ if(!r || !["assigned","in_progress","postponed","not_executed"].includes(r.status) || !isAssignedEngineer(r)) return appMessage("الطلب غير متاح لهذا المهندس.");
  document.getElementById("content").innerHTML=`<div class="section"><h2>تفاصيل الدفعة — ${esc(r.id)}</h2><span class="badge b-assigned">موجهة إليك</span></div>
  <div class="two">
    <div class="card">
-     <div class="row"><span>موعد الدفعة</span><b>${fmtDate(r.batchAt)}</b></div>
+     <div class="row"><span>موعد الدفعة</span><b>${fmtBatchDate(r.batchAt)}</b></div>
      <div class="row"><span>اسم العميل</span><b>${esc(r.customerName)}</b></div>
      <div class="row"><span>المنطقة</span><b>${esc(r.region)}</b></div>
      <div class="row"><span>اسم المعمل</span><b>${esc(r.lab)}</b></div>
@@ -1560,7 +1567,7 @@ function newRequestView(){
      <div class="request-form-grid">
        <div>
          <label>موعد الدفعة <span class="required">*</span></label>
-         <input id="batchAt" type="datetime-local">
+         <input id="batchAt" type="date">
        </div>
        <div>
          <label>اسم العميل كما يظهر في التقرير <span class="required">*</span></label>
@@ -1630,14 +1637,14 @@ function updateBalanceBox(){
 }
 function createRequest(){
  const c=db.customers.find(x=>x.id===document.getElementById("customerId").value);
- if(!c || !customerIsVisible(c)) return alert("هذا العميل خارج الـAssigned Areas الخاصة بك.");
+ if(!c || !customerIsVisible(c)) return appMessage("هذا العميل خارج الـAssigned Areas الخاصة بك.");
  const at=document.getElementById("batchAt").value;
  const lab=document.getElementById("lab").value.trim();
  const batchQty=Number(document.getElementById("batchQty").value);
  const source=document.getElementById("source").value;
  const lines=selectedProductLines().map(x=>({productId:x.product.id,productName:x.product.name,requestedQty:x.qty}));
  if(!at||!c||!lab||!Number.isSafeInteger(batchQty)||batchQty<1||!lines.length||lines.some(x=>!Number.isSafeInteger(x.requestedQty)||x.requestedQty<1))
-   return alert("أكمل موعد الدفعة، اسم المعمل، عدد الدفعة، واختار منتجًا واحدًا على الأقل مع كمية لكل منتج.");
+   return appMessage("أكمل موعد الدفعة، اسم المعمل، عدد الدفعة، واختار منتجًا واحدًا على الأقل مع كمية لكل منتج.");
  const checks=lines.map(i=>{
    const balance=Number(c.balances[i.productId]||0),reserved=getReserved(c.id,i.productId),available=balance-reserved;
    return {...i,balance,reserved,available,insufficient:i.requestedQty>available};
@@ -1678,13 +1685,13 @@ function managementRequests(){return `<div class="section"><h2>كل الطلبا
 function myRequests(){return `<div class="section"><h2>طلباتي</h2></div>${requestTable(db.requests.filter(r=>r.createdByEmployeeId===session.employeeId || (!r.createdByEmployeeId && r.createdBy===session.name)))}`}
 function approvals(){if(!canSettleCustody())return `<div class="alert danger">لا تملك صلاحية الموافقة.</div>`;return `<div class="section"><h2>موافقات الرصيد غير الكافي</h2></div>${requestTable(db.requests.filter(r=>r.status==="approval"),"approval")}`}
 function approveRequest(id){
- if(!canSettleCustody())return alert("الموافقة متاحة لسيد أبو شال فقط.");
+ if(!canSettleCustody())return appMessage("الموافقة متاحة لسيد أبو شال فقط.");
  const r=db.requests.find(x=>x.id===id);if(!r||r.status!=="approval")return;
  r.status="approved";r.approvedBy=session.name;r.approvedByEmployeeId=session.employeeId;r.approvedAt=now();
  trackRequest(r,"approved","تمت الموافقة على الرصيد غير الكافي");notifyManagers(r,"تمت الموافقة — الطلب جاهز للتوزيع","approved_request");notifyRequester(r,"تمت الموافقة على طلبك");audit("Approved insufficient-balance request",r);save();render();
 }
 function rejectRequest(id){
- if(!canSettleCustody())return alert("الرفض متاح لسيد أبو شال فقط.");
+ if(!canSettleCustody())return appMessage("الرفض متاح لسيد أبو شال فقط.");
  const r=db.requests.find(x=>x.id===id);if(!r||r.status!=="approval")return;
  r.status="rejected";r.rejectedBy=session.name;r.rejectedAt=now();trackRequest(r,"rejected","رفض الطلب");notifyRequester(r,"تم رفض طلب الحقن");audit("Rejected request",r);save();render();
 }
@@ -1692,10 +1699,10 @@ function inbox(){return `<div class="section"><h2>طلبات الحقن الوا
 function assigned(){return `<div class="section"><h2>التوزيع والمتابعة</h2></div>${requestTable(db.requests.filter(r=>["assigned","in_progress","postponed","not_executed","cancelled","done"].includes(r.status)))} `}
 function openAssign(id){
  const r=db.requests.find(x=>x.id===id);
- if(session?.role!=="injection_manager"||!r||!["pending","approved","postponed","not_executed"].includes(r.status))return alert("التوزيع متاح لمدير الحقن فقط.");
+ if(session?.role!=="injection_manager"||!r||!["pending","approved","postponed","not_executed"].includes(r.status))return appMessage("التوزيع متاح لمدير الحقن فقط.");
  const candidates=ENGINEERS; // All four named injection engineers are eligible for assignment across all regions.
  document.getElementById("content").innerHTML=`<div class="card"><h2>مراجعة وتوزيع ${r.id}</h2>
- <div class="two"><div><p><b>موعد:</b> ${fmtDate(r.batchAt)}</p><p><b>العميل:</b> ${esc(r.customerName)}</p><p><b>المعمل:</b> ${esc(r.lab)}</p><p><b>عدد الدفعة:</b> ${r.batchQty}</p><p><b>المنتجات:</b> ${itemSummary(r)}</p><p><b>المصدر:</b> ${esc(r.source)}</p><p><b>مدير فريق الحقن:</b> ${esc(INJECTION_TEAM_MANAGER)}</p></div>
+ <div class="two"><div><p><b>موعد:</b> ${fmtBatchDate(r.batchAt)}</p><p><b>العميل:</b> ${esc(r.customerName)}</p><p><b>المعمل:</b> ${esc(r.lab)}</p><p><b>عدد الدفعة:</b> ${r.batchQty}</p><p><b>المنتجات:</b> ${itemSummary(r)}</p><p><b>المصدر:</b> ${esc(r.source)}</p><p><b>مدير فريق الحقن:</b> ${esc(INJECTION_TEAM_MANAGER)}</p></div>
  <div>${r.source==="فريق الحقن"?`<label>Emergency Injection Team</label><select id="team">${INJECTION_TEAMS.map(t=>`<option>${t}</option>`).join("")}</select>`:`<div class="alert">المصدر ليس فريق الحقن، لذلك لا يوجد Team Assignment.</div>`}
  <label>Assigned Engineer</label><select id="engineer" onchange="updateEngineerRoute()">${(candidates.length?candidates:ENGINEERS).map(e=>`<option value="${e.id}">${e.name}</option>`).join("")}</select>
  <div class="route-box"><b>خط السير:</b> <span id="engineerRoute" data-route="${esc(r.region)}">${esc(r.region)}</span></div>
@@ -1711,12 +1718,12 @@ function updateEngineerRoute(){
 }
 function assignRequest(id){
  const r=db.requests.find(x=>x.id===id),e=ENGINEERS.find(x=>x.id===document.getElementById("engineer").value);
- if(session?.role!=="injection_manager"||!r||!e||!["pending","approved","postponed","not_executed"].includes(r.status))return alert("تعذر توزيع الطلب لهذا الحساب أو الحالة.");
+ if(session?.role!=="injection_manager"||!r||!e||!["pending","approved","postponed","not_executed"].includes(r.status))return appMessage("تعذر توزيع الطلب لهذا الحساب أو الحالة.");
  r.injectionTeam=r.source==="فريق الحقن"?document.getElementById("team").value:null;
  r.engineerId=e.id;r.engineerName=e.name;r.engineerEmployeeId=e.id;r.engineerEmail=e.email||"";
  r.managerNotes=document.getElementById("managerNotes").value;r.assignedBy=session.role==="injection_manager"?INJECTION_TEAM_MANAGER:session.name;r.assignedByEmployeeId=session.employeeId;r.injectionManagerName=INJECTION_TEAM_MANAGER;r.assignedAt=now();r.status="assigned";
  addNotification({recipientEmployeeId:e.id,recipientEmail:e.email,recipientName:e.name,requestId:r.id,title:"تم توجيه طلب حقن جديد إليك",message:`${r.id} — تم توزيع الطلب عليك لتنفيذ الدفعة.`,type:"assignment"});
- trackRequest(r,"assigned",r.managerNotes);notifyManagers(r,"تم توزيع الطلب على "+e.name,"assigned");notifyRequester(r,"تم توزيع طلبك على "+e.name);audit("Assigned engineer by Employee ID",r);save();alert(`تم تعيين ${e.englishName||e.name} وإرسال إشعار داخل التطبيق.`);tab="assigned";render();
+ trackRequest(r,"assigned",r.managerNotes);notifyRequester(r,"تم توزيع طلبك على "+e.name);audit("Assigned engineer by Employee ID",r);save();appMessage(`تم تعيين ${e.englishName||e.name} وإرسال إشعار داخل التطبيق.`);tab="assigned";render();
 }
 function jobs(){
  return engineerJobsView();
@@ -1724,7 +1731,7 @@ function jobs(){
 function openClose(id){
   const r=db.requests.find(x=>x.id===id);
   if(!r)return;
-  if(!["assigned","in_progress"].includes(r.status) || !isAssignedEngineer(r)) return alert("الطلب غير متاح للتنفيذ لهذا الحساب.");
+  if(!["assigned","in_progress"].includes(r.status) || !isAssignedEngineer(r)) return appMessage("الطلب غير متاح للتنفيذ لهذا الحساب.");
   if(r.status==="assigned"){r.status="in_progress";trackRequest(r,"in_progress","بدأ المهندس التنفيذ");notifyManagers(r,"بدأ تنفيذ طلب الحقن","in_progress");notifyRequester(r,"طلبك قيد التنفيذ");save();}
   selectedReportFile=null;
   document.getElementById("content").innerHTML=`<div class="execution-shell">
@@ -1737,7 +1744,7 @@ function openClose(id){
       <div class="execution-card">
         <div class="execution-card-head"><div><span class="eyebrow dark">BATCH INFORMATION</span><h2>بيانات الدفعة</h2></div><span class="badge b-assigned">Assigned</span></div>
         <div class="info-grid">
-          <div><small>موعد الدفعة</small><b>${fmtDate(r.batchAt)}</b></div>
+          <div><small>موعد الدفعة</small><b>${fmtBatchDate(r.batchAt)}</b></div>
           <div><small>العميل</small><b>${esc(r.customerName)}</b></div>
           <div><small>المنطقة</small><b>${esc(r.region)}</b></div>
           <div><small>المعمل</small><b>${esc(r.lab)}</b></div>
@@ -1835,20 +1842,20 @@ async function closeRequest(id){
  const file=selectedReportFile || document.getElementById("reportPhoto")?.files?.[0] || document.getElementById("cameraPhoto")?.files?.[0];
  const comments=document.getElementById("comments")?.value||"";
  const actualBatchQty=Number(document.getElementById("actualBatchQty")?.value||0);
- if(!r||!["assigned","in_progress"].includes(r.status)||!isAssignedEngineer(r)||r.balanceDeductedAt)return alert("الطلب مغلق بالفعل أو غير متاح لهذا المهندس.");
+ if(!r||!["assigned","in_progress"].includes(r.status)||!isAssignedEngineer(r)||r.balanceDeductedAt)return appMessage("الطلب مغلق بالفعل أو غير متاح لهذا المهندس.");
  if(r._closing)return;
- if(!file)return alert("لا يمكن إغلاق الطلب بدون رفع صورة تقرير الحقن.");
- if(!signatureCanvas||!signatureHasInk)return alert("لا يمكن إغلاق الطلب بدون تسجيل الإمضاء الإلكتروني.");
- if(actualBatchQty<=0)return alert("أدخل عدد الدفعة الفعلي.");
- if(!comments.trim())return alert("أدخل Comments قبل إغلاق الطلب.");
+ if(!file)return appMessage("لا يمكن إغلاق الطلب بدون رفع صورة تقرير الحقن.");
+ if(!signatureCanvas||!signatureHasInk)return appMessage("لا يمكن إغلاق الطلب بدون تسجيل الإمضاء الإلكتروني.");
+ if(actualBatchQty<=0)return appMessage("أدخل عدد الدفعة الفعلي.");
+ if(!comments.trim())return appMessage("أدخل Comments قبل إغلاق الطلب.");
  const items=requestItems(r);
  const actualItems=items.map(i=>({productId:i.productId,productName:i.productName,requestedQty:Number(i.requestedQty||0),actualQty:Number(document.getElementById("actual-"+i.productId)?.value||0)}));
- if(actualItems.some(i=>!Number.isInteger(i.actualQty)||i.actualQty<0)||!actualItems.some(i=>i.actualQty>0))return alert("عدد الأمبولات الفعلية غير صحيح.");
+ if(actualItems.some(i=>!Number.isInteger(i.actualQty)||i.actualQty<0)||!actualItems.some(i=>i.actualQty>0))return appMessage("عدد الأمبولات الفعلية غير صحيح.");
  const c=db.customers.find(x=>x.id===r.customerId);
  const snapshots=actualItems.map(i=>({item:i,before:Number(c.balances[i.productId]||0)}));
  const over=snapshots.filter(x=>x.item.actualQty>x.item.before);
- if(!cloudReady && over.length&&!r.approvedAt)return alert("الرصيد غير كافٍ. يلزم موافقة سيد أبو شال قبل الخصم بالسالب.");
- r._closing=true;let reportData;try{reportData=await fileToImageData(file);}catch(e){delete r._closing;return alert("تعذر قراءة التقرير. حاول مرة أخرى.");}
+ if(!cloudReady && over.length&&!r.approvedAt)return appMessage("الرصيد غير كافٍ. يلزم موافقة سيد أبو شال قبل الخصم بالسالب.");
+ r._closing=true;let reportData;try{reportData=await fileToImageData(file);}catch(e){delete r._closing;return appMessage("تعذر قراءة التقرير. حاول مرة أخرى.");}
  if(r.status==="done"){delete r._closing;return;}delete r._closing;
  snapshots.forEach(({item,before})=>{c.balances[item.productId]=before-item.actualQty;db.movements.push({date:now(),requestId:r.id,customer:r.customerName,customerCode:r.customerCode,product:item.productName,requested:item.requestedQty,actual:item.actualQty,change:-item.actualQty,balanceBefore:before,balanceAfter:c.balances[item.productId],engineer:r.engineerName,lab:r.lab,source:r.source,team:r.injectionTeam});});
  r.actualBatchQty=actualBatchQty;r.actualItems=actualItems;r.actualQty=actualItems.reduce((sum,i)=>sum+i.actualQty,0);r.comments=comments;r.reportPhoto=file.name;r.reportPhotoType=file.type||"image";r.reportPhotoData=reportData;r.signatureData=signatureCanvas.toDataURL("image/png");r.signatureBy=session.name;r.signatureByEmployeeId=session.employeeId;r.signatureAt=now();r.closedAt=now();r.status="done";r.closedBy=session.name;
@@ -1859,21 +1866,21 @@ async function closeRequest(id){
  TOP_MANAGEMENT.forEach(m=>addNotification({recipientRole:m.role,recipientEmployeeId:m.employeeId,recipientName:m.name,requestId:r.id,title:"تم غلق طلب الحقن بنجاح",message:`${r.id} — تم إغلاق الطلب. تقرير الحقن والكميات الفعلية متاحان للمراجعة.${r.source==="فريق الحقن" && m.role==="sales_manager"?" صرف العهدة المستهلكة متاح للتسوية.":""}`,type:"completed"}));
  audit(`Closed request; actual batch=${r.actualBatchQty}; actual injected=${r.actualQty}; electronic signature captured; report saved; custody=${r.source==="فريق الحقن"?"pending":"not_applicable"}`,r);
  save();
- alert(`تم Close Request بنجاح.\nActual Batch = ${r.actualBatchQty}\nActual Injected = ${r.actualQty}\nتم تسجيل صورة التقرير والإمضاء الإلكتروني وتحديث الأرصدة.\n\nتم إرسال Notification للزميل الذي أنشأ الطلب ومدير الفريق الحالي ومدير البيع/القطاع.`);
+ appMessage(`تم Close Request بنجاح.\nActual Batch = ${r.actualBatchQty}\nActual Injected = ${r.actualQty}\nتم تسجيل صورة التقرير والإمضاء الإلكتروني وتحديث الأرصدة.\n\nتم إرسال Notification للزميل الذي أنشأ الطلب ومدير الفريق الحالي ومدير البيع/القطاع.`);
  tab="myJobs";render();
 }
 function engineerNameFilter(){return db.requests.filter(r=>r.status==="assigned"&&r.engineerId===session?.employeeId)}
 function viewCompletedRequest(id){
  const r=db.requests.find(x=>x.id===id);
- if(!r || r.status!=="done")return alert("التقرير غير متاح أو لم يتم إغلاق الطلب بعد.");
+ if(!r || r.status!=="done")return appMessage("التقرير غير متاح أو لم يتم إغلاق الطلب بعد.");
  closeNotificationPanel();
  const canView = session && (session.employeeId===r.createdByEmployeeId || session.employeeId===r.assignedByEmployeeId || session.employeeId===r.engineerEmployeeId || isTopManagementRole(session.role) || session.role==="company_manager" || session.role==="injection_manager" || session.role==="accounts");
- if(!canView)return alert("ليس لديك صلاحية عرض تقرير هذا الطلب.");
+ if(!canView)return appMessage("ليس لديك صلاحية عرض تقرير هذا الطلب.");
  document.getElementById("content").innerHTML=`<div class="section"><h2>Completed Request — ${esc(r.id)}</h2><span class="badge b-done">تم التنفيذ</span></div>
  <div class="two">
   <div class="card">
    <h3>بيانات الدفعة</h3>
-   <div class="row"><span>موعد الدفعة</span><b>${fmtDate(r.batchAt)}</b></div>
+   <div class="row"><span>موعد الدفعة</span><b>${fmtBatchDate(r.batchAt)}</b></div>
    <div class="row"><span>اسم العميل</span><b>${esc(r.customerName)}</b></div>
    <div class="row"><span>المنطقة</span><b>${esc(r.region)}</b></div>
    <div class="row"><span>المعمل</span><b>${esc(r.lab)}</b></div>
@@ -1898,11 +1905,11 @@ function viewCompletedRequest(id){
  <div class="actions"><button class="ghost" onclick="tab=session.role==='sales'?'requests':(session.role==='injection_manager'?'assigned':'home');render()">رجوع</button></div>`;
 }
 function downloadReportImage(id){
- const r=db.requests.find(x=>x.id===id);if(!r?.reportPhotoData)return alert("صورة التقرير غير محفوظة.");
+ const r=db.requests.find(x=>x.id===id);if(!r?.reportPhotoData)return appMessage("صورة التقرير غير محفوظة.");
  const a=document.createElement("a");a.href=r.reportPhotoData;a.download=`${r.id}_Injection_Report`;a.click();
 }
 function viewSignature(id){
- const r=db.requests.find(x=>x.id===id);if(!r?.signatureData)return alert("الإمضاء غير متاح.");
+ const r=db.requests.find(x=>x.id===id);if(!r?.signatureData)return appMessage("الإمضاء غير متاح.");
  document.getElementById("content").innerHTML=`<div class="card"><h2>Electronic Signature — ${esc(r.id)}</h2><p><b>Signed by:</b> ${esc(r.signatureBy)} — ${fmtDate(r.signatureAt)}</p><img class="report-preview" src="${r.signatureData}" alt="Electronic Signature"><div class="actions"><button class="ghost" onclick="viewCompletedRequest('${r.id}')">رجوع للتقرير</button></div></div>`;
 }
 let dailyFrom="", dailyTo="", dailyTeam="ALL";
@@ -1971,7 +1978,7 @@ function downloadCSV(){
 }
 function downloadDailyExcel(){
  const rows=exportDailyRows();
- if(typeof XLSX==='undefined'){ alert('Excel export library is not available. Please refresh the page and try again.'); return; }
+ if(typeof XLSX==='undefined'){ appMessage('Excel export library is not available. Please refresh the page and try again.'); return; }
  const teamName=dailyTeam==='ALL'?'All Teams':dailyTeam;
  const ws=XLSX.utils.aoa_to_sheet(rows);
  ws['!cols']=[{wch:24},{wch:30},{wch:24},{wch:24},{wch:20}];
@@ -2035,20 +2042,20 @@ function requestProgress(r){
  let idx={pending:0,approved:0,assigned:1,in_progress:2,done:3}[r.status]??-1;
  if(['postponed','not_executed'].includes(r.status))return badge(r.status)+`<span>${esc(r.statusReason||'')}</span>`;
  if(['approval','rejected','cancelled'].includes(r.status))return badge(r.status);
- return seq.map(([id,label],i)=>`<span class="${i<=idx?'passed':''}">${i<=idx?'✓':'○'} ${label}</span>`).join('');
+ return seq.map(([id,label],i)=>`<span class="stage-${id} ${i<=idx?'passed':''} ${i===idx?'current':''}" aria-label="${label}: ${i<idx?'مكتمل':i===idx?'المرحلة الحالية':'لم تبدأ'}">${i<=idx?'✓':'○'} ${label}</span>`).join('');
 }
 function openStatusUpdate(id){
- const r=db.requests.find(x=>x.id===id);if(!canUpdateRequest(r))return alert('لا تملك صلاحية تحديث هذا الطلب.');
+ const r=db.requests.find(x=>x.id===id);if(!canUpdateRequest(r))return appMessage('لا تملك صلاحية تحديث هذا الطلب.');
  document.getElementById('content').innerHTML=`<section class="request-form-card"><div class="form-section-title"><span>↻</span><div><b>تحديث حالة الدفعة</b><small>${esc(r.id)} • ${esc(r.customerName)}</small></div></div>
  <label>الحالة</label><select id="batchStatus" onchange="document.getElementById('newDateWrap').classList.toggle('hidden',this.value!=='postponed')"><option value="postponed">تأجيل الدفعة</option><option value="not_executed">لم تُنفذ الدفعة</option><option value="cancelled">إلغاء الدفعة</option></select>
- <label>السبب</label><textarea id="statusReason" placeholder="مثال: لم تصل الكتاكيت إلى المعمل"></textarea><div id="newDateWrap"><label>الموعد الجديد</label><input type="datetime-local" id="rescheduledAt"></div>
+ <label>السبب</label><textarea id="statusReason" placeholder="مثال: لم تصل الكتاكيت إلى المعمل"></textarea><div id="newDateWrap"><label>الموعد الجديد</label><input type="date" id="rescheduledAt"></div>
  <div class="alert">لن يتم خصم رصيد العميل أو تسجيل عهدة مستهلكة لهذه الحالة.</div><div class="actions"><button class="primary" onclick="saveStatusUpdate('${r.id}')">حفظ وإبلاغ المسؤولين</button><button class="ghost" onclick="render()">رجوع</button></div></section>`;
 }
 function saveStatusUpdate(id){
  const r=db.requests.find(x=>x.id===id);if(!canUpdateRequest(r))return;
  const status=document.getElementById('batchStatus').value,reason=document.getElementById('statusReason').value.trim(),date=document.getElementById('rescheduledAt').value;
- if(!['postponed','not_executed','cancelled'].includes(status)||!reason)return alert('أدخل سبب تحديث الحالة.');
- if(status==='postponed'&&!date)return alert('أدخل الموعد الجديد.');
+ if(!['postponed','not_executed','cancelled'].includes(status)||!reason)return appMessage('أدخل سبب تحديث الحالة.');
+ if(status==='postponed'&&!date)return appMessage('أدخل الموعد الجديد.');
  r.status=status;r.statusReason=reason;r.statusUpdatedAt=now();if(status==='postponed'){r.previousBatchAt=r.batchAt;r.batchAt=date;}
  if(status==='cancelled')r.cancelledAt=now();
  trackRequest(r,status,reason);notifyManagers(r,statusInfo(status)[0],'status');notifyRequester(r,statusInfo(status)[0]);
@@ -2070,8 +2077,8 @@ function saveInvoice(){
  if(!canAddInvoice())return;
  const c=db.customers.find(c=>c.id===document.getElementById('invoiceCustomer').value),number=document.getElementById('invoiceNumber').value.trim(),date=document.getElementById('invoiceDate').value;
  const items=PRODUCTS.map(p=>({productId:p.id,productName:p.name,qty:Number(document.getElementById('inv-'+p.id).value)})).filter(x=>x.qty!==0);
- if(!c||!customerIsVisible(c)||!number||!date||!items.length||items.some(i=>!Number.isSafeInteger(i.qty)||i.qty<=0))return alert('أكمل بيانات الفاتورة بكميات صحيحة موجبة.');
- if((db.invoices||[]).some(i=>i.number.trim().toLowerCase()===number.toLowerCase()))return alert('رقم الفاتورة مسجل بالفعل.');
+ if(!c||!customerIsVisible(c)||!number||!date||!items.length||items.some(i=>!Number.isSafeInteger(i.qty)||i.qty<=0))return appMessage('أكمل بيانات الفاتورة بكميات صحيحة موجبة.');
+ if((db.invoices||[]).some(i=>i.number.trim().toLowerCase()===number.toLowerCase()))return appMessage('رقم الفاتورة مسجل بالفعل.');
  const invoice={id:'INV-'+crypto.randomUUID(),number,date,customerId:c.id,customerName:c.name,region:c.region,items,createdBy:session.name,createdByEmployeeId:session.employeeId,createdAt:now()};
  items.forEach(i=>{const before=Number(c.balances[i.productId]||0);c.balances[i.productId]=before+i.qty;db.movements.push({date:now(),invoiceId:invoice.id,invoiceNumber:number,customer:c.name,customerCode:c.id,product:i.productName,change:i.qty,balanceBefore:before,balanceAfter:c.balances[i.productId]});});
  (db.invoices||=[]).push(invoice);audit('Added invoice '+number);save();render();
@@ -2091,7 +2098,7 @@ function custodyView(){
 function custodyExportRows(){return [['تاريخ التقرير','رقم الطلب','الفريق','العميل','المنطقة','المعمل','المهندس','المنتج','الكمية المطلوبة','المستهلك','حالة التسوية','تاريخ التسوية','اعتمد بواسطة'],...filteredCustodyRequests().flatMap(r=>(r.actualItems||[]).map(i=>[fmtDate(r.closedAt),r.id,r.injectionTeam,r.customerName,r.region,r.lab,r.engineerName,i.productName,i.requestedQty,i.actualQty,custodyStatus(r)==='settled'?'تمت التسوية':'معلقة',fmtDate(r.custodySettlement?.settledAt),r.custodySettlement?.settledBy||'']))]}
 function exportCustodyExcel(){
  if(!canSettleCustody())return;
- if(typeof XLSX==='undefined')return alert('تعذر تحميل مكتبة Excel. تأكد من اتصال الإنترنت وأعد المحاولة.');
+ if(typeof XLSX==='undefined')return appMessage('تعذر تحميل مكتبة Excel. تأكد من اتصال الإنترنت وأعد المحاولة.');
  const wb=XLSX.utils.book_new(),details=XLSX.utils.aoa_to_sheet(custodyExportRows());details['!cols']=Array(13).fill({wch:24});XLSX.utils.book_append_sheet(wb,details,'تفاصيل الاستهلاك');
  const summary=[['الفريق','المنتج','إجمالي المستهلك']];INJECTION_TEAMS.forEach(t=>PRODUCTS.forEach(p=>{let qty=filteredCustodyRequests().filter(r=>r.injectionTeam===t).reduce((s,r)=>s+(r.actualItems||[]).filter(i=>i.productId===p.id).reduce((n,i)=>n+Number(i.actualQty),0),0);if(qty)summary.push([t,p.name,qty])}));XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(summary),'ملخص الفرق والمنتجات');XLSX.writeFile(wb,'FortiMune-Custody-'+(custodyFrom||'all')+'-'+(custodyTo||'all')+'.xlsx');
 }
@@ -2106,6 +2113,21 @@ function bind(){
    updateBalanceBox();
  }
 }
+
+// v4.1: in-app feedback. Mutation wrappers buffer these until server commit.
+function messageTone(message){const m=String(message);if(/^(تم |تمت |تم\s*Close|تم\s*تعيين)/.test(m))return 'success';if(/انتظر|يلزم|أدخل|اكتب|أكمل|اختار|ضع |غير كاف|موافقة|بالفعل/.test(m))return 'warning';return 'error'}
+function appMessage(message,tone=messageTone(message)){
+ let host=document.getElementById('appMessages');if(!host){host=document.createElement('div');host.id='appMessages';host.className='app-messages';host.dir='rtl';document.body.appendChild(host)}
+ const node=document.createElement('div');node.className='app-message '+tone;node.setAttribute('role',tone==='error'?'alert':'status');node.innerHTML=`<span class="message-symbol" aria-hidden="true">${tone==='success'?'✓':tone==='warning'?'!':'×'}</span><span class="message-copy">${esc(message)}</span><button class="message-dismiss" aria-label="إغلاق الرسالة">×</button>`;node.querySelector('button').onclick=()=>node.remove();host.appendChild(node);while(host.children.length>4)host.firstElementChild.remove();if(tone==='success')setTimeout(()=>node.remove(),6500);
+}
+function appConfirm(message){return new Promise(resolve=>{
+ const previous=document.activeElement,overlay=document.createElement('div');overlay.className='app-confirm-overlay';overlay.dir='rtl';overlay.innerHTML=`<section class="app-confirm" role="dialog" aria-modal="true" aria-labelledby="appConfirmTitle"><h3 id="appConfirmTitle">تأكيد الإجراء</h3><p>${esc(message)}</p><div class="actions"><button class="primary" data-answer="yes">تأكيد</button><button class="ghost" data-answer="no">إلغاء</button></div></section>`;
+ const finish=answer=>{document.removeEventListener('keydown',key);overlay.remove();previous?.focus();resolve(answer)};
+ const key=event=>{if(event.key==='Escape'){event.preventDefault();finish(false)}if(event.key==='Tab'){const buttons=[...overlay.querySelectorAll('button')];const next=event.shiftKey?buttons[0]:buttons[1];if(document.activeElement===next){event.preventDefault();(event.shiftKey?buttons[1]:buttons[0]).focus()}}};
+ overlay.querySelector('[data-answer="yes"]').onclick=()=>finish(true);overlay.querySelector('[data-answer="no"]').onclick=()=>finish(false);overlay.onclick=e=>{if(e.target===overlay)finish(false)};document.addEventListener('keydown',key);document.body.appendChild(overlay);overlay.querySelector('[data-answer="no"]').focus();
+})}
+function notificationType(n){return n.type||(/يحتاج.*موافق|موافقتك/.test(n.title||'')?'approval':'regular')}
+function fmtBatchDate(value){if(!value)return '—';const date=String(value).slice(0,10);if(/^\d{4}-\d{2}-\d{2}$/.test(date)){const [y,m,d]=date.split('-');return `${d}/${m}/${y}`}return '—'}
 // Shared operations are committed atomically by Supabase, never by uploading a client snapshot.
 let cloudReady=false,cloudBusy=false,cloudTimer=null,cloudRevision=0;
 const localSave=save;
@@ -2117,10 +2139,10 @@ async function connectSharedWorkflow(){
  try{await fetchCloudState();render();cloudTimer=setInterval(async()=>{if(!session||cloudBusy)return;try{const before=cloudRevision;await fetchCloudState();if(before!==cloudRevision&&document.querySelector('#content .request-mobile-list, #content .request-desktop-table, #content > .services-page')&&!document.querySelector('#content input, #content textarea'))render();}catch(e){cloudReady=false;cloudStatus('تعذر تحديث البيانات المشتركة. أعد الاتصال قبل الحفظ.');}},8000);}
  catch(e){cloudStatus(e.message==='NOT_INITIALIZED'?'البيانات المشتركة لم تُهيأ بعد. سيد أبو شال يمكنه تهيئتها من النسخة الحالية.':'يلزم تنفيذ ملف إعداد Supabase المرفق لتفعيل الطلبات والإشعارات المشتركة.');if(canSettleCustody()&&e.message==='NOT_INITIALIZED'){const b=document.createElement('button');b.textContent='تهيئة البيانات المشتركة من بيانات هذا الجهاز';b.className='primary';b.onclick=initializeSharedWorkflow;document.getElementById('sharedStatus').append(document.createElement('br'),b);}else{const b=document.createElement('button');b.className='ghost';b.textContent='إعادة الاتصال';b.onclick=connectSharedWorkflow;document.getElementById('sharedStatus').append(document.createElement('br'),b);}}
 }
-async function initializeSharedWorkflow(){if(!canSettleCustody()||cloudBusy)return;if(!confirm('سيتم استخدام البيانات الحالية على هذا الجهاز كنقطة البداية المشتركة لكل الحسابات. راجع أرصدة العملاء والطلبات أولًا. هذه العملية متاحة مرة واحدة فقط.'))return;cloudBusy=true;try{const {data,error}=await fortimuneSupabase.rpc('fortimune_v4_action',{operation:'initialize',payload:{state:db}});if(error)throw error;applyCloudState(data);await connectSharedWorkflow();}catch(e){alert('لم تتم التهيئة: '+e.message)}finally{cloudBusy=false}}
+async function initializeSharedWorkflow(){if(!canSettleCustody()||cloudBusy)return;if(!await appConfirm('سيتم استخدام البيانات الحالية على هذا الجهاز كنقطة البداية المشتركة لكل الحسابات. راجع أرصدة العملاء والطلبات أولًا. هذه العملية متاحة مرة واحدة فقط.'))return;cloudBusy=true;try{const {data,error}=await fortimuneSupabase.rpc('fortimune_v4_action',{operation:'initialize',payload:{state:db}});if(error)throw error;applyCloudState(data);await connectSharedWorkflow();}catch(e){appMessage('لم تتم التهيئة: '+e.message)}finally{cloudBusy=false}}
 const originalRender=render;render=function(){originalRender();if(session&&!cloudReady)cloudStatus('البيانات المشتركة غير متصلة؛ الحفظ متوقف لحين تفعيل الاتصال.');};
 const originalProfileLoad=loadProductionProfile;loadProductionProfile=async function(user){const profile=await originalProfileLoad(user);setTimeout(()=>{if(session?.authUserId===profile.authUserId)connectSharedWorkflow();},150);return profile;};
-const originalLogout=logout;logout=async function(){if(cloudBusy)return alert('انتظر انتهاء حفظ العملية.');clearInterval(cloudTimer);cloudReady=false;await originalLogout();};
+const originalLogout=logout;logout=async function(){if(cloudBusy)return appMessage('انتظر انتهاء حفظ العملية.');clearInterval(cloudTimer);cloudReady=false;await originalLogout();};
 function changePayload(operation,id,before){
  if(operation==='create'){const old=new Set(before.requests.map(r=>r.id));return db.requests.find(r=>!old.has(r.id));}
  if(operation==='invoice'){const old=new Set((before.invoices||[]).map(i=>i.id));return db.invoices.find(i=>!old.has(i.id));}
@@ -2129,23 +2151,23 @@ function changePayload(operation,id,before){
 }
 function wrapSharedMutation(name,operation){const original=window[name];window[name]=async function(...args){
  if(cloudBusy)return;
- if(!cloudReady||!session?.authUserId)return alert('يلزم الاتصال بالبيانات المشتركة قبل حفظ العملية.');
- cloudBusy=true;const originalAlert=window.alert,originalSave=save;let messages=[],before;
+ if(!cloudReady||!session?.authUserId)return appMessage('يلزم الاتصال بالبيانات المشتركة قبل حفظ العملية.');
+ cloudBusy=true;const originalAlert=window.appMessage,originalSave=save,originalResult=showRequestResult;let messages=[],before;
  try{
  await fetchCloudState();before=structuredClone(db);const beforeText=JSON.stringify(db);
- window.alert=m=>messages.push(m);save=()=>{};render=()=>{};
+ window.appMessage=m=>messages.push(m);save=()=>{};render=()=>{};showRequestResult=()=>{};
  await original(...args);
  const changed=JSON.stringify(db)!==beforeText,payload=changePayload(operation,args[0],before);
- window.alert=originalAlert;save=originalSave;render=originalRender;
- if(!changed||!payload){db=before;messages.forEach(originalAlert);return;}
+ window.appMessage=originalAlert;save=originalSave;render=originalRender;showRequestResult=originalResult;
+ if(!changed||!payload){db=before;messages.forEach(m=>originalAlert(m));return;}
  db=before;
  const {data,error}=await fortimuneSupabase.rpc('fortimune_v4_action',{operation,payload});if(error)throw error;
  applyCloudState(data);if(!['start','mark_read'].includes(operation))originalRender();cloudStatus('تم الحفظ والمزامنة بنجاح',true);
  if(operation==='create'){document.querySelectorAll('.fortimune-result-overlay').forEach(e=>e.remove());const created=db.requests.find(r=>r.id===payload.id);showRequestResult(created?.status==='approval');}
  if(operation==='mark_read')renderNotifications();
- messages.filter(m=>!String(m).includes('غير')).forEach(originalAlert);
+ messages.forEach(m=>originalAlert(m));
  }catch(e){document.querySelectorAll('.fortimune-result-overlay').forEach(e=>e.remove());if(before)db=before;originalAlert('لم يتم حفظ العملية: '+e.message);if(before)localSave();}
- finally{window.alert=originalAlert;save=originalSave;render=originalRender;cloudBusy=false;}
+ finally{window.appMessage=originalAlert;save=originalSave;render=originalRender;showRequestResult=originalResult;cloudBusy=false;}
 };}
 [['createRequest','create'],['approveRequest','approve'],['rejectRequest','reject'],['assignRequest','assign'],['openClose','start'],['closeRequest','close'],['saveStatusUpdate','status'],['saveInvoice','invoice'],['settleCustody','settle'],['markNotificationRead','mark_read'],['markAllNotificationsRead','mark_read']].forEach(([name,op])=>wrapSharedMutation(name,op));
 
