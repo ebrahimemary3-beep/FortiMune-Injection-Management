@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
-<title>FortiMune | Injection Management v3.8 Notifications</title>
+<title>FortiMune | Injection Management v4.0 Workflow</title>
 <style>
 :root{--blue:#056db7;--blue2:#0b4e80;--green:#119b5a;--orange:#ed7100;--red:#c93434;--purple:#6846c2;--bg:#f3f6f9;--card:#fff;--line:#dce5ec;--text:#17324d;--muted:#6d7d8b;--shadow:0 8px 24px #17324d12}
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Tahoma,sans-serif;background:var(--bg);color:var(--text)}
@@ -670,7 +670,7 @@ button:focus-visible{outline:3px solid #64b5e6;outline-offset:3px}
 @media(max-width:600px){.notification-panel{right:max(8px,env(safe-area-inset-right))!important;left:max(8px,env(safe-area-inset-left))!important;width:auto!important}.notification-heading{padding:16px}.notification-list{max-height:calc(100dvh - 245px - env(safe-area-inset-top) - env(safe-area-inset-bottom))}}
 @media(prefers-reduced-motion:reduce){.notification-panel{animation:none}.notify-btn{transition:none}}
 </style>
-</head>
+<style>.request-progress{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0;font-size:11px}.request-progress span{padding:7px 9px;border-radius:8px;background:#f1f4f7;color:#7b8a98}.request-progress .passed{background:#e1f5ed;color:#087744}.invoice-record{margin:12px 0}.mobile-request-action{display:flex;gap:8px;flex-wrap:wrap}</style></head>
 <body>
 <div id="login" class="login">
   <img src="fortimune-logo.png" alt="FortiMune" onerror="this.style.display='none';this.parentElement.classList.add('brand-fallback')">
@@ -734,7 +734,7 @@ button:focus-visible{outline:3px solid #64b5e6;outline-offset:3px}
 <script>
 /* FortiMune v2.8 Production Supabase Runtime */
 const FORTIMUNE_SUPABASE_URL = "https://wysthgotuzqqidsxyobw.supabase.co";
-const FORTIMUNE_SUPABASE_PUBLISHABLE_KEY = "sb_publishable_OcrZKZ_wXEpnypKNGA_gCA_BULRAoUC";
+let FORTIMUNE_SUPABASE_PUBLISHABLE_KEY = "sb_publishable_OcrZKZ_wXEpnypKNGA_gCA_BULRAoUC";
 let FORTIMUNE_AUTH_ENABLED = false;
 let fortimuneSupabase = null;
 function setConnectionStatus(ok,msg){const el=document.getElementById("connectionStatus");if(!el)return;el.innerHTML=`<span class="status-dot ${ok?'ok':'off'}"></span> ${esc(msg)}`;}
@@ -775,10 +775,10 @@ const SOURCES=["الشركة","فريق الحقن","المعمل"];
 const LABS=["المعمل الرئيسي","معمل القاهرة","معمل الصعيد","معمل الشرقية","معمل الدلتا"];
 const INJECTION_TEAM_MANAGER="م. أشرف مصطفى";
 const ENGINEERS=[
- {id:"EMP-018",name:"م. أشرف مصطفى",englishName:"Ashraf Mostafa",email:"ashraf.mostafa@ift-online.com",regions:REGIONS},
- {id:"EMP-019",name:"م. عطية محمد",englishName:"Atia Mohamed",email:"atia.mohamed@ift-online.com",regions:REGIONS},
- {id:"EMP-020",name:"م. حسام السواح",englishName:"Hossam El Sawah",email:"hossam.sawah@ift-online.com",regions:REGIONS},
- {id:"EMP-021",name:"م. محمود الجوهري",englishName:"Mahmoud El Gohary",email:"mahmoud.elgohary@ift-online.com",regions:REGIONS}
+ {id:"EMP-024",name:"م. أشرف مصطفى",englishName:"Ashraf Mostafa",email:"ashraf.mostafa@ift-online.com",regions:REGIONS},
+ {id:"EMP-025",name:"م. عطية محمد",englishName:"Atia Mohamed",email:"atia.mohamed@ift-online.com",regions:REGIONS},
+ {id:"EMP-026",name:"م. حسام السواح",englishName:"Hossam El Sawah",email:"hossam.sawah@ift-online.com",regions:REGIONS},
+ {id:"EMP-027",name:"م. محمود الجوهري",englishName:"Mahmoud El Gohary",email:"mahmoud.elgohary@ift-online.com",regions:REGIONS}
 ];
 
 const DEFAULT={"customers":[{"id":"CUST-001","name":"زينهم لبيع الادوية واللقاحات","region":"القاهرة","balances":{"p1":150,"p2":60,"p3":40,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-002","name":"المصرية لتجارة وتوزيع الادوية","region":"القاهرة","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-003","name":"اورجانيكس للدواجن","region":"القاهرة","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-004","name":"الحرمين للدواجن -خالد حمزه","region":"القاهرة","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-005","name":"ليبتون للتجارة والانتاج الداجني","region":"القاهرة","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-006","name":"الباسم لتجارة الادوية","region":"القاهرة","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-007","name":"صحاري للامن الغذائي","region":"القاهرة","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-008","name":"اسيوط لتنمية الثروة الحيوانية","region":"الصعيد","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-009","name":"مصطفي حسب الله","region":"الصعيد","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-010","name":"خالد عبد الحميد ابراهيم","region":"الصعيد","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-011","name":"البدري ضيف","region":"الصعيد","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-012","name":"الجمعية التعاونية لتنمية الثروة الحيوانية","region":"الصعيد","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-013","name":"شعبان خلف عبد العليم","region":"الصعيد","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-014","name":"منتصر هاشم","region":"الصعيد","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-015","name":"مصطفي سعودي","region":"الصعيد","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-016","name":"جلوفارم","region":"الصعيد","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-017","name":"مايكل زكريا","region":"الصعيد","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-018","name":"ياسر فاروق ابو السعود","region":"الصعيد","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-019","name":"باسم جورجي بلال","region":"الصعيد","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-020","name":"احمد عبد الفتاح هاشم","region":"الصعيد","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-021","name":"محمد عبد الخالق فراج","region":"الصعيد","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-022","name":"عيون رجب شبيب","region":"الصعيد","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-023","name":"محمد محمد علي شحاته","region":"الصعيد","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-024","name":"محمد احمد خلف عبد اللاه","region":"الصعيد","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-025","name":"سلامة البربري","region":"القليوبية والمنوفية","balances":{"p1":100,"p2":10,"p3":50,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-026","name":"ماهر نصير","region":"القليوبية والمنوفية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-027","name":"وليد المحمدي نصير","region":"القليوبية والمنوفية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-028","name":"عبد المولي السماوي","region":"القليوبية والمنوفية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-029","name":"محمد علي البنا","region":"القليوبية والمنوفية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-030","name":"هاني السقا - اليسر للدواجن","region":"القليوبية والمنوفية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-031","name":"الصغير للانتاج الداجني","region":"القليوبية والمنوفية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-032","name":"الندي لتجارة وتوزيع الاعلاف","region":"القليوبية والمنوفية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-033","name":"النور لتجارة الاعلاف","region":"القليوبية والمنوفية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-034","name":"مكة لتربية الدواجن","region":"القليوبية والمنوفية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-035","name":"علام خفاجي","region":"الغربية وكفر الشيخ","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-036","name":"فارما وورلد","region":"الغربية وكفر الشيخ","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-037","name":"البركة لتجارة الأدوية البيطرية","region":"الغربية وكفر الشيخ","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-038","name":"العلمين الجديدة للتنمية","region":"الغربية وكفر الشيخ","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-039","name":"محمود عفان","region":"الغربية وكفر الشيخ","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-040","name":"عبد الله محمود شلبي","region":"اسكندرية والبحيرة","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-041","name":"احمد فايز","region":"اسكندرية والبحيرة","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-042","name":"بروتك","region":"اسكندرية والبحيرة","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-043","name":"مصر جانبانغ للدواجن","region":"اسكندرية والبحيرة","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-044","name":"محمد حسن ابو عيسي","region":"اسكندرية والبحيرة","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-045","name":"رمضان عبد الاه","region":"اسكندرية والبحيرة","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-046","name":"عبد السلام عبد الفتاح","region":"اسكندرية والبحيرة","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-047","name":"رمضان عبد القادر بسيوني","region":"اسكندرية والبحيرة","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-048","name":"معتز محمود رحيم","region":"اسكندرية والبحيرة","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-049","name":"فاكسي ميون","region":"الدقهلية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-050","name":"الجمعية الاسلامية","region":"الدقهلية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-051","name":"حمام حامد ابراهيم","region":"الدقهلية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-052","name":"فاطمة انيس غازي","region":"الدقهلية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-053","name":"ستار فيد","region":"الدقهلية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-054","name":"عبد المنعم علي","region":"الدقهلية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-055","name":"العاشر للدواجن والاعلاف","region":"الشرقية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-056","name":"السعيد محمد احمد","region":"الشرقية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-057","name":"النعيم لتنمية الثروة الحيوانية","region":"الشرقية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-058","name":"دواجن ايجيبت","region":"الشرقية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-059","name":"العالمية المتحدة للادوية البيطرية","region":"الشرقية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-060","name":"الشروق لتجارة الادوية البيطرية","region":"الشرقية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-061","name":"الابرار للدواجن","region":"الشرقية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-062","name":"المنصورة للدواجن","region":"الشرقية","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-063","name":"شعبان احمد عبد الفتاح مفتاح","region":"الفيوم","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-064","name":"محمود جمال عبد الستار","region":"الفيوم","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-065","name":"الفيوم للدواجن","region":"الفيوم","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-066","name":"حسن شعبان رمضان","region":"الفيوم","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-067","name":"حمدي محمد ذكي","region":"الفيوم","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-068","name":"شعبان مفتاح","region":"الفيوم","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-069","name":"احمد عبد الرحمن امام ابراهيم","region":"الفيوم","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},{"id":"CUST-070","name":"ريفكو للاستيراد والتصدير","region":"الفيوم","balances":{"p1":0,"p2":0,"p3":0,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}}],"requests":[],"movements":[],"audit":[],"notifications":[],"teamBalances":{"فريق حقن بسنديلة":{"p1":100,"p2":50,"p3":20,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0},"فريق حقن المقدام":{"p1":100,"p2":50,"p3":20,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0},"فريق حقن الصحراوي":{"p1":100,"p2":50,"p3":20,"p4":0,"p5":0,"p6":0,"p7":0,"p8":0,"p9":0}},"custodyTransactions":[],"usersMaster":[{"employeeId":"EMP-001","name":"Ahmed Mansour","email":"Ahmed.mansour@ift-online.com","primaryRole":"User","title":"Territory Manager","areaIds":["CAI","UPP","FAY"],"active":true},{"employeeId":"EMP-015","name":"Sayed Abo Shal","email":"Sayed.mohamed@ift-online.com","primaryRole":"Admin","title":"Sales Manager","adminLevel":"Full Admin","accessScope":"ALL","active":true},{"employeeId":"EMP-016","name":"Mohamed Khedr","email":"","primaryRole":"Admin","title":"Product Manager","adminLevel":"Full Admin","accessScope":"ALL","active":true},{"employeeId":"EMP-017","name":"Walid Abdelaal","email":"","primaryRole":"Admin","title":"Executive Manager","adminLevel":"Full Admin","accessScope":"ALL","active":true},{"employeeId":"EMP-024","name":"Ashraf Mostafa","email":"Ashraf.mostafa@ift-online.com","primaryRole":"Injection Team Manager","additionalRole":"Injection Engineer","adminLevel":"Mini Admin","accessScope":"Injection Management","active":true},{"employeeId":"EMP-025","name":"Atia Mohamed","email":"atia.mohamed@ift-online.com","primaryRole":"Injection Engineer","title":"Injection Engineer","active":true},{"employeeId":"EMP-026","name":"Hossam El Sawah","email":"hossam.sawah@ift-online.com","primaryRole":"Injection Engineer","title":"Injection Engineer","active":true},{"employeeId":"EMP-027","name":"Mahmoud El Gohary","email":"mahmoud.elgohary@ift-online.com","primaryRole":"Injection Engineer","title":"Injection Engineer","active":true}]};
@@ -794,8 +794,8 @@ function currentNotifications(){
  return session ? db.notifications.filter(n=>{
    if(n.recipientEmployeeId && n.recipientEmployeeId===session.employeeId)return true;
    if(n.recipientEmail && normalizeEmail(n.recipientEmail)===normalizeEmail(session.email))return true;
-   if(n.recipientName && n.recipientName===session.name)return true;
-   if(n.recipientRole && n.recipientRole===session.role)return true;
+   if(!n.recipientEmployeeId&&!n.recipientEmail&&n.recipientName && n.recipientName===session.name)return true;
+   if(!n.recipientEmployeeId&&!n.recipientEmail&&n.recipientRole && n.recipientRole===session.role)return true;
    return false;
  }) : [];
 }
@@ -815,8 +815,9 @@ function updateNotificationBadge(){
 function notificationAction(n){
  const r=n?.requestId?db.requests.find(x=>x.id===n.requestId):null;
  if(!r)return "";
- if(r.status==="assigned" && session?.engineerId && (r.engineerId===session.engineerId || r.engineerEmployeeId===session.employeeId))
+ if(["assigned","in_progress","postponed","not_executed"].includes(r.status) && session?.engineerId && (r.engineerId===session.engineerId || r.engineerEmployeeId===session.employeeId))
    return `<button class="primary" onclick="markNotificationRead('${n.id}');closeNotificationPanel();openEngineerRequest('${n.requestId}')">View Request</button>`;
+ if(r.status==="approval"&&canSettleCustody())return `<button class="primary" onclick="markNotificationRead('${n.id}');closeNotificationPanel();tab='approvals';render()">مراجعة الموافقة</button>`;
  if(r.status==="done")
    return `<button class="primary" onclick="markNotificationRead('${n.id}');closeNotificationPanel();viewCompletedRequest('${n.requestId}')">View Report</button>`;
  if(session?.role==="injection_manager" && ["pending","approved"].includes(r.status))
@@ -868,12 +869,12 @@ window.addEventListener("storage",e=>{
 function save(){localStorage.setItem("fortimuneAppV15TEST",JSON.stringify(db))}
 
 const TOP_MANAGEMENT=[
- {role:"sales_manager",name:"Sayed Abo Shal",title:"Sales Manager"},
- {role:"product_manager",name:"Mohamed Khedr",title:"Product Manager"},
- {role:"executive_manager",name:"Walid Abdelaal",title:"Executive Manager"}
+ {employeeId:"EMP-015",role:"sales_manager",name:"Sayed Abo Shal",title:"National Sales Manager"},
+ {employeeId:"EMP-016",role:"product_manager",name:"Mohamed Khedr",title:"Product Manager"},
+ {employeeId:"EMP-017",role:"executive_manager",name:"Walid Abdelaal",title:"Executive Manager"}
 ];
 function isTopManagementRole(role){return ["sales_manager","product_manager","executive_manager"].includes(role)}
-function canSettleCustody(){return session?.employeeId==="EMP-015"}
+function canSettleCustody(){return session?.role==="sales_manager" && session?.employeeId==="EMP-015"}
 function teamBalance(team,productId){
  const row=db.teamBalances[team]||{};
  return Number(row[productId]||0);
@@ -887,7 +888,7 @@ function addCustodyPending(r){
  r.custodySettlement={status:"pending",team:r.injectionTeam,createdAt:now(),items};
  db.custodyTransactions.push({id:"CUST-"+Date.now(),requestId:r.id,team:r.injectionTeam,status:"pending",items,createdAt:now()});
 }
-function topManagementUsers(){return TOP_MANAGEMENT.filter(m=>m.role==="sales_manager")}
+function topManagementUsers(){return TOP_MANAGEMENT}
 function custodyPendingRequests(){
  return db.requests.filter(r=>r.status==="done" && r.source==="فريق الحقن" && custodyStatus(r)==="pending");
 }
@@ -914,7 +915,7 @@ function settleCustody(id){
  alert("تم صرف العهدة المستهلكة واعتماد الخصم من رصيد فريق الحقن.");
  render();
 }
-function custodyView(){
+function legacyCustodyView(){
  const pending=custodyPendingRequests();
  const settled=db.requests.filter(r=>r.status==="done"&&r.source==="فريق الحقن"&&custodyStatus(r)==="settled");
  const teamRows=INJECTION_TEAMS.map(t=>`<div class="card"><h3>${esc(t)}</h3>${PRODUCTS.map(p=>`<div class="row"><span>${esc(p.name)}</span><b>${teamBalance(t,p.id)}</b></div>`).join("")}</div>`).join("");
@@ -929,9 +930,9 @@ function custodyView(){
 function now(){return new Date().toISOString()}
 function fmtDate(x){return x?new Date(x).toLocaleString("en-GB",{dateStyle:"short",timeStyle:"short"}):"—"}
 function esc(x){return String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-function roleName(r){return {sales:"Medical Representative / Area Responsible",sales_manager:"Sales Manager",product_manager:"Product Manager",executive_manager:"Executive Manager",company_manager:"Company / Sector Manager",injection_manager:"Injection Team Manager",engineer:"Injection Engineer",accounts:"Accounts"}[r]}
+function roleName(r){return {sales:"Medical Representative / Area Responsible",sales_manager:"National Sales Manager",product_manager:"Product Manager",executive_manager:"Executive Manager",company_manager:"Company / Sector Manager",injection_manager:"Injection Team Manager",engineer:"Injection Engineer",accounts:"Accounts"}[r]}
 function statusInfo(s){
- return {new:["جديد","b-new"],approval:["Approval مطلوب","b-approval"],approved:["Approved","b-new"],pending:["قيد المراجعة","b-pending"],assigned:["تم التوزيع","b-assigned"],done:["تم التنفيذ","b-done"],rejected:["مرفوض","b-reject"]}[s]||[s,"b-new"]
+ return {in_progress:["قيد التنفيذ","b-pending"],postponed:["مؤجلة","b-approval"],not_executed:["لم تُنفذ","b-reject"],cancelled:["ملغاة","b-reject"],new:["جديد","b-new"],approval:["Approval مطلوب","b-approval"],approved:["Approved","b-new"],pending:["جاهز للتوزيع","b-pending"],assigned:["تم التوزيع","b-assigned"],done:["تم الحقن","b-done"],rejected:["مرفوض","b-reject"]}[s]||[s,"b-new"]
 }
 function badge(s){let x=statusInfo(s);return `<span class="badge ${x[1]}">${x[0]}</span>`}
 function audit(action,r){db.audit.push({time:now(),user:session?.name||"System",action,requestId:r?.id||""})}
@@ -1054,7 +1055,7 @@ function appRoleFromProfile(profile){
  }
  if(r==="injection_manager") return "injection_manager";
  if(r==="engineer") return "engineer";
- if(r==="sales_manager") return "sales_manager";
+ if(["sales_manager","product_manager","executive_manager"].includes(r)) return r;
  if(r==="sales_rep") return "sales";
  return "sales";
 }
@@ -1186,8 +1187,13 @@ function tabsForRole(){
  if(session.role==="injection_manager")a.push(["inbox","الواردة"],["assigned","المتابعة"],["services","الخدمات"]);
  if(session.role==="injection_manager" && hasEngineerAccess())a.push(["myJobs","مهامي"]);
  if(session.role==="accounts")a.push(["services","الخدمات"],["balances","الأرصدة"]);
+ if(session.role==="sales"||isTopManagementRole(session.role))a.push(["invoices","إضافة فاتورة"]);
+ if(isTopManagementRole(session.role))a.push(["newRequest","طلب جديد"]);
+ if(canSettleCustody())a.push(["approvals","الموافقات"],["custody","العهدة المستهلكة"]);
+ if(isTopManagementRole(session.role)||session.role==="injection_manager")a.push(["daily","التقرير اليومي"]);
  return a;
 }
+function primaryTabsForRole(){return tabsForRole().filter(([id])=>!["invoices","approvals","custody","daily"].includes(id)&&!(id==="newRequest"&&isTopManagementRole(session.role)));}
 function tabIcon(id){
  const m={home:"⌂",newRequest:"＋",requests:"☷",services:"✦",balances:"◉",approvals:"✓",custody:"▣",daily:"▥",audit:"◈",inbox:"↓",assigned:"☷",myJobs:"✚"};
  return m[id]||"•";
@@ -1195,7 +1201,7 @@ function tabIcon(id){
 function render(){
  const allowed=tabsForRole().map(x=>x[0]);
  if(!allowed.includes(tab)) tab=allowed[0];
- document.getElementById("tabs").innerHTML=tabsForRole().map(([id,n])=>{const navCount=(id==="inbox"&&session?.role==="injection_manager")?db.requests.filter(r=>["pending","approved"].includes(r.status)).length:0;return `<button class="tab ${tab===id?"active":""}" onclick="tab='${id}';render()"><span class="tab-icon">${tabIcon(id)}${navCount?`<i class="nav-count">${navCount}</i>`:""}</span><span class="tab-label">${n}</span></button>`}).join("");
+ document.getElementById("tabs").innerHTML=primaryTabsForRole().map(([id,n])=>{const navCount=(id==="inbox"&&session?.role==="injection_manager")?db.requests.filter(r=>["pending","approved"].includes(r.status)).length:0;return `<button class="tab ${(tab===id||(id==="services"&&!["home","newRequest","requests","balances","inbox","assigned","myJobs"].includes(tab)))?"active":""}" onclick="tab='${id}';render()"><span class="tab-icon">${tabIcon(id)}${navCount?`<i class="nav-count">${navCount}</i>`:""}</span><span class="tab-label">${n}</span></button>`}).join("");
  document.getElementById("content").innerHTML=(VIEWS[tab]||VIEWS.home)();
  bind();
  updateNotificationBadge();
@@ -1208,7 +1214,7 @@ function requestItems(r){
 }
 function getReserved(customerId,productId,excludeId=null){
  return db.requests
-   .filter(r=>r.customerId===customerId&&r.id!==excludeId&&["new","approval","approved","pending","assigned"].includes(r.status))
+   .filter(r=>r.customerId===customerId&&r.id!==excludeId&&["new","approval","approved","pending","assigned","in_progress","postponed","not_executed"].includes(r.status))
    .reduce((sum,r)=>sum+requestItems(r).filter(i=>i.productId===productId).reduce((a,i)=>a+Number(i.requestedQty||0),0),0);
 }
 function itemSummary(r,field="requestedQty"){
@@ -1239,17 +1245,17 @@ function requestTable(arr,actionMode=""){
        ${r.injectionTeam?`<span><small>الفريق</small><b>${esc(r.injectionTeam)}</b></span>`:""}
        ${r.engineerName?`<span><small>المهندس</small><b>${esc(r.engineerName)}</b></span>`:""}
      </div>`:""}
-     <div class="mobile-request-action">${actionFor(r,actionMode)}</div>
+     <div class="request-progress">${requestProgress(r)}</div>${r.managerNotes?`<p class="muted">${esc(r.managerNotes)}</p>`:""}<div class="mobile-request-action">${actionFor(r,actionMode)} ${canUpdateRequest(r)?`<button class="ghost" onclick="openStatusUpdate('${r.id}')">تحديث الحالة</button>`:""}</div>
    </article>`).join("");
  return `<div class="request-desktop-table"><div style="overflow:auto"><table><thead><tr><th>Request</th><th>موعد الدفعة</th><th>العميل</th><th>المنطقة</th><th>المعمل</th><th>المنتجات</th><th>الكميات المطلوبة</th><th>Actual</th><th>المصدر</th><th>الفريق</th><th>المهندس</th><th>الحالة</th><th>Action</th></tr></thead><tbody>${rows}</tbody></table></div></div>
  <div class="request-mobile-list">${cards}</div>`;
 }
 function actionFor(r,mode){
  if(mode==="approval"&&r.status==="approval")return `<button class="green" onclick="approveRequest('${r.id}')">Approve</button> <button class="red" onclick="rejectRequest('${r.id}')">Reject</button>`;
- if(mode==="inbox"&&["pending","approved"].includes(r.status))return `<button class="green" onclick="openAssign('${r.id}')">مراجعة وتوزيع</button>`;
- if(mode==="jobs"&&r.status==="assigned")return `<button class="orange" onclick="openClose('${r.id}')">Close Request</button>`;
+ if(mode==="inbox"&&["pending","approved","postponed","not_executed"].includes(r.status))return `<button class="green" onclick="openAssign('${r.id}')">مراجعة وتوزيع</button>`;
+ if(mode==="jobs"&&["assigned","in_progress"].includes(r.status))return `<button class="orange" onclick="openClose('${r.id}')">Close Request</button>`;
  if(r.status==="done" && session && (session.role==="injection_manager"||session.role==="company_manager"||session.role==="accounts"||isTopManagementRole(session.role)||session.employeeId===r.createdByEmployeeId||session.employeeId===r.assignedByEmployeeId||session.employeeId===r.engineerEmployeeId))return `<button class="green" onclick="viewCompletedRequest('${r.id}')">View Report</button>`;
- return "—";
+ return canUpdateRequest(r)?`<button class="ghost" onclick="openStatusUpdate('${r.id}')">تحديث حالة الدفعة</button>`:"—";
 }
 let balanceAreaFilter="ALL";
 let balanceViewMode="area";
@@ -1489,7 +1495,7 @@ function homeView(){
   ${isTopManagementRole(session?.role)?topManagementBalanceInsights():""}`;
 }
 function engineerAssignedRequests(){
- return db.requests.filter(r=>r.status==="assigned" && session?.employeeId && r.engineerId===session.employeeId);
+ return db.requests.filter(r=>["assigned","in_progress","postponed","not_executed"].includes(r.status) && session?.employeeId && r.engineerId===session.employeeId);
 }
 function engineerJobsView(){
  const mine=engineerAssignedRequests();
@@ -1508,7 +1514,7 @@ function engineerJobsView(){
 }
 function openEngineerRequest(id){
  const r=db.requests.find(x=>x.id===id);
- if(!r || r.status!=="assigned" || r.engineerId!==session.employeeId) return alert("الطلب غير متاح لهذا المهندس.");
+ if(!r || !["assigned","in_progress","postponed","not_executed"].includes(r.status) || !isAssignedEngineer(r)) return alert("الطلب غير متاح لهذا المهندس.");
  document.getElementById("content").innerHTML=`<div class="section"><h2>تفاصيل الدفعة — ${esc(r.id)}</h2><span class="badge b-assigned">موجهة إليك</span></div>
  <div class="two">
    <div class="card">
@@ -1524,7 +1530,7 @@ function openEngineerRequest(id){
      <h3>المنتجات والكميات المطلوبة</h3>
      ${requestItems(r).map(i=>`<div class="row" style="padding:10px 0;border-bottom:1px solid var(--line)"><span>${esc(i.productName)}</span><b>${i.requestedQty} أمبول</b></div>`).join("")}
      <div class="alert">هذه الشاشة لا تعرض Customer Balance Code أو رصيد العميل أو أي بيانات مالية.</div>
-     <div class="actions"><button class="orange" onclick="openClose('${r.id}')">بدء Close Request</button><button class="ghost" onclick="tab='myJobs';render()">رجوع للطلبات</button></div>
+     <div class="actions">${["assigned","in_progress"].includes(r.status)?`<button class="orange" onclick="openClose('${r.id}')">تنفيذ وإغلاق الطلب</button>`:""}<button class="ghost" onclick="openStatusUpdate('${r.id}')">تحديث حالة الدفعة</button><button class="ghost" onclick="tab='myJobs';render()">رجوع للطلبات</button></div>
    </div>
  </div>`;
 }
@@ -1544,7 +1550,7 @@ function newRequestView(){
      </div>
      <div class="assigned-scope-chip">
        <span>📍</span>
-       <div><small>Assigned Area</small><b>${assignedNames.length?assignedNames.map(esc).join(" • "):"لا توجد منطقة مخصصة"}</b></div>
+       <div><small>Assigned Area</small><b>${assignedNames.length?assignedNames.map(esc).join(" • "):(isTopManagementRole(session.role)?"كل المناطق":"لا توجد منطقة مخصصة")}</b></div>
      </div>
    </div>
 
@@ -1554,7 +1560,7 @@ function newRequestView(){
      <div class="request-form-grid">
        <div>
          <label>موعد الدفعة <span class="required">*</span></label>
-         <input id="batchAt" type="date">
+         <input id="batchAt" type="datetime-local">
        </div>
        <div>
          <label>اسم العميل كما يظهر في التقرير <span class="required">*</span></label>
@@ -1630,7 +1636,7 @@ function createRequest(){
  const batchQty=Number(document.getElementById("batchQty").value);
  const source=document.getElementById("source").value;
  const lines=selectedProductLines().map(x=>({productId:x.product.id,productName:x.product.name,requestedQty:x.qty}));
- if(!at||!c||!lab||batchQty<1||!lines.length||lines.some(x=>x.requestedQty<1))
+ if(!at||!c||!lab||!Number.isSafeInteger(batchQty)||batchQty<1||!lines.length||lines.some(x=>!Number.isSafeInteger(x.requestedQty)||x.requestedQty<1))
    return alert("أكمل موعد الدفعة، اسم المعمل، عدد الدفعة، واختار منتجًا واحدًا على الأقل مع كمية لكل منتج.");
  const checks=lines.map(i=>{
    const balance=Number(c.balances[i.productId]||0),reserved=getReserved(c.id,i.productId),available=balance-reserved;
@@ -1638,7 +1644,7 @@ function createRequest(){
  });
  const needsApproval=checks.some(x=>x.insufficient);
  const r={
-   id:"REQ-"+String(db.requests.length+1).padStart(4,"0"),
+   id:"REQ-"+crypto.randomUUID().slice(0,8).toUpperCase(),
    batchAt:at,customerId:c.id,customerCode:c.id,customerName:c.name,region:c.region,lab,batchQty,
    items:lines,
    productId:lines[0].productId,productName:lines[0].productName,requestedQty:lines.reduce((a,x)=>a+x.requestedQty,0),
@@ -1646,9 +1652,7 @@ function createRequest(){
    createdBy:session.name,createdByEmployeeId:session.employeeId,createdByEmail:session.email,createdAt:now(),actualItems:null,actualQty:null,comments:"",reportPhoto:null
  };
  db.requests.push(r);
- if(!needsApproval){
-   addNotification({recipientEmail:"ashraf.mostafa@ift-online.com",recipientRole:"injection_manager",requestId:r.id,title:"طلب حقن جديد يحتاج توزيع",message:`${r.id} — ${r.customerName} — ${fmtDate(r.batchAt)}. الطلب جاهز للمراجعة والتوزيع.`,type:"new_request"});
- }
+ if(needsApproval)notifySalesApproval(r);else notifyManagers(r,"طلب حقن جديد جاهز للتوزيع","new_request");
  audit("Created multi-product request",r);save();
  tab="requests";render();
  showRequestResult(needsApproval);
@@ -1670,15 +1674,25 @@ function showRequestResult(needsApproval){
  document.body.appendChild(overlay);
  overlay.addEventListener("click",e=>{if(e.target===overlay) overlay.remove();});
 }
-function managementRequests(){return `<div class="section"><h2>كل الطلبات</h2></div>${requestTable(db.requests)}`}
+function managementRequests(){return `<div class="section"><h2>كل الطلبات</h2></div>${requestTable(db.requests.filter(r=>r.status!=="approval"||canSettleCustody()))}`}
 function myRequests(){return `<div class="section"><h2>طلباتي</h2></div>${requestTable(db.requests.filter(r=>r.createdByEmployeeId===session.employeeId || (!r.createdByEmployeeId && r.createdBy===session.name)))}`}
-function approvals(){return `<div class="section"><h2>Company / Sector Approval</h2></div>${requestTable(db.requests.filter(r=>r.status==="approval"),"approval")}`}
-function approveRequest(id){const r=db.requests.find(x=>x.id===id);r.status="approved";r.approvedBy=session.name;r.approvedAt=now();addNotification({recipientEmail:"ashraf.mostafa@ift-online.com",recipientRole:"injection_manager",requestId:r.id,title:"طلب Approved جاهز للتوزيع",message:`${r.id} — ${r.customerName} — تمت الموافقة والطلب جاهز للمراجعة والتوزيع.`,type:"approved_request"});audit("Approved insufficient-balance request",r);save();alert("Approved — تم تحويل الطلب لمدير فريق الحقن.");render()}
-function rejectRequest(id){const r=db.requests.find(x=>x.id===id);r.status="rejected";r.rejectedBy=session.name;r.rejectedAt=now();audit("Rejected request",r);save();render()}
-function inbox(){return `<div class="section"><h2>طلبات الحقن الواردة</h2></div>${requestTable(db.requests.filter(r=>["pending","approved"].includes(r.status)),"inbox")}`}
-function assigned(){return `<div class="section"><h2>التوزيع والمتابعة</h2></div>${requestTable(db.requests.filter(r=>["assigned","done"].includes(r.status)))} `}
+function approvals(){if(!canSettleCustody())return `<div class="alert danger">لا تملك صلاحية الموافقة.</div>`;return `<div class="section"><h2>موافقات الرصيد غير الكافي</h2></div>${requestTable(db.requests.filter(r=>r.status==="approval"),"approval")}`}
+function approveRequest(id){
+ if(!canSettleCustody())return alert("الموافقة متاحة لسيد أبو شال فقط.");
+ const r=db.requests.find(x=>x.id===id);if(!r||r.status!=="approval")return;
+ r.status="approved";r.approvedBy=session.name;r.approvedByEmployeeId=session.employeeId;r.approvedAt=now();
+ trackRequest(r,"approved","تمت الموافقة على الرصيد غير الكافي");notifyManagers(r,"تمت الموافقة — الطلب جاهز للتوزيع","approved_request");notifyRequester(r,"تمت الموافقة على طلبك");audit("Approved insufficient-balance request",r);save();render();
+}
+function rejectRequest(id){
+ if(!canSettleCustody())return alert("الرفض متاح لسيد أبو شال فقط.");
+ const r=db.requests.find(x=>x.id===id);if(!r||r.status!=="approval")return;
+ r.status="rejected";r.rejectedBy=session.name;r.rejectedAt=now();trackRequest(r,"rejected","رفض الطلب");notifyRequester(r,"تم رفض طلب الحقن");audit("Rejected request",r);save();render();
+}
+function inbox(){return `<div class="section"><h2>طلبات الحقن الواردة</h2></div>${requestTable(db.requests.filter(r=>["pending","approved","postponed","not_executed"].includes(r.status)),"inbox")}`}
+function assigned(){return `<div class="section"><h2>التوزيع والمتابعة</h2></div>${requestTable(db.requests.filter(r=>["assigned","in_progress","postponed","not_executed","cancelled","done"].includes(r.status)))} `}
 function openAssign(id){
  const r=db.requests.find(x=>x.id===id);
+ if(session?.role!=="injection_manager"||!r||!["pending","approved","postponed","not_executed"].includes(r.status))return alert("التوزيع متاح لمدير الحقن فقط.");
  const candidates=ENGINEERS; // All four named injection engineers are eligible for assignment across all regions.
  document.getElementById("content").innerHTML=`<div class="card"><h2>مراجعة وتوزيع ${r.id}</h2>
  <div class="two"><div><p><b>موعد:</b> ${fmtDate(r.batchAt)}</p><p><b>العميل:</b> ${esc(r.customerName)}</p><p><b>المعمل:</b> ${esc(r.lab)}</p><p><b>عدد الدفعة:</b> ${r.batchQty}</p><p><b>المنتجات:</b> ${itemSummary(r)}</p><p><b>المصدر:</b> ${esc(r.source)}</p><p><b>مدير فريق الحقن:</b> ${esc(INJECTION_TEAM_MANAGER)}</p></div>
@@ -1697,12 +1711,12 @@ function updateEngineerRoute(){
 }
 function assignRequest(id){
  const r=db.requests.find(x=>x.id===id),e=ENGINEERS.find(x=>x.id===document.getElementById("engineer").value);
- if(!r||!e)return alert("تعذر تحديد الطلب أو المهندس.");
+ if(session?.role!=="injection_manager"||!r||!e||!["pending","approved","postponed","not_executed"].includes(r.status))return alert("تعذر توزيع الطلب لهذا الحساب أو الحالة.");
  r.injectionTeam=r.source==="فريق الحقن"?document.getElementById("team").value:null;
  r.engineerId=e.id;r.engineerName=e.name;r.engineerEmployeeId=e.id;r.engineerEmail=e.email||"";
  r.managerNotes=document.getElementById("managerNotes").value;r.assignedBy=session.role==="injection_manager"?INJECTION_TEAM_MANAGER:session.name;r.assignedByEmployeeId=session.employeeId;r.injectionManagerName=INJECTION_TEAM_MANAGER;r.assignedAt=now();r.status="assigned";
  addNotification({recipientEmployeeId:e.id,recipientEmail:e.email,recipientName:e.name,requestId:r.id,title:"تم توجيه طلب حقن جديد إليك",message:`${r.id} — تم توزيع الطلب عليك لتنفيذ الدفعة.`,type:"assignment"});
- audit("Assigned engineer by Employee ID",r);save();alert(`تم إرسال الطلب للمهندس ${e.englishName||e.name} على الـOfficial Outlook.`);tab="assigned";render();
+ trackRequest(r,"assigned",r.managerNotes);notifyManagers(r,"تم توزيع الطلب على "+e.name,"assigned");notifyRequester(r,"تم توزيع طلبك على "+e.name);audit("Assigned engineer by Employee ID",r);save();alert(`تم تعيين ${e.englishName||e.name} وإرسال إشعار داخل التطبيق.`);tab="assigned";render();
 }
 function jobs(){
  return engineerJobsView();
@@ -1710,7 +1724,8 @@ function jobs(){
 function openClose(id){
   const r=db.requests.find(x=>x.id===id);
   if(!r)return;
-  if(r.status!=="assigned" || !session || !(session.engineerId===r.engineerId || session.employeeId===r.engineerEmployeeId)) return alert("الطلب غير متاح للتنفيذ لهذا الحساب.");
+  if(!["assigned","in_progress"].includes(r.status) || !isAssignedEngineer(r)) return alert("الطلب غير متاح للتنفيذ لهذا الحساب.");
+  if(r.status==="assigned"){r.status="in_progress";trackRequest(r,"in_progress","بدأ المهندس التنفيذ");notifyManagers(r,"بدأ تنفيذ طلب الحقن","in_progress");notifyRequester(r,"طلبك قيد التنفيذ");save();}
   selectedReportFile=null;
   document.getElementById("content").innerHTML=`<div class="execution-shell">
     <div class="execution-hero">
@@ -1820,26 +1835,28 @@ async function closeRequest(id){
  const file=selectedReportFile || document.getElementById("reportPhoto")?.files?.[0] || document.getElementById("cameraPhoto")?.files?.[0];
  const comments=document.getElementById("comments")?.value||"";
  const actualBatchQty=Number(document.getElementById("actualBatchQty")?.value||0);
- if(!r)return alert("الطلب غير موجود.");
+ if(!r||!["assigned","in_progress"].includes(r.status)||!isAssignedEngineer(r)||r.balanceDeductedAt)return alert("الطلب مغلق بالفعل أو غير متاح لهذا المهندس.");
+ if(r._closing)return;
  if(!file)return alert("لا يمكن إغلاق الطلب بدون رفع صورة تقرير الحقن.");
  if(!signatureCanvas||!signatureHasInk)return alert("لا يمكن إغلاق الطلب بدون تسجيل الإمضاء الإلكتروني.");
  if(actualBatchQty<=0)return alert("أدخل عدد الدفعة الفعلي.");
  if(!comments.trim())return alert("أدخل Comments قبل إغلاق الطلب.");
  const items=requestItems(r);
  const actualItems=items.map(i=>({productId:i.productId,productName:i.productName,requestedQty:Number(i.requestedQty||0),actualQty:Number(document.getElementById("actual-"+i.productId)?.value||0)}));
- if(actualItems.some(i=>i.actualQty<0))return alert("عدد الأمبولات الفعلية غير صحيح.");
+ if(actualItems.some(i=>!Number.isInteger(i.actualQty)||i.actualQty<0)||!actualItems.some(i=>i.actualQty>0))return alert("عدد الأمبولات الفعلية غير صحيح.");
  const c=db.customers.find(x=>x.id===r.customerId);
  const snapshots=actualItems.map(i=>({item:i,before:Number(c.balances[i.productId]||0)}));
  const over=snapshots.filter(x=>x.item.actualQty>x.item.before);
- if(over.length){const names=over.map(x=>`${x.item.productName}: Actual ${x.item.actualQty} / Balance ${x.item.before}`).join("\n");const ok=confirm(`يوجد Actual أكبر من الرصيد لبعض المنتجات:\n${names}\n\nهل تريد تسجيل الخصم ليصبح الرصيد سالبًا؟`);if(!ok)return;}
- const reportData=await fileToImageData(file);
+ if(!cloudReady && over.length&&!r.approvedAt)return alert("الرصيد غير كافٍ. يلزم موافقة سيد أبو شال قبل الخصم بالسالب.");
+ r._closing=true;let reportData;try{reportData=await fileToImageData(file);}catch(e){delete r._closing;return alert("تعذر قراءة التقرير. حاول مرة أخرى.");}
+ if(r.status==="done"){delete r._closing;return;}delete r._closing;
  snapshots.forEach(({item,before})=>{c.balances[item.productId]=before-item.actualQty;db.movements.push({date:now(),requestId:r.id,customer:r.customerName,customerCode:r.customerCode,product:item.productName,requested:item.requestedQty,actual:item.actualQty,change:-item.actualQty,balanceBefore:before,balanceAfter:c.balances[item.productId],engineer:r.engineerName,lab:r.lab,source:r.source,team:r.injectionTeam});});
  r.actualBatchQty=actualBatchQty;r.actualItems=actualItems;r.actualQty=actualItems.reduce((sum,i)=>sum+i.actualQty,0);r.comments=comments;r.reportPhoto=file.name;r.reportPhotoType=file.type||"image";r.reportPhotoData=reportData;r.signatureData=signatureCanvas.toDataURL("image/png");r.signatureBy=session.name;r.signatureByEmployeeId=session.employeeId;r.signatureAt=now();r.closedAt=now();r.status="done";r.closedBy=session.name;
- addCustodyPending(r);
+ r.balanceDeductedAt=r.closedAt;trackRequest(r,"done","تم الحقن وإغلاق الطلب");addCustodyPending(r);
  // Completion notifications: requester + injection manager + all Top Management.
  addNotification({recipientEmployeeId:r.createdByEmployeeId,recipientEmail:r.createdByEmail,recipientName:r.createdBy,requestId:r.id,title:"تم غلق طلب الحقن بنجاح",message:`${r.id} — تم تنفيذ وغلق الطلب بنجاح. يمكنك الآن فتح صورة تقرير الحقن وإرسالها للعميل.`,type:"completed"});
- addNotification({recipientEmployeeId:"EMP-018",recipientEmail:"ashraf.mostafa@ift-online.com",recipientName:INJECTION_TEAM_MANAGER,requestId:r.id,title:"تم غلق طلب الحقن بنجاح",message:`${r.id} — المهندس ${r.engineerName||session.name} أغلق الطلب بنجاح. التقرير متاح للمراجعة.`,type:"completed"});
- TOP_MANAGEMENT.forEach(m=>addNotification({recipientName:m.name,requestId:r.id,title:"تم غلق طلب الحقن بنجاح",message:`${r.id} — تم إغلاق الطلب. تقرير الحقن والكميات الفعلية متاحان للمراجعة.${r.source==="فريق الحقن" && m.role==="sales_manager"?" صرف العهدة المستهلكة متاح للتسوية.":""}`,type:"completed"}));
+ addNotification({recipientEmployeeId:"EMP-024",recipientEmail:"ashraf.mostafa@ift-online.com",recipientName:INJECTION_TEAM_MANAGER,requestId:r.id,title:"تم غلق طلب الحقن بنجاح",message:`${r.id} — المهندس ${r.engineerName||session.name} أغلق الطلب بنجاح. التقرير متاح للمراجعة.`,type:"completed"});
+ TOP_MANAGEMENT.forEach(m=>addNotification({recipientRole:m.role,recipientEmployeeId:m.employeeId,recipientName:m.name,requestId:r.id,title:"تم غلق طلب الحقن بنجاح",message:`${r.id} — تم إغلاق الطلب. تقرير الحقن والكميات الفعلية متاحان للمراجعة.${r.source==="فريق الحقن" && m.role==="sales_manager"?" صرف العهدة المستهلكة متاح للتسوية.":""}`,type:"completed"}));
  audit(`Closed request; actual batch=${r.actualBatchQty}; actual injected=${r.actualQty}; electronic signature captured; report saved; custody=${r.source==="فريق الحقن"?"pending":"not_applicable"}`,r);
  save();
  alert(`تم Close Request بنجاح.\nActual Batch = ${r.actualBatchQty}\nActual Injected = ${r.actualQty}\nتم تسجيل صورة التقرير والإمضاء الإلكتروني وتحديث الأرصدة.\n\nتم إرسال Notification للزميل الذي أنشأ الطلب ومدير الفريق الحالي ومدير البيع/القطاع.`);
@@ -1890,7 +1907,7 @@ function viewSignature(id){
 }
 let dailyFrom="", dailyTo="", dailyTeam="ALL";
 function dailyDateOnly(value){
- try{return value?new Date(value).toISOString().slice(0,10):"";}catch(e){return "";}
+ try{return value?new Date(value).toLocaleDateString('en-CA',{timeZone:'Africa/Cairo'}):"";}catch(e){return "";}
 }
 function filteredDailyRequests(){
  const from=dailyFrom||"", to=dailyTo||"";
@@ -1939,7 +1956,7 @@ function daily(){
    </div>
  </div>
  <div class="grid">${metric("Injections",done.length)}${metric("Actual Quantity",total,"greenline")}${metric("Customers",customers,"orangeLine")}${metric("Active Teams",teams,"purple")}</div>
- <div class="section"><h3>Injection Detail — executed only</h3></div>${detail.length?`<div style="overflow:auto"><table><thead><tr><th>Date / Request</th><th>Customer Name</th><th>Area</th><th>Product Name</th><th>Actual Consumption</th></tr></thead><tbody>${detail.map(({r,i,a})=>`<tr><td>${fmtDate(r.closedAt)}</td><td>${r.id}</td><td>${esc(r.injectionTeam||"—")}</td><td>${esc(r.region)}</td><td>${esc(r.customerName)}</td><td>${esc(i.productName)}</td><td>${i.requestedQty}</td><td><b>${a?.actualQty??"—"}</b></td><td>${esc(r.lab)}</td><td>${esc(r.source)}</td><td>${esc(r.engineerName)}</td></tr>`).join("")}</tbody></table></div>`:`<div class="card empty">لا توجد عمليات منفذة حسب الفلاتر الحالية.</div>`}
+ <div class="section"><h3>Injection Detail — executed only</h3></div>${detail.length?`<div style="overflow:auto"><table><thead><tr><th>التاريخ</th><th>الطلب</th><th>الفريق</th><th>المنطقة</th><th>العميل</th><th>المنتج</th><th>المطلوب</th><th>المستهلك</th><th>المعمل</th><th>المصدر</th><th>المهندس</th></tr></thead><tbody>${detail.map(({r,i,a})=>`<tr><td>${fmtDate(r.closedAt)}</td><td>${r.id}</td><td>${esc(r.injectionTeam||"—")}</td><td>${esc(r.region)}</td><td>${esc(r.customerName)}</td><td>${esc(i.productName)}</td><td>${i.requestedQty}</td><td><b>${a?.actualQty??"—"}</b></td><td>${esc(r.lab)}</td><td>${esc(r.source)}</td><td>${esc(r.engineerName)}</td></tr>`).join("")}</tbody></table></div>`:`<div class="card empty">لا توجد عمليات منفذة حسب الفلاتر الحالية.</div>`}
  <div class="section"><h3>Product Summary — ${esc(titleTeam)}</h3></div><div class="card">${PRODUCTS.map(p=>{let q=done.reduce((sum,r)=>sum+Number((r.actualItems||[]).find(i=>i.productId===p.id)?.actualQty||0),0);return `<div class="row"><span>${p.name}</span><b>${q}</b></div>`}).join("")}</div>`;
 }
 function exportDailyRows(){
@@ -1979,7 +1996,7 @@ function servicesView(){
    audit:["◈","سجل النظام","مراجعة سجل العمليات"],
    inbox:["↓","الواردة","الطلبات الواردة للإدارة"],
    assigned:["☷","المتابعة","متابعة الطلبات المسندة"],
-   myJobs:["✚","مهامي","الطلبات والمهام المسندة إليك"]
+   invoices:["＋","إضافة فاتورة","إضافة كميات الفاتورة إلى رصيد العميل"],myJobs:["✚","مهامي","الطلبات والمهام المسندة إليك"]
  };
  return `
  <section class="services-page">
@@ -2002,8 +2019,85 @@ function servicesView(){
  </section>`;
 }
 
+// v4: workflow rules shared by all views.
+if(!Array.isArray(db.invoices))db.invoices=[];
+function notifyManagers(r,title,type='status'){
+ TOP_MANAGEMENT.forEach(m=>addNotification({recipientEmployeeId:m.employeeId,recipientRole:m.role,requestId:r.id,title,message:`${r.id} — ${r.customerName} — ${r.engineerName||'بانتظار التوزيع'}`,type}));
+ addNotification({recipientEmail:'ashraf.mostafa@ift-online.com',recipientRole:'injection_manager',requestId:r.id,title,message:`${r.id} — ${r.customerName}`,type});
+}
+function notifyRequester(r,title){addNotification({recipientEmployeeId:r.createdByEmployeeId,recipientEmail:r.createdByEmail,recipientName:r.createdBy,requestId:r.id,title,message:`${r.id} — ${r.customerName}`,type:'status'})}
+function notifySalesApproval(r){addNotification({recipientEmployeeId:'EMP-015',recipientRole:'sales_manager',requestId:r.id,title:'طلب يحتاج موافقتك على الرصيد',message:`${r.id} — ${r.customerName} — الرصيد غير كافٍ.`,type:'approval'})}
+function trackRequest(r,status,note){(r.history||=[]).push({status,note,at:now(),by:session.name,employeeId:session.employeeId})}
+function isAssignedEngineer(r){return !!session&&[r.engineerId,r.engineerEmployeeId].includes(session.employeeId)||!!session&&r.engineerId===session.engineerId&&!!session.engineerId}
+function canUpdateRequest(r){return !!r&&!['done','cancelled','rejected','approval'].includes(r.status)&&(session?.role==='injection_manager'||isAssignedEngineer(r))}
+function requestProgress(r){
+ const seq=[['pending','تسجيل الطلب'],['assigned','تم التوزيع'],['in_progress','قيد التنفيذ'],['done','تم الحقن']];
+ let idx={pending:0,approved:0,assigned:1,in_progress:2,done:3}[r.status]??-1;
+ if(['postponed','not_executed'].includes(r.status))return badge(r.status)+`<span>${esc(r.statusReason||'')}</span>`;
+ if(['approval','rejected','cancelled'].includes(r.status))return badge(r.status);
+ return seq.map(([id,label],i)=>`<span class="${i<=idx?'passed':''}">${i<=idx?'✓':'○'} ${label}</span>`).join('');
+}
+function openStatusUpdate(id){
+ const r=db.requests.find(x=>x.id===id);if(!canUpdateRequest(r))return alert('لا تملك صلاحية تحديث هذا الطلب.');
+ document.getElementById('content').innerHTML=`<section class="request-form-card"><div class="form-section-title"><span>↻</span><div><b>تحديث حالة الدفعة</b><small>${esc(r.id)} • ${esc(r.customerName)}</small></div></div>
+ <label>الحالة</label><select id="batchStatus" onchange="document.getElementById('newDateWrap').classList.toggle('hidden',this.value!=='postponed')"><option value="postponed">تأجيل الدفعة</option><option value="not_executed">لم تُنفذ الدفعة</option><option value="cancelled">إلغاء الدفعة</option></select>
+ <label>السبب</label><textarea id="statusReason" placeholder="مثال: لم تصل الكتاكيت إلى المعمل"></textarea><div id="newDateWrap"><label>الموعد الجديد</label><input type="datetime-local" id="rescheduledAt"></div>
+ <div class="alert">لن يتم خصم رصيد العميل أو تسجيل عهدة مستهلكة لهذه الحالة.</div><div class="actions"><button class="primary" onclick="saveStatusUpdate('${r.id}')">حفظ وإبلاغ المسؤولين</button><button class="ghost" onclick="render()">رجوع</button></div></section>`;
+}
+function saveStatusUpdate(id){
+ const r=db.requests.find(x=>x.id===id);if(!canUpdateRequest(r))return;
+ const status=document.getElementById('batchStatus').value,reason=document.getElementById('statusReason').value.trim(),date=document.getElementById('rescheduledAt').value;
+ if(!['postponed','not_executed','cancelled'].includes(status)||!reason)return alert('أدخل سبب تحديث الحالة.');
+ if(status==='postponed'&&!date)return alert('أدخل الموعد الجديد.');
+ r.status=status;r.statusReason=reason;r.statusUpdatedAt=now();if(status==='postponed'){r.previousBatchAt=r.batchAt;r.batchAt=date;}
+ if(status==='cancelled')r.cancelledAt=now();
+ trackRequest(r,status,reason);notifyManagers(r,statusInfo(status)[0],'status');notifyRequester(r,statusInfo(status)[0]);
+ if(r.engineerEmployeeId)addNotification({recipientEmployeeId:r.engineerEmployeeId,recipientEmail:r.engineerEmail,requestId:r.id,title:statusInfo(status)[0],message:reason,type:'status'});
+ audit('Updated batch: '+status,r);save();render();
+}
+function canAddInvoice(){return session?.role==='sales'||isTopManagementRole(session?.role)}
+function invoicesView(){
+ if(!canAddInvoice())return '<div class="alert danger">لا تملك صلاحية إضافة فاتورة.</div>';
+ const customers=visibleCustomers(),ids=new Set(customers.map(c=>c.id));
+ const invoices=(db.invoices||[]).filter(i=>ids.has(i.customerId)).slice().reverse();
+ return `<section class="request-page"><div class="request-page-head"><div><div class="eyebrow dark">CUSTOMER INVOICES</div><h2>إضافة فاتورة</h2><p>تُضاف الكميات إلى رصيد العميل عند حفظ الفاتورة</p></div></div><div class="request-form-card"><div class="request-form-grid">
+ <div><label>العميل</label><select id="invoiceCustomer">${customers.map(c=>`<option value="${c.id}">${esc(c.name)} — ${esc(c.region)}</option>`).join('')}</select></div>
+ <div><label>رقم الفاتورة</label><input id="invoiceNumber" maxlength="80" placeholder="رقم الفاتورة"></div><div><label>تاريخ الفاتورة</label><input type="date" id="invoiceDate"></div></div>
+ <div class="form-section-title"><span>＋</span><div><b>المنتجات والكميات</b><small>اترك الكمية صفرًا للمنتجات غير الموجودة بالفاتورة</small></div></div><div class="product-checklist">${PRODUCTS.map(p=>`<div class="product-item"><label for="inv-${p.id}">${esc(p.name)}</label><input type="number" min="0" step="1" value="0" id="inv-${p.id}"></div>`).join('')}</div><div class="actions"><button class="primary" onclick="saveInvoice()">حفظ الفاتورة وإضافة الرصيد</button></div></div>
+ <div class="section"><h3>سجل الفواتير</h3></div>${invoices.length?invoices.map(i=>`<article class="card invoice-record"><div class="row"><b>${esc(i.number)}</b><span>${esc(i.date)}</span></div><b>${esc(i.customerName)}</b><p>${i.items.map(x=>`${esc(x.productName)}: +${x.qty}`).join(' • ')}</p><small>${esc(i.createdBy)}</small></article>`).join(''):'<div class="card empty">لا توجد فواتير مسجلة.</div>'}</section>`;
+}
+function saveInvoice(){
+ if(!canAddInvoice())return;
+ const c=db.customers.find(c=>c.id===document.getElementById('invoiceCustomer').value),number=document.getElementById('invoiceNumber').value.trim(),date=document.getElementById('invoiceDate').value;
+ const items=PRODUCTS.map(p=>({productId:p.id,productName:p.name,qty:Number(document.getElementById('inv-'+p.id).value)})).filter(x=>x.qty!==0);
+ if(!c||!customerIsVisible(c)||!number||!date||!items.length||items.some(i=>!Number.isSafeInteger(i.qty)||i.qty<=0))return alert('أكمل بيانات الفاتورة بكميات صحيحة موجبة.');
+ if((db.invoices||[]).some(i=>i.number.trim().toLowerCase()===number.toLowerCase()))return alert('رقم الفاتورة مسجل بالفعل.');
+ const invoice={id:'INV-'+crypto.randomUUID(),number,date,customerId:c.id,customerName:c.name,region:c.region,items,createdBy:session.name,createdByEmployeeId:session.employeeId,createdAt:now()};
+ items.forEach(i=>{const before=Number(c.balances[i.productId]||0);c.balances[i.productId]=before+i.qty;db.movements.push({date:now(),invoiceId:invoice.id,invoiceNumber:number,customer:c.name,customerCode:c.id,product:i.productName,change:i.qty,balanceBefore:before,balanceAfter:c.balances[i.productId]});});
+ (db.invoices||=[]).push(invoice);audit('Added invoice '+number);save();render();
+}
+let custodyFrom='',custodyTo='',custodyTeam='ALL';
+function setCustodyFilter(key,value){if(key==='from')custodyFrom=value;if(key==='to')custodyTo=value;if(key==='team')custodyTeam=value;render()}
+function filteredCustodyRequests(){return db.requests.filter(r=>r.status==='done'&&r.source==='فريق الحقن'&&(!custodyFrom||dailyDateOnly(r.closedAt)>=custodyFrom)&&(!custodyTo||dailyDateOnly(r.closedAt)<=custodyTo)&&(custodyTeam==='ALL'||r.injectionTeam===custodyTeam))}
+function custodyView(){
+ if(!canSettleCustody())return '<div class="alert danger">صرف العهدة المستهلكة متاح لسيد أبو شال فقط.</div>';
+ const rows=filteredCustodyRequests();
+ return `<div class="section"><div><h2>صرف وتسوية العهدة المستهلكة</h2><p class="muted">الاستهلاك الفعلي للدفعات المنفذة من فرق الحقن</p></div><button class="primary" onclick="exportCustodyExcel()">تصدير Excel</button></div>
+ <div class="card"><div class="request-form-grid"><div><label>من تاريخ التقرير</label><input type="date" value="${esc(custodyFrom)}" onchange="setCustodyFilter('from',this.value)"></div><div><label>إلى تاريخ التقرير</label><input type="date" value="${esc(custodyTo)}" onchange="setCustodyFilter('to',this.value)"></div><div><label>فريق الحقن</label><select onchange="setCustodyFilter('team',this.value)">${['ALL',...INJECTION_TEAMS].map(t=>`<option value="${esc(t)}" ${t===custodyTeam?'selected':''}>${t==='ALL'?'كل الفرق':esc(t)}</option>`).join('')}</select></div></div></div>
+ <div class="top-summary">${metric('دفعات منفذة',rows.length)}${metric('بانتظار التسوية',rows.filter(r=>custodyStatus(r)==='pending').length,'orangeLine')}${metric('أمبولات مستهلكة',rows.reduce((s,r)=>s+Number(r.actualQty||0),0),'greenline')}</div>
+ ${rows.map(r=>`<article class="card invoice-record"><div class="row"><b>${esc(r.id)} — ${esc(r.customerName)}</b>${badge(r.status)}</div><p>${esc(r.injectionTeam)} • ${fmtDate(r.closedAt)} • ${esc(r.engineerName)}</p><p>${(r.actualItems||[]).map(i=>`${esc(i.productName)}: ${i.actualQty}`).join(' • ')}</p><div class="actions"><button class="ghost" onclick="viewCompletedRequest('${r.id}')">عرض التقرير</button>${custodyStatus(r)==='pending'?`<button class="green" onclick="settleCustody('${r.id}')">صرف العهدة المستهلكة</button>`:'<span class="badge b-done">تمت التسوية</span>'}</div></article>`).join('')||'<div class="card empty">لا توجد دفعات في هذه الفترة.</div>'}
+ <div class="section"><h3>إجمالي الاستهلاك لكل فريق ومنتج</h3></div><div class="three">${INJECTION_TEAMS.filter(t=>custodyTeam==='ALL'||t===custodyTeam).map(t=>`<div class="card"><b>${esc(t)}</b>${PRODUCTS.map(p=>{const qty=rows.filter(r=>r.injectionTeam===t).reduce((s,r)=>s+(r.actualItems||[]).filter(i=>i.productId===p.id).reduce((n,i)=>n+Number(i.actualQty),0),0);return qty?`<div class="row"><span>${esc(p.name)}</span><b>${qty}</b></div>`:''}).join('')}</div>`).join('')}</div>`;
+}
+function custodyExportRows(){return [['تاريخ التقرير','رقم الطلب','الفريق','العميل','المنطقة','المعمل','المهندس','المنتج','الكمية المطلوبة','المستهلك','حالة التسوية','تاريخ التسوية','اعتمد بواسطة'],...filteredCustodyRequests().flatMap(r=>(r.actualItems||[]).map(i=>[fmtDate(r.closedAt),r.id,r.injectionTeam,r.customerName,r.region,r.lab,r.engineerName,i.productName,i.requestedQty,i.actualQty,custodyStatus(r)==='settled'?'تمت التسوية':'معلقة',fmtDate(r.custodySettlement?.settledAt),r.custodySettlement?.settledBy||'']))]}
+function exportCustodyExcel(){
+ if(!canSettleCustody())return;
+ if(typeof XLSX==='undefined')return alert('تعذر تحميل مكتبة Excel. تأكد من اتصال الإنترنت وأعد المحاولة.');
+ const wb=XLSX.utils.book_new(),details=XLSX.utils.aoa_to_sheet(custodyExportRows());details['!cols']=Array(13).fill({wch:24});XLSX.utils.book_append_sheet(wb,details,'تفاصيل الاستهلاك');
+ const summary=[['الفريق','المنتج','إجمالي المستهلك']];INJECTION_TEAMS.forEach(t=>PRODUCTS.forEach(p=>{let qty=filteredCustodyRequests().filter(r=>r.injectionTeam===t).reduce((s,r)=>s+(r.actualItems||[]).filter(i=>i.productId===p.id).reduce((n,i)=>n+Number(i.actualQty),0),0);if(qty)summary.push([t,p.name,qty])}));XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(summary),'ملخص الفرق والمنتجات');XLSX.writeFile(wb,'FortiMune-Custody-'+(custodyFrom||'all')+'-'+(custodyTo||'all')+'.xlsx');
+}
+
 const VIEWS={
- home:homeView,newRequest:newRequestView,requests:()=>isTopManagementRole(session?.role)?managementRequests():myRequests(),services:servicesView,balances:balancesView,approvals, inbox,assigned,jobs:jobs,close:()=>jobs(),daily,audit:auditView,custody:custodyView
+ myJobs:jobs,home:homeView,invoices:invoicesView,newRequest:newRequestView,requests:()=>isTopManagementRole(session?.role)?managementRequests():myRequests(),services:servicesView,balances:balancesView,approvals, inbox,assigned,jobs:jobs,close:()=>jobs(),daily,audit:auditView,custody:custodyView
 };
 document.addEventListener("DOMContentLoaded",()=>{initSupabaseClient();setTimeout(restoreAuthSession,80);});
 function bind(){
@@ -2012,5 +2106,48 @@ function bind(){
    updateBalanceBox();
  }
 }
+// Shared operations are committed atomically by Supabase, never by uploading a client snapshot.
+let cloudReady=false,cloudBusy=false,cloudTimer=null,cloudRevision=0;
+const localSave=save;
+function cloudStatus(message,ok=false){let el=document.getElementById('sharedStatus');if(!el){el=document.createElement('div');el.id='sharedStatus';el.className='alert';document.querySelector('#app .wrap')?.prepend(el);}el.className='alert '+(ok?'success':'warning');el.textContent=message;}
+function applyCloudState(result){if(!result?.state)return;db=result.state;db.invoices||=[];db.notifications||=[];db.movements||=[];db.audit||=[];db.custodyTransactions||=[];db.teamBalances||={};db.usersMaster||=[];cloudRevision=result.revision||0;localSave();updateNotificationBadge();if(!document.getElementById('notificationPanel')?.classList.contains('hidden'))renderNotifications();}
+async function fetchCloudState(){const {data,error}=await fortimuneSupabase.rpc('fortimune_v4_read');if(error)throw error;if(!data?.state)throw new Error('NOT_INITIALIZED');applyCloudState(data);cloudReady=true;cloudStatus('متصل • الطلبات والإشعارات مشتركة بين الحسابات',true);return data;}
+async function connectSharedWorkflow(){
+ clearInterval(cloudTimer);cloudReady=false;
+ try{await fetchCloudState();render();cloudTimer=setInterval(async()=>{if(!session||cloudBusy)return;try{const before=cloudRevision;await fetchCloudState();if(before!==cloudRevision&&document.querySelector('#content .request-mobile-list, #content .request-desktop-table, #content > .services-page')&&!document.querySelector('#content input, #content textarea'))render();}catch(e){cloudReady=false;cloudStatus('تعذر تحديث البيانات المشتركة. أعد الاتصال قبل الحفظ.');}},8000);}
+ catch(e){cloudStatus(e.message==='NOT_INITIALIZED'?'البيانات المشتركة لم تُهيأ بعد. سيد أبو شال يمكنه تهيئتها من النسخة الحالية.':'يلزم تنفيذ ملف إعداد Supabase المرفق لتفعيل الطلبات والإشعارات المشتركة.');if(canSettleCustody()&&e.message==='NOT_INITIALIZED'){const b=document.createElement('button');b.textContent='تهيئة البيانات المشتركة من بيانات هذا الجهاز';b.className='primary';b.onclick=initializeSharedWorkflow;document.getElementById('sharedStatus').append(document.createElement('br'),b);}else{const b=document.createElement('button');b.className='ghost';b.textContent='إعادة الاتصال';b.onclick=connectSharedWorkflow;document.getElementById('sharedStatus').append(document.createElement('br'),b);}}
+}
+async function initializeSharedWorkflow(){if(!canSettleCustody()||cloudBusy)return;if(!confirm('سيتم استخدام البيانات الحالية على هذا الجهاز كنقطة البداية المشتركة لكل الحسابات. راجع أرصدة العملاء والطلبات أولًا. هذه العملية متاحة مرة واحدة فقط.'))return;cloudBusy=true;try{const {data,error}=await fortimuneSupabase.rpc('fortimune_v4_action',{operation:'initialize',payload:{state:db}});if(error)throw error;applyCloudState(data);await connectSharedWorkflow();}catch(e){alert('لم تتم التهيئة: '+e.message)}finally{cloudBusy=false}}
+const originalRender=render;render=function(){originalRender();if(session&&!cloudReady)cloudStatus('البيانات المشتركة غير متصلة؛ الحفظ متوقف لحين تفعيل الاتصال.');};
+const originalProfileLoad=loadProductionProfile;loadProductionProfile=async function(user){const profile=await originalProfileLoad(user);setTimeout(()=>{if(session?.authUserId===profile.authUserId)connectSharedWorkflow();},150);return profile;};
+const originalLogout=logout;logout=async function(){if(cloudBusy)return alert('انتظر انتهاء حفظ العملية.');clearInterval(cloudTimer);cloudReady=false;await originalLogout();};
+function changePayload(operation,id,before){
+ if(operation==='create'){const old=new Set(before.requests.map(r=>r.id));return db.requests.find(r=>!old.has(r.id));}
+ if(operation==='invoice'){const old=new Set((before.invoices||[]).map(i=>i.id));return db.invoices.find(i=>!old.has(i.id));}
+ if(operation==='mark_read')return {ids:db.notifications.filter(n=>n.readAt&&!before.notifications.find(o=>o.id===n.id)?.readAt).map(n=>n.id)};
+ const r=db.requests.find(r=>r.id===id);return r?{...r,expectedStatus:before.requests.find(r=>r.id===id)?.status}:null;
+}
+function wrapSharedMutation(name,operation){const original=window[name];window[name]=async function(...args){
+ if(cloudBusy)return;
+ if(!cloudReady||!session?.authUserId)return alert('يلزم الاتصال بالبيانات المشتركة قبل حفظ العملية.');
+ cloudBusy=true;const originalAlert=window.alert,originalSave=save;let messages=[],before;
+ try{
+ await fetchCloudState();before=structuredClone(db);const beforeText=JSON.stringify(db);
+ window.alert=m=>messages.push(m);save=()=>{};render=()=>{};
+ await original(...args);
+ const changed=JSON.stringify(db)!==beforeText,payload=changePayload(operation,args[0],before);
+ window.alert=originalAlert;save=originalSave;render=originalRender;
+ if(!changed||!payload){db=before;messages.forEach(originalAlert);return;}
+ db=before;
+ const {data,error}=await fortimuneSupabase.rpc('fortimune_v4_action',{operation,payload});if(error)throw error;
+ applyCloudState(data);if(!['start','mark_read'].includes(operation))originalRender();cloudStatus('تم الحفظ والمزامنة بنجاح',true);
+ if(operation==='create'){document.querySelectorAll('.fortimune-result-overlay').forEach(e=>e.remove());const created=db.requests.find(r=>r.id===payload.id);showRequestResult(created?.status==='approval');}
+ if(operation==='mark_read')renderNotifications();
+ messages.filter(m=>!String(m).includes('غير')).forEach(originalAlert);
+ }catch(e){document.querySelectorAll('.fortimune-result-overlay').forEach(e=>e.remove());if(before)db=before;originalAlert('لم يتم حفظ العملية: '+e.message);if(before)localSave();}
+ finally{window.alert=originalAlert;save=originalSave;render=originalRender;cloudBusy=false;}
+};}
+[['createRequest','create'],['approveRequest','approve'],['rejectRequest','reject'],['assignRequest','assign'],['openClose','start'],['closeRequest','close'],['saveStatusUpdate','status'],['saveInvoice','invoice'],['settleCustody','settle'],['markNotificationRead','mark_read'],['markAllNotificationsRead','mark_read']].forEach(([name,op])=>wrapSharedMutation(name,op));
+
 </script>
 </body></html>
