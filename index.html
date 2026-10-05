@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
-<title>FortiMune | Injection Management v3.2 Professional Mobile</title>
+<title>FortiMune | Injection Management v3.4 Professional Mobile</title>
 <style>
 :root{--blue:#056db7;--blue2:#0b4e80;--green:#119b5a;--orange:#ed7100;--red:#c93434;--purple:#6846c2;--bg:#f3f6f9;--card:#fff;--line:#dce5ec;--text:#17324d;--muted:#6d7d8b;--shadow:0 8px 24px #17324d12}
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Tahoma,sans-serif;background:var(--bg);color:var(--text)}
@@ -235,7 +235,7 @@ body[data-device="desktop"] .wrap{width:min(100% - 56px,var(--ui-max))}
 
 
 /* =========================================================
-   FORTIMUNE MOBILE PROFESSIONAL UI v3.3
+   FORTIMUNE MOBILE PROFESSIONAL UI v3.4
    Visual/presentation layer only. Business logic is unchanged.
    ========================================================= */
 :root{--v32-blue:#075f9e;--v32-blue2:#0b78bb;--v32-line:#dbe7ee;--v32-shadow:0 10px 28px rgba(18,61,91,.10)}
@@ -272,6 +272,98 @@ header{position:relative!important;display:block!important;min-height:112px!impo
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+
+<style id="fortimune-v34-mobile">
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+body{min-height:100dvh}
+#app{min-height:100dvh;overflow-x:hidden}
+.wrap{width:100%;max-width:1400px;margin:0 auto;padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right))}
+#content{min-width:0;overflow-x:hidden}
+@media(max-width:700px){
+  body{padding-bottom:0}
+  header{
+    height:auto!important;
+    min-height:calc(112px + env(safe-area-inset-top))!important;
+    padding-top:calc(8px + env(safe-area-inset-top))!important;
+    padding-left:max(9px,env(safe-area-inset-left))!important;
+    padding-right:max(9px,env(safe-area-inset-right))!important;
+  }
+  .wrap{padding:12px max(12px,env(safe-area-inset-right)) calc(118px + env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}
+  .section{gap:8px}
+  .card{max-width:100%;overflow:hidden}
+  .grid,.three,.two{grid-template-columns:1fr 1fr!important;gap:10px!important}
+  .metric{font-size:26px}
+  .services-page{padding:2px 0 18px}
+  .services-hero{
+    background:linear-gradient(135deg,#075f9e,#0b83ca);
+    color:#fff;border-radius:24px;padding:22px 18px;margin-bottom:14px;
+    box-shadow:0 10px 28px rgba(7,95,158,.18);text-align:center;
+  }
+  .services-kicker{font-size:11px;letter-spacing:2px;font-weight:900;opacity:.78}
+  .services-hero h1{margin:7px 0 4px;font-size:28px;line-height:1.15}
+  .services-hero p{margin:0;font-size:13px;opacity:.9}
+  .services-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  .service-tile{
+    position:relative;width:100%;min-height:142px;padding:17px 12px 14px;
+    border:1px solid #dbe7ef;border-radius:20px;background:#fff;color:#17324d;
+    box-shadow:0 6px 18px rgba(23,50,77,.08);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  }
+  .service-tile:active{transform:scale(.985)}
+  .service-icon{
+    width:52px;height:52px;border-radius:17px;
+    display:grid;place-items:center;margin-bottom:9px;
+    background:linear-gradient(145deg,#edf7fc,#dceff9);
+    color:#0875b5;font-size:27px;font-weight:900;
+    box-shadow:inset 0 0 0 1px #d4e8f2;
+  }
+  .service-title{font-size:14px;font-weight:900;line-height:1.25}
+  .service-desc{font-size:10px;color:#748696;line-height:1.4;margin-top:4px;max-width:145px}
+  .service-arrow{position:absolute;top:9px;left:11px;color:#9aabba;font-size:18px}
+  #tabs{
+    position:fixed!important;left:max(8px,env(safe-area-inset-left))!important;
+    right:max(8px,env(safe-area-inset-right))!important;
+    bottom:max(8px,env(safe-area-inset-bottom))!important;
+    width:auto!important;max-width:680px!important;margin:0 auto!important;
+    padding:7px!important;height:82px!important;
+    display:flex!important;align-items:center!important;justify-content:space-around!important;
+    gap:4px!important;overflow:hidden!important;direction:ltr!important;
+    border-radius:24px!important;background:rgba(255,255,255,.98)!important;
+    border:1px solid #d6e3eb!important;box-shadow:0 12px 38px rgba(15,54,79,.25)!important;
+  }
+  #tabs .tab{
+    direction:rtl!important;flex:1 1 0!important;min-width:0!important;width:auto!important;
+    height:66px!important;padding:5px 2px!important;border-radius:17px!important;
+    display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+    gap:4px!important;font-size:10px!important;line-height:1.15!important;
+  }
+  #tabs .tab .tab-icon{
+    width:36px!important;height:36px!important;border-radius:12px!important;
+    display:grid!important;place-items:center!important;font-size:19px!important;line-height:1!important;
+    background:#edf5fa!important;color:#0b70aa!important;
+  }
+  #tabs .tab .tab-label{
+    display:block!important;width:100%!important;max-width:100%!important;
+    overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;
+    text-align:center!important;font-size:10px!important;
+  }
+  #tabs .tab.active{background:#edf7fc!important;color:#075f9e!important}
+  #tabs .tab.active .tab-icon{background:linear-gradient(145deg,#0b83ca,#075f9e)!important;color:#fff!important}
+}
+@media(max-width:390px){
+  .wrap{padding-left:9px;padding-right:9px}
+  .services-grid{gap:8px}
+  .service-tile{min-height:132px;padding-left:8px;padding-right:8px}
+  .service-icon{width:46px;height:46px;font-size:24px}
+  .service-title{font-size:13px}
+  .service-desc{font-size:9px}
+  #tabs{height:76px!important;border-radius:21px!important}
+  #tabs .tab{height:61px!important}
+  #tabs .tab .tab-icon{width:32px!important;height:32px!important;font-size:17px!important}
+  #tabs .tab .tab-label{font-size:9px!important}
+}
+</style>
+
 </head>
 <body>
 <div id="login" class="login">
@@ -746,19 +838,20 @@ function tabsForRole(){
    return a;
  }
  a=[["home","الرئيسية"]];
- if(session.role==="sales")a.push(["newRequest","تسجيل طلب"],["requests","طلباتي"],["balances","الأرصدة"]);
+ if(session.role==="sales")a.push(["newRequest","طلب جديد"],["requests","الطلبات"],["services","الخدمات"],["balances","الأرصدة"]);
  if(session.role==="sales_manager"||session.role==="product_manager"||session.role==="executive_manager") {
-   a.push(["requests","كل الطلبات"],["approvals","Approval"]);
-   if(session.employeeId==="EMP-015") a.push(["custody","العهدة"]);
-   a.push(["daily","التقرير اليومي"],["balances","الأرصدة"],["audit","سجل النظام"]);
+   a.push(["requests","الطلبات"],["services","الخدمات"],["balances","الأرصدة"]);
  }
- if(session.role==="company_manager")a.push(["approvals","Approval"]);
- if(session.role==="injection_manager")a.push(["inbox","الواردة"],["assigned","المتابعة"]);
+ if(session.role==="company_manager")a.push(["approvals","Approval"],["services","الخدمات"]);
+ if(session.role==="injection_manager")a.push(["inbox","الواردة"],["assigned","المتابعة"],["services","الخدمات"]);
  if(session.role==="injection_manager" && hasEngineerAccess())a.push(["myJobs","مهامي"]);
- if(session.role==="accounts")a.push(["daily","التقرير اليومي"],["balances","الأرصدة"],["audit","سجل النظام"]);
+ if(session.role==="accounts")a.push(["services","الخدمات"],["balances","الأرصدة"]);
  return a;
 }
-function tabIcon(id){const m={home:"⌂",newRequest:"＋",requests:"☷",balances:"◉",approvals:"✓",custody:"▣",daily:"▥",audit:"◈",inbox:"↓",assigned:"☷",myJobs:"✚"};return m[id]||"•";}
+function tabIcon(id){
+ const m={home:"⌂",newRequest:"＋",requests:"☷",services:"✦",balances:"◉",approvals:"✓",custody:"▣",daily:"▥",audit:"◈",inbox:"↓",assigned:"☷",myJobs:"✚"};
+ return m[id]||"•";
+}
 function render(){
  const allowed=tabsForRole().map(x=>x[0]);
  if(!allowed.includes(tab)) tab=allowed[0];
@@ -1420,8 +1513,44 @@ function downloadDailyExcel(){
 function auditView(){
  return `<div class="section"><h2>Audit Trail</h2></div><div style="overflow:auto"><table><thead><tr><th>Time</th><th>User</th><th>Action</th><th>Request</th></tr></thead><tbody>${db.audit.slice().reverse().map(a=>`<tr><td>${fmtDate(a.time)}</td><td>${esc(a.user)}</td><td>${esc(a.action)}</td><td>${esc(a.requestId)}</td></tr>`).join("")||`<tr><td colspan="4">No records</td></tr>`}</tbody></table></div>`;
 }
+
+function servicesView(){
+ const items = tabsForRole().filter(([id])=>!["home","services"].includes(id));
+ const meta={
+   newRequest:["＋","طلب جديد","إنشاء طلب حقن جديد"],
+   requests:["☷","الطلبات","متابعة وإدارة طلبات الحقن"],
+   balances:["◉","أرصدة العملاء","قراءة ومراجعة أرصدة العملاء"],
+   approvals:["✓","الموافقات","مراجعة الطلبات التي تحتاج Approval"],
+   custody:["▣","العهدة","متابعة وصرف وتسوية العهدة"],
+   daily:["▥","التقرير اليومي","تقرير الاستهلاك الفعلي"],
+   audit:["◈","سجل النظام","مراجعة سجل العمليات"],
+   inbox:["↓","الواردة","الطلبات الواردة للإدارة"],
+   assigned:["☷","المتابعة","متابعة الطلبات المسندة"],
+   myJobs:["✚","مهامي","الطلبات والمهام المسندة إليك"]
+ };
+ return `
+ <section class="services-page">
+   <div class="services-hero">
+     <div class="services-kicker">FORTIMUNE • SERVICES</div>
+     <h1>الخدمات</h1>
+     <p>كل وظائف النظام في مكان واحد</p>
+   </div>
+   <div class="services-grid">
+     ${items.map(([id])=>{
+       const m=meta[id]||[tabIcon(id),id,"فتح الخدمة"];
+       return `<button class="service-tile" onclick="tab='${id}';render()">
+         <span class="service-icon">${m[0]}</span>
+         <span class="service-title">${m[1]}</span>
+         <span class="service-desc">${m[2]}</span>
+         <span class="service-arrow">‹</span>
+       </button>`;
+     }).join("")}
+   </div>
+ </section>`;
+}
+
 const VIEWS={
- home:homeView,newRequest:newRequestView,requests:()=>isTopManagementRole(session?.role)?managementRequests():myRequests(),balances:balancesView,approvals, inbox,assigned,jobs:jobs,close:()=>jobs(),daily,audit:auditView,custody:custodyView
+ home:homeView,newRequest:newRequestView,requests:()=>isTopManagementRole(session?.role)?managementRequests():myRequests(),services:servicesView,balances:balancesView,approvals, inbox,assigned,jobs:jobs,close:()=>jobs(),daily,audit:auditView,custody:custodyView
 };
 document.addEventListener("DOMContentLoaded",()=>{initSupabaseClient();setTimeout(restoreAuthSession,80);});
 function bind(){
