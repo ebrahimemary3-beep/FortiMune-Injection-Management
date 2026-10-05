@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
-<title>FortiMune | Injection Management v2.8 Production</title>
+<title>FortiMune | Injection Management v3.2 Professional Mobile</title>
 <style>
 :root{--blue:#056db7;--blue2:#0b4e80;--green:#119b5a;--orange:#ed7100;--red:#c93434;--purple:#6846c2;--bg:#f3f6f9;--card:#fff;--line:#dce5ec;--text:#17324d;--muted:#6d7d8b;--shadow:0 8px 24px #17324d12}
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Tahoma,sans-serif;background:var(--bg);color:var(--text)}
@@ -232,6 +232,28 @@ body[data-device="desktop"] .wrap{width:min(100% - 56px,var(--ui-max))}
   .brand-fallback{width:120px;height:42px;font-size:15px}
 }
 
+
+
+/* =========================================================
+   FORTIMUNE MOBILE PROFESSIONAL UI v3.2
+   Visual/presentation layer only. Business logic is unchanged.
+   ========================================================= */
+:root{--v32-blue:#075f9e;--v32-blue2:#0b78bb;--v32-line:#dbe7ee;--v32-shadow:0 10px 28px rgba(18,61,91,.10)}
+body{background:linear-gradient(180deg,#f6fafc 0%,#edf4f8 100%)}
+header{min-height:74px!important;height:auto!important;padding:9px 12px!important;background:linear-gradient(135deg,#053c63 0%,#075f9e 58%,#0b7dc4 100%)!important;box-shadow:0 8px 26px rgba(3,45,73,.22)!important}
+.brand img{height:44px!important;max-width:112px!important;border-radius:13px!important;padding:5px 8px!important}
+.userbox{gap:7px!important;flex:1;min-width:0}.userbox #who{font-size:11px!important;max-width:180px!important;font-weight:800}.userbox button{border-radius:13px!important}.userbox .account-btn{font-size:10px!important;padding:9px 10px!important;white-space:nowrap}.userbox .notify-btn{min-width:43px!important;height:40px;padding:8px 10px!important}.userbox>button:last-child{padding:9px 12px!important}
+.wrap{padding-bottom:118px!important}#content{padding-bottom:8px}
+.page-hero{margin-bottom:14px!important;padding:22px!important;border-radius:22px!important;box-shadow:0 12px 34px rgba(5,63,101,.16)!important}.page-hero h1{font-size:clamp(25px,7vw,38px)!important}.page-hero p{line-height:1.7!important}.hero-meta{gap:6px!important}.device-pill,.employee-pill{padding:7px 10px!important;font-size:10px!important}
+.kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important;margin-bottom:14px!important}.kpi-card{min-height:108px!important;padding:15px!important;border-radius:18px!important}.kpi-card span{font-size:11px!important;line-height:1.5}.kpi-card strong{font-size:29px!important;margin:7px 0!important}.kpi-card small{font-size:9px!important}
+.dashboard-grid{gap:12px!important}.panel-card{border-radius:19px!important;padding:15px!important;box-shadow:0 7px 22px rgba(18,61,91,.08)!important}.panel-head{margin-bottom:12px!important}.panel-head h2{font-size:18px!important}.pipeline-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}.pipeline-item{padding:11px!important;border-radius:14px!important;min-width:0}.pipeline-item b{font-size:21px!important}.pipeline-item small{font-size:9px!important;line-height:1.4}.pipeline-icon{width:34px!important;height:34px!important;flex:0 0 34px}.quick-grid{gap:8px!important}.quick-action{min-height:56px!important;border-radius:14px!important;padding:9px 10px!important}.quick-action b{font-size:12px!important}.quick-action small{font-size:9px!important}.qa-icon{width:36px!important;height:36px!important}
+/* Fixed professional bottom navigation. It scrolls horizontally instead of squeezing labels. */
+#tabs{position:fixed!important;left:8px!important;right:8px!important;bottom:max(8px,var(--ui-safe-bottom))!important;top:auto!important;display:flex!important;flex-wrap:nowrap!important;justify-content:flex-start!important;align-items:stretch!important;gap:5px!important;padding:6px!important;margin:0!important;overflow-x:auto!important;overflow-y:hidden!important;border:1px solid rgba(207,222,232,.98)!important;border-radius:20px!important;background:rgba(255,255,255,.96)!important;backdrop-filter:blur(20px)!important;-webkit-backdrop-filter:blur(20px)!important;box-shadow:0 12px 34px rgba(15,54,79,.22)!important;z-index:3000!important;scrollbar-width:none!important}
+#tabs::-webkit-scrollbar{display:none!important}#tabs .tab{flex:0 0 76px!important;min-width:76px!important;width:76px!important;height:58px!important;padding:6px 5px!important;border:0!important;border-radius:15px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important;color:#607486!important;background:transparent!important;font-size:9px!important;font-weight:900!important;line-height:1.15!important;white-space:normal!important;text-align:center!important;overflow:hidden!important}
+#tabs .tab .tab-icon{font-size:20px!important;line-height:21px!important;height:22px!important;display:block!important}#tabs .tab .tab-label{display:block!important;max-width:100%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}#tabs .tab.active{color:#fff!important;background:linear-gradient(145deg,#0b7dc4,#075f9e)!important;box-shadow:0 6px 16px rgba(7,95,158,.28)!important}
+.card{border-radius:17px!important;box-shadow:0 5px 18px rgba(18,61,91,.07)!important}.section{margin:12px 0 10px!important}.section h2,.section h3{line-height:1.45!important}.row{min-height:30px}
+@media(max-width:700px){header{padding:8px 9px!important}.brand img{height:40px!important;max-width:98px!important}.userbox{gap:5px!important}.userbox #who{max-width:108px!important;font-size:9px!important}.userbox .account-btn{max-width:108px!important;overflow:hidden;text-overflow:ellipsis}.userbox>button:last-child{padding:8px 9px!important;font-size:10px!important}.kpi-card{min-height:101px!important;padding:13px!important}.kpi-card strong{font-size:27px!important}}
+@media(max-width:370px){.userbox #who{max-width:82px!important}.userbox .account-btn{max-width:90px!important}#tabs .tab{flex-basis:70px!important;min-width:70px!important;width:70px!important}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
@@ -705,26 +727,27 @@ function hasEngineerAccess(){
 function tabsForRole(){
  let a=[];
  if(session.role==="engineer"){
-   a=[["myJobs","طلبات الحقن الموجهة لي"]];
+   a=[["myJobs","مهامي"]];
    return a;
  }
  a=[["home","الرئيسية"]];
- if(session.role==="sales")a.push(["newRequest","تسجيل طلب حقن"],["requests","طلباتي"],["balances","أرصدة العملاء"]);
+ if(session.role==="sales")a.push(["newRequest","تسجيل طلب"],["requests","طلباتي"],["balances","الأرصدة"]);
  if(session.role==="sales_manager"||session.role==="product_manager"||session.role==="executive_manager") {
-   a.push(["requests","كل الطلبات"],["approvals","طلبات الـApproval"]);
-   if(session.employeeId==="EMP-015") a.push(["custody","صرف العهدة المستهلكة"]);
-   a.push(["daily","Daily Injection Report"],["balances","أرصدة العملاء"],["audit","Audit Trail"]);
+   a.push(["requests","كل الطلبات"],["approvals","Approval"]);
+   if(session.employeeId==="EMP-015") a.push(["custody","العهدة"]);
+   a.push(["daily","التقرير اليومي"],["balances","الأرصدة"],["audit","سجل النظام"]);
  }
- if(session.role==="company_manager")a.push(["approvals","طلبات الـApproval"]);
- if(session.role==="injection_manager")a.push(["inbox","الطلبات الواردة"],["assigned","الموزعة والمتابعة"]);
- if(session.role==="injection_manager" && hasEngineerAccess())a.push(["myJobs","طلبات الحقن الموجهة لي"]);
- if(session.role==="accounts")a.push(["daily","Daily Injection Report"],["balances","أرصدة العملاء"],["audit","Audit Trail"]);
+ if(session.role==="company_manager")a.push(["approvals","Approval"]);
+ if(session.role==="injection_manager")a.push(["inbox","الواردة"],["assigned","المتابعة"]);
+ if(session.role==="injection_manager" && hasEngineerAccess())a.push(["myJobs","مهامي"]);
+ if(session.role==="accounts")a.push(["daily","التقرير اليومي"],["balances","الأرصدة"],["audit","سجل النظام"]);
  return a;
 }
+function tabIcon(id){const m={home:"⌂",newRequest:"＋",requests:"▤",balances:"💰",approvals:"✓",custody:"📦",daily:"📊",audit:"🛡",inbox:"📥",assigned:"📋",myJobs:"💉"};return m[id]||"•";}
 function render(){
  const allowed=tabsForRole().map(x=>x[0]);
  if(!allowed.includes(tab)) tab=allowed[0];
- document.getElementById("tabs").innerHTML=tabsForRole().map(([id,n])=>`<button class="tab ${tab===id?"active":""}" onclick="tab='${id}';render()">${n}</button>`).join("");
+ document.getElementById("tabs").innerHTML=tabsForRole().map(([id,n])=>`<button class="tab ${tab===id?"active":""}" onclick="tab='${id}';render()"><span class="tab-icon">${tabIcon(id)}</span><span class="tab-label">${n}</span></button>`).join("");
  document.getElementById("content").innerHTML=(VIEWS[tab]||VIEWS.home)();
  bind();
  updateNotificationBadge();
