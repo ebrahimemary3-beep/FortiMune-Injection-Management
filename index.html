@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
-<title>FortiMune | Injection Management v3.6 Professional Mobile</title>
+<title>FortiMune | Injection Management v3.7 Injection Manager Mobile</title>
 <style>
 :root{--blue:#056db7;--blue2:#0b4e80;--green:#119b5a;--orange:#ed7100;--red:#c93434;--purple:#6846c2;--bg:#f3f6f9;--card:#fff;--line:#dce5ec;--text:#17324d;--muted:#6d7d8b;--shadow:0 8px 24px #17324d12}
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Tahoma,sans-serif;background:var(--bg);color:var(--text)}
@@ -235,7 +235,7 @@ body[data-device="desktop"] .wrap{width:min(100% - 56px,var(--ui-max))}
 
 
 /* =========================================================
-   FORTIMUNE MOBILE PROFESSIONAL UI v3.6
+   FORTIMUNE MOBILE PROFESSIONAL UI v3.7
    Visual/presentation layer only. Business logic is unchanged.
    ========================================================= */
 :root{--v32-blue:#075f9e;--v32-blue2:#0b78bb;--v32-line:#dbe7ee;--v32-shadow:0 10px 28px rgba(18,61,91,.10)}
@@ -567,6 +567,86 @@ body{min-height:100dvh}
 }
 </style>
 
+
+<style id="fortimune-v37-manager-mobile">
+html,body,#app{max-width:100%;overflow-x:hidden}
+.app-header{
+  position:sticky!important;top:0!important;z-index:4000!important;
+  min-height:0!important;height:auto!important;
+  padding:calc(8px + env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) 8px max(10px,env(safe-area-inset-left))!important;
+}
+.header-main{width:100%;max-width:1400px;margin:0 auto;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;direction:rtl}
+.app-header .brand{position:static!important;display:block!important}
+.app-header .brand img{height:46px!important;max-width:105px!important;margin:0!important;object-fit:contain}
+.header-identity{min-width:0;text-align:right;line-height:1.25}
+.header-kicker{display:block;font-size:8px;font-weight:900;letter-spacing:1.25px;color:#bfe1f4;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.header-identity #who{display:block!important;max-width:none!important;color:#fff;font-size:12px!important;font-weight:900!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;direction:ltr!important;text-align:right!important}
+.header-actions{display:flex;align-items:center;gap:5px;direction:ltr}
+.header-icon-btn{position:relative;width:38px!important;height:38px!important;min-width:38px!important;padding:0!important;border-radius:12px!important;display:grid!important;place-items:center!important;background:#ffffff18!important;color:#fff!important;border:1px solid #ffffff2e!important;font-size:16px!important;box-shadow:none!important}
+.header-icon-btn:active{background:#ffffff28!important}
+.notify-count{top:-5px!important;right:-5px!important}
+.notification-panel{top:calc(72px + env(safe-area-inset-top))!important;right:max(10px,env(safe-area-inset-right))!important;left:max(10px,env(safe-area-inset-left))!important;width:auto!important;max-height:calc(100dvh - 110px - env(safe-area-inset-top) - env(safe-area-inset-bottom))!important;border-radius:20px!important;z-index:5000!important}
+.nav-count{position:absolute;top:-5px;right:-6px;min-width:17px;height:17px;padding:0 4px;border-radius:999px;background:#ed7100;color:#fff;font-style:normal;font-size:8px;display:grid;place-items:center;border:2px solid #fff}
+#tabs .tab .tab-icon{position:relative!important}
+
+/* Injection Manager dashboard */
+.manager-home{display:flex;flex-direction:column;gap:12px}
+.manager-hero{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:20px;border-radius:23px;background:linear-gradient(135deg,#063f69,#087fc4);color:#fff;box-shadow:0 12px 32px rgba(5,63,101,.18)}
+.manager-kicker{font-size:9px;letter-spacing:1.8px;font-weight:900;color:#bfe6f9}
+.manager-hero h1{font-size:clamp(23px,6vw,32px);margin:6px 0 4px}
+.manager-hero p{font-size:11px;color:#d9edf8;margin:0}
+.manager-live{display:flex;align-items:center;gap:6px;white-space:nowrap;padding:8px 10px;border-radius:999px;background:#ffffff14;border:1px solid #ffffff24;font-size:9px;font-weight:900}
+.manager-live i{width:7px;height:7px;border-radius:50%;background:#3be58e;box-shadow:0 0 0 4px #3be58e20}
+.manager-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.manager-kpis button{min-width:0;text-align:right;padding:14px;border-radius:17px;border:1px solid #dce7ef;background:#fff;color:#17324d;box-shadow:0 5px 16px rgba(18,61,91,.06)}
+.manager-kpis span,.manager-kpis small{display:block;color:#708391;font-size:9px}.manager-kpis strong{display:block;font-size:26px;margin:5px 0;color:#075f9e}
+.manager-action-panel{background:#fff;border:1px solid #dce7ef;border-radius:20px;padding:15px;box-shadow:0 7px 22px rgba(18,61,91,.07)}
+.manager-section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.manager-section-head small{font-size:8px;letter-spacing:1.4px;color:#7a8c99;font-weight:900}.manager-section-head h2{margin:3px 0 0;font-size:18px}
+.manager-action-list{display:flex;flex-direction:column;gap:8px}
+.manager-action-row{width:100%;display:grid;grid-template-columns:38px minmax(0,1fr) auto 16px;align-items:center;gap:9px;text-align:right;background:#f8fbfd;border:1px solid #e0eaf0;border-radius:14px;padding:10px;color:#17324d}
+.manager-action-icon{width:36px;height:36px;display:grid;place-items:center;border-radius:11px;background:#e9f5fc;color:#0878b9;font-size:18px}
+.manager-action-copy{min-width:0}.manager-action-copy b,.manager-action-copy small{display:block}.manager-action-copy b{font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.manager-action-copy small{font-size:9px;color:#7a8b98;margin-top:3px}
+.manager-action-status{font-size:8px;font-weight:900;color:#a05d00;background:#fff1dc;padding:5px 7px;border-radius:999px}.manager-action-arrow{font-size:21px;color:#9aabb8}
+.manager-empty{text-align:center;padding:20px;border:1px dashed #cadbe5;border-radius:14px;color:#708391;font-size:11px}
+.manager-shortcuts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.manager-shortcuts button{min-width:0;min-height:94px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:3px;border:1px solid #dce7ef;background:#fff;color:#17324d;border-radius:17px}
+.manager-shortcuts button>span{width:35px;height:35px;display:grid;place-items:center;border-radius:11px;background:#edf6fb;color:#0878b9;font-size:18px}.manager-shortcuts b{font-size:11px}.manager-shortcuts small{font-size:8px;color:#7a8b98}
+
+/* Responsive request cards: no horizontal scrolling on phones */
+.request-mobile-list{display:none}
+@media(max-width:760px){
+  .request-desktop-table{display:none!important}
+  .request-mobile-list{display:flex!important;flex-direction:column;gap:10px;width:100%;min-width:0}
+  .mobile-request-card{width:100%;min-width:0;background:#fff;border:1px solid #dce7ef;border-radius:18px;padding:13px;box-shadow:0 6px 18px rgba(18,61,91,.07);overflow:hidden}
+  .mobile-request-card.pending,.mobile-request-card.approved{border-right:4px solid #ed8b2b}
+  .mobile-request-card.assigned{border-right:4px solid #6a4ac4}
+  .mobile-request-card.done{border-right:4px solid #16a56b}
+  .mobile-request-top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:9px;border-bottom:1px solid #edf2f5}
+  .mobile-request-top small{display:block;font-size:7px;letter-spacing:1.4px;color:#8796a2;font-weight:900}.mobile-request-top b{display:block;font-size:11px;margin-top:2px}
+  .mobile-request-customer{font-size:15px;font-weight:950;margin:11px 0;color:#17324d;line-height:1.4}
+  .mobile-request-meta{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .mobile-request-meta>div{min-width:0;padding:8px 9px;background:#f7fafc;border:1px solid #e6edf2;border-radius:11px}
+  .mobile-request-meta small,.mobile-request-products small,.mobile-request-assignment small{display:block;font-size:8px;color:#80909c;margin-bottom:3px}
+  .mobile-request-meta b{display:block;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mobile-request-products{margin-top:8px;padding:9px 10px;border-radius:11px;background:#eef7fc;color:#23445e;font-size:10px;line-height:1.6}
+  .mobile-request-assignment{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.mobile-request-assignment>span{padding:8px;background:#fafbfc;border:1px solid #e6edf2;border-radius:11px}.mobile-request-assignment b{font-size:9px}
+  .mobile-request-action{margin-top:10px}.mobile-request-action button{width:100%;min-height:42px;border-radius:11px}
+  .manager-hero{display:block;padding:17px}.manager-live{display:inline-flex;margin-top:11px}
+  .manager-kpis{grid-template-columns:1fr 1fr}.manager-kpis button{padding:11px}.manager-kpis strong{font-size:23px}
+  .manager-shortcuts{grid-template-columns:1fr 1fr}
+  .manager-action-row{grid-template-columns:34px minmax(0,1fr) auto 12px;padding:9px 8px}
+}
+@media(max-width:420px){
+  .app-header .brand img{height:40px!important;max-width:86px!important}
+  .header-main{gap:6px}
+  .header-actions{gap:3px}
+  .header-icon-btn{width:34px!important;height:34px!important;min-width:34px!important;font-size:14px!important}
+  .header-kicker{font-size:7px;letter-spacing:.8px}
+  .header-identity #who{font-size:10px!important}
+}
+</style>
+
 </head>
 <body>
 <div id="login" class="login">
@@ -607,9 +687,19 @@ body{min-height:100dvh}
 </div>
 
 <div id="app" class="hidden">
-<header>
-  <div class="brand"><img src="fortimune-logo.png" alt="FortiMune" onerror="this.style.display='none';this.parentElement.classList.add('brand-fallback')"></div>
-  <div class="userbox"><button class="account-btn" onclick="openPasswordChange(false)" title="تغيير كلمة المرور">🔑 تغيير كلمة المرور</button><button class="notify-btn" onclick="toggleNotifications()" title="Notifications">🔔<span id="notifyCount" class="notify-count hidden">0</span></button><span id="who"></span><button onclick="logout()">خروج</button></div>
+<header class="app-header">
+  <div class="header-main">
+    <div class="brand"><img src="fortimune-logo.png" alt="FortiMune" onerror="this.style.display='none';this.parentElement.classList.add('brand-fallback')"></div>
+    <div class="header-identity">
+      <span class="header-kicker">FORTIMUNE • INJECTION MANAGEMENT</span>
+      <strong id="who"></strong>
+    </div>
+    <div class="header-actions">
+      <button class="header-icon-btn account-btn" onclick="openPasswordChange(false)" title="تغيير كلمة المرور" aria-label="تغيير كلمة المرور">🔑</button>
+      <button class="header-icon-btn notify-btn" onclick="toggleNotifications()" title="Notifications" aria-label="Notifications">🔔<span id="notifyCount" class="notify-count hidden">0</span></button>
+      <button class="header-icon-btn logout-btn" onclick="logout()" title="خروج" aria-label="خروج">↪</button>
+    </div>
+  </div>
 </header>
 <div class="wrap">
   <div id="tabs" class="tabs"></div>
@@ -706,7 +796,9 @@ function notificationAction(n){
    return `<button class="primary" onclick="markNotificationRead('${n.id}');openEngineerRequest('${n.requestId}')">View Request</button>`;
  if(r.status==="done")
    return `<button class="primary" onclick="markNotificationRead('${n.id}');viewCompletedRequest('${n.requestId}')">View Report</button>`;
- return `<button class="primary" onclick="markNotificationRead('${n.id}');render()">View Request</button>`;
+ if(session?.role==="injection_manager" && ["pending","approved"].includes(r.status))
+   return `<button class="primary" onclick="markNotificationRead('${n.id}');closeNotificationPanel();openAssign('${n.requestId}')">مراجعة وتوزيع</button>`;
+ return `<button class="primary" onclick="markNotificationRead('${n.id}');tab='requests';closeNotificationPanel();render()">View Request</button>`;
 }
 function renderNotifications(){
  const panel=document.getElementById("notificationPanel");if(!panel)return;
@@ -1063,7 +1155,7 @@ function tabIcon(id){
 function render(){
  const allowed=tabsForRole().map(x=>x[0]);
  if(!allowed.includes(tab)) tab=allowed[0];
- document.getElementById("tabs").innerHTML=tabsForRole().map(([id,n])=>`<button class="tab ${tab===id?"active":""}" onclick="tab='${id}';render()"><span class="tab-icon">${tabIcon(id)}</span><span class="tab-label">${n}</span></button>`).join("");
+ document.getElementById("tabs").innerHTML=tabsForRole().map(([id,n])=>{const navCount=(id==="inbox"&&session?.role==="injection_manager")?db.requests.filter(r=>["pending","approved"].includes(r.status)).length:0;return `<button class="tab ${tab===id?"active":""}" onclick="tab='${id}';render()"><span class="tab-icon">${tabIcon(id)}${navCount?`<i class="nav-count">${navCount}</i>`:""}</span><span class="tab-label">${n}</span></button>`}).join("");
  document.getElementById("content").innerHTML=(VIEWS[tab]||VIEWS.home)();
  bind();
  updateNotificationBadge();
@@ -1088,11 +1180,31 @@ function customerCard(c){
 }
 function requestTable(arr,actionMode=""){
  if(!arr.length)return `<div class="card empty">لا توجد طلبات.</div>`;
- return `<div style="overflow:auto"><table><thead><tr><th>Request</th><th>موعد الدفعة</th><th>العميل</th><th>المنطقة</th><th>المعمل</th><th>المنتجات</th><th>الكميات المطلوبة</th><th>Actual</th><th>المصدر</th><th>الفريق</th><th>المهندس</th><th>الحالة</th><th>Action</th></tr></thead><tbody>
- ${arr.map(r=>`<tr><td>${esc(r.id)}</td><td>${fmtDate(r.batchAt)}</td><td>${esc(r.customerName)}</td><td>${esc(r.region)}</td><td>${esc(r.lab)}</td><td>${itemSummary(r)}</td><td>${itemSummary(r)}</td><td>${r.actualItems?itemSummary(r,"actualQty"):"—"}</td><td>${esc(r.source)}</td><td>${esc(r.injectionTeam||"—")}</td><td>${esc(r.engineerName||"—")}</td><td>${badge(r.status)}</td><td>${actionFor(r,actionMode)}</td></tr>`).join("")}
- </tbody></table></div>`
+ const rows=arr.map(r=>`<tr><td>${esc(r.id)}</td><td>${fmtDate(r.batchAt)}</td><td>${esc(r.customerName)}</td><td>${esc(r.region)}</td><td>${esc(r.lab)}</td><td>${itemSummary(r)}</td><td>${itemSummary(r)}</td><td>${r.actualItems?itemSummary(r,"actualQty"):"—"}</td><td>${esc(r.source)}</td><td>${esc(r.injectionTeam||"—")}</td><td>${esc(r.engineerName||"—")}</td><td>${badge(r.status)}</td><td>${actionFor(r,actionMode)}</td></tr>`).join("");
+ const cards=arr.map(r=>`
+   <article class="mobile-request-card ${r.status||""}">
+     <div class="mobile-request-top">
+       <div><small>REQUEST</small><b>${esc(r.id)}</b></div>
+       ${badge(r.status)}
+     </div>
+     <div class="mobile-request-customer">${esc(r.customerName)}</div>
+     <div class="mobile-request-meta">
+       <div><small>📅 الموعد</small><b>${fmtDate(r.batchAt)}</b></div>
+       <div><small>📍 المنطقة</small><b>${esc(r.region)}</b></div>
+       <div><small>🧪 المعمل</small><b>${esc(r.lab)}</b></div>
+       <div><small>📦 المصدر</small><b>${esc(r.source)}</b></div>
+     </div>
+     <div class="mobile-request-products"><small>المنتجات المطلوبة</small><div>${itemSummary(r)}</div></div>
+     ${(r.injectionTeam||r.engineerName)?`<div class="mobile-request-assignment">
+       ${r.injectionTeam?`<span><small>الفريق</small><b>${esc(r.injectionTeam)}</b></span>`:""}
+       ${r.engineerName?`<span><small>المهندس</small><b>${esc(r.engineerName)}</b></span>`:""}
+     </div>`:""}
+     <div class="mobile-request-action">${actionFor(r,actionMode)}</div>
+   </article>`).join("");
+ return `<div class="request-desktop-table"><div style="overflow:auto"><table><thead><tr><th>Request</th><th>موعد الدفعة</th><th>العميل</th><th>المنطقة</th><th>المعمل</th><th>المنتجات</th><th>الكميات المطلوبة</th><th>Actual</th><th>المصدر</th><th>الفريق</th><th>المهندس</th><th>الحالة</th><th>Action</th></tr></thead><tbody>${rows}</tbody></table></div></div>
+ <div class="request-mobile-list">${cards}</div>`;
 }
-function actionFor(r,mode){
+function actionForfunction actionFor(r,mode){
  if(mode==="approval"&&r.status==="approval")return `<button class="green" onclick="approveRequest('${r.id}')">Approve</button> <button class="red" onclick="rejectRequest('${r.id}')">Reject</button>`;
  if(mode==="inbox"&&["pending","approved"].includes(r.status))return `<button class="green" onclick="openAssign('${r.id}')">مراجعة وتوزيع</button>`;
  if(mode==="jobs"&&r.status==="assigned")return `<button class="orange" onclick="openClose('${r.id}')">Close Request</button>`;
@@ -1241,7 +1353,47 @@ function balancesView(){
  </div>`;
 }
 
+
+function injectionManagerHomeView(){
+ const incoming=db.requests.filter(r=>["pending","approved"].includes(r.status));
+ const assignedNow=db.requests.filter(r=>r.status==="assigned");
+ const completed=db.requests.filter(r=>r.status==="done");
+ const needsAction=incoming.slice(0,3);
+ return `<div class="manager-home">
+   <section class="manager-hero">
+     <div>
+       <div class="manager-kicker">FORTIMUNE • INJECTION CONTROL</div>
+       <h1>مرحباً، ${esc(session?.name||"Injection Team Manager")}</h1>
+       <p>لوحة تشغيل ومتابعة طلبات الحقن والتوزيع على المهندسين.</p>
+     </div>
+     <span class="manager-live"><i></i> Live Operations</span>
+   </section>
+   <section class="manager-kpis">
+     <button onclick="tab='inbox';render()"><span>الواردة</span><strong>${incoming.length}</strong><small>تحتاج مراجعة وتوزيع</small></button>
+     <button onclick="tab='assigned';render()"><span>جاري التنفيذ</span><strong>${assignedNow.length}</strong><small>تم توزيعها على المهندسين</small></button>
+     <button onclick="tab='assigned';render()"><span>تم التنفيذ</span><strong>${completed.length}</strong><small>طلبات مغلقة</small></button>
+     <button onclick="toggleNotifications()"><span>الإشعارات</span><strong>${unreadNotifications().length}</strong><small>تنبيهات غير مقروءة</small></button>
+   </section>
+   <section class="manager-action-panel">
+     <div class="manager-section-head"><div><small>ACTION CENTER</small><h2>تحتاج إجراء الآن</h2></div><button class="ghost" onclick="tab='inbox';render()">عرض الكل</button></div>
+     ${needsAction.length?`<div class="manager-action-list">${needsAction.map(r=>`
+       <button class="manager-action-row" onclick="openAssign('${r.id}')">
+         <span class="manager-action-icon">↓</span>
+         <span class="manager-action-copy"><b>${esc(r.customerName)}</b><small>${esc(r.id)} • ${fmtDate(r.batchAt)} • ${esc(r.region)}</small></span>
+         <span class="manager-action-status">${r.status==="approved"?"Approved":"New"}</span>
+         <span class="manager-action-arrow">‹</span>
+       </button>`).join("")}</div>`:`<div class="manager-empty">✓ لا توجد طلبات تحتاج إجراء الآن.</div>`}
+   </section>
+   <section class="manager-shortcuts">
+     <button onclick="tab='inbox';render()"><span>↓</span><b>الطلبات الواردة</b><small>مراجعة وتوزيع</small></button>
+     <button onclick="tab='assigned';render()"><span>☷</span><b>المتابعة</b><small>حالة التنفيذ</small></button>
+     ${hasEngineerAccess()?`<button onclick="tab='myJobs';render()"><span>✚</span><b>مهامي</b><small>طلبات موجهة لي</small></button>`:""}
+     <button onclick="tab='services';render()"><span>✦</span><b>الخدمات</b><small>وظائف إضافية</small></button>
+   </section>
+ </div>`;
+}
 function homeView(){
+ if(session?.role==="injection_manager") return injectionManagerHomeView();
   if(session?.role==="engineer") return engineerJobsView();
   const open=db.requests.filter(r=>!["done","rejected"].includes(r.status)).length,
         done=db.requests.filter(r=>r.status==="done").length,
@@ -1453,7 +1605,11 @@ function createRequest(){
    source,injectionTeam:null,engineerId:null,engineerName:null,engineerEmail:null,status:needsApproval?"approval":"pending",
    createdBy:session.name,createdByEmployeeId:session.employeeId,createdByEmail:session.email,createdAt:now(),actualItems:null,actualQty:null,comments:"",reportPhoto:null
  };
- db.requests.push(r);audit("Created multi-product request",r);save();
+ db.requests.push(r);
+ if(!needsApproval){
+   addNotification({recipientEmail:"ashraf.mostafa@ift-online.com",recipientRole:"injection_manager",requestId:r.id,title:"طلب حقن جديد يحتاج توزيع",message:`${r.id} — ${r.customerName} — ${fmtDate(r.batchAt)}. الطلب جاهز للمراجعة والتوزيع.`,type:"new_request"});
+ }
+ audit("Created multi-product request",r);save();
  tab="requests";render();
  showRequestResult(needsApproval);
 }
@@ -1477,7 +1633,7 @@ function showRequestResult(needsApproval){
 function managementRequests(){return `<div class="section"><h2>كل الطلبات</h2></div>${requestTable(db.requests)}`}
 function myRequests(){return `<div class="section"><h2>طلباتي</h2></div>${requestTable(db.requests.filter(r=>r.createdByEmployeeId===session.employeeId || (!r.createdByEmployeeId && r.createdBy===session.name)))}`}
 function approvals(){return `<div class="section"><h2>Company / Sector Approval</h2></div>${requestTable(db.requests.filter(r=>r.status==="approval"),"approval")}`}
-function approveRequest(id){const r=db.requests.find(x=>x.id===id);r.status="approved";r.approvedBy=session.name;r.approvedAt=now();audit("Approved insufficient-balance request",r);save();alert("Approved — تم تحويل الطلب لمدير فريق الحقن.");render()}
+function approveRequest(id){const r=db.requests.find(x=>x.id===id);r.status="approved";r.approvedBy=session.name;r.approvedAt=now();addNotification({recipientEmail:"ashraf.mostafa@ift-online.com",recipientRole:"injection_manager",requestId:r.id,title:"طلب Approved جاهز للتوزيع",message:`${r.id} — ${r.customerName} — تمت الموافقة والطلب جاهز للمراجعة والتوزيع.`,type:"approved_request"});audit("Approved insufficient-balance request",r);save();alert("Approved — تم تحويل الطلب لمدير فريق الحقن.");render()}
 function rejectRequest(id){const r=db.requests.find(x=>x.id===id);r.status="rejected";r.rejectedBy=session.name;r.rejectedAt=now();audit("Rejected request",r);save();render()}
 function inbox(){return `<div class="section"><h2>طلبات الحقن الواردة</h2></div>${requestTable(db.requests.filter(r=>["pending","approved"].includes(r.status)),"inbox")}`}
 function assigned(){return `<div class="section"><h2>التوزيع والمتابعة</h2></div>${requestTable(db.requests.filter(r=>["assigned","done"].includes(r.status)))} `}
