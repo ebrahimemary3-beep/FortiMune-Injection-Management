@@ -234,6 +234,7 @@ body[data-device="desktop"] .wrap{width:min(100% - 56px,var(--ui-max))}
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
 <div id="login" class="login">
@@ -1336,7 +1337,7 @@ function daily(){
  return `<div class="section">
    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
     <div><h2 style="margin:0">Daily Injection Report</h2><div class="muted">${esc(titleTeam)}${dailyFrom||dailyTo?` • ${dailyFrom||'All'} → ${dailyTo||'All'}`:""}</div></div>
-    <div class="actions"><button class="green" onclick="downloadDailyExcel()">Export Excel</button><button class="ghost" onclick="downloadCSV()">Export CSV</button></div>
+    <div class="actions"><button class="green" onclick="downloadDailyExcel()">Export Excel</button></div>
    </div>
  </div>
  <div class="card" style="margin-bottom:14px">
@@ -1369,10 +1370,14 @@ function downloadCSV(){
 }
 function downloadDailyExcel(){
  const rows=exportDailyRows();
- const escX=v=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"','&quot;');
+ if(typeof XLSX==='undefined'){ alert('Excel export library is not available. Please refresh the page and try again.'); return; }
  const teamName=dailyTeam==='ALL'?'All Teams':dailyTeam;
- const html=`<html><head><meta charset="UTF-8"><style>table{border-collapse:collapse;font-family:Arial}th,td{border:1px solid #999;padding:6px}th{font-weight:bold;background:#d9eaf7}</style></head><body><h2>FortiMune Daily Injection Report</h2><p>Team: ${escX(teamName)} | From: ${escX(dailyFrom||'All')} | To: ${escX(dailyTo||'All')}</p><table><thead><tr>${rows[0].map(v=>`<th>${escX(v)}</th>`).join('')}</tr></thead><tbody>${rows.slice(1).map(row=>`<tr>${row.map(v=>`<td>${escX(v)}</td>`).join('')}</tr>`).join('')}</tbody></table></body></html>`;
- const blob=new Blob(["\ufeff",html],{type:"application/vnd.ms-excel;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`FortiMune_Daily_Injection_Report_${dailyTeam==='ALL'?'All_Teams':dailyTeam.replaceAll(' ','_')}${dailyFrom?'_'+dailyFrom:''}${dailyTo?'_to_'+dailyTo:''}.xls`;a.click();URL.revokeObjectURL(a.href);
+ const ws=XLSX.utils.aoa_to_sheet(rows);
+ ws['!cols']=[{wch:24},{wch:30},{wch:24},{wch:24},{wch:20}];
+ const wb=XLSX.utils.book_new();
+ XLSX.utils.book_append_sheet(wb,ws,'Daily Injection Report');
+ const fileName=`FortiMune_Daily_Injection_Report_${dailyTeam==='ALL'?'All_Teams':dailyTeam.replaceAll(' ','_')}${dailyFrom?'_'+dailyFrom:''}${dailyTo?'_to_'+dailyTo:''}.xlsx`;
+ XLSX.writeFile(wb,fileName,{bookType:'xlsx'});
 }
 function auditView(){
  return `<div class="section"><h2>Audit Trail</h2></div><div style="overflow:auto"><table><thead><tr><th>Time</th><th>User</th><th>Action</th><th>Request</th></tr></thead><tbody>${db.audit.slice().reverse().map(a=>`<tr><td>${fmtDate(a.time)}</td><td>${esc(a.user)}</td><td>${esc(a.action)}</td><td>${esc(a.requestId)}</td></tr>`).join("")||`<tr><td colspan="4">No records</td></tr>`}</tbody></table></div>`;
