@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
-<title>FortiMune | Injection Management v3.7 Injection Manager Mobile</title>
+<title>FortiMune | Injection Management v3.7.1 Injection Manager Mobile</title>
 <style>
 :root{--blue:#056db7;--blue2:#0b4e80;--green:#119b5a;--orange:#ed7100;--red:#c93434;--purple:#6846c2;--bg:#f3f6f9;--card:#fff;--line:#dce5ec;--text:#17324d;--muted:#6d7d8b;--shadow:0 8px 24px #17324d12}
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Tahoma,sans-serif;background:var(--bg);color:var(--text)}
@@ -235,7 +235,7 @@ body[data-device="desktop"] .wrap{width:min(100% - 56px,var(--ui-max))}
 
 
 /* =========================================================
-   FORTIMUNE MOBILE PROFESSIONAL UI v3.7
+   FORTIMUNE MOBILE PROFESSIONAL UI v3.7.1
    Visual/presentation layer only. Business logic is unchanged.
    ========================================================= */
 :root{--v32-blue:#075f9e;--v32-blue2:#0b78bb;--v32-line:#dbe7ee;--v32-shadow:0 10px 28px rgba(18,61,91,.10)}
@@ -1204,7 +1204,7 @@ function requestTable(arr,actionMode=""){
  return `<div class="request-desktop-table"><div style="overflow:auto"><table><thead><tr><th>Request</th><th>موعد الدفعة</th><th>العميل</th><th>المنطقة</th><th>المعمل</th><th>المنتجات</th><th>الكميات المطلوبة</th><th>Actual</th><th>المصدر</th><th>الفريق</th><th>المهندس</th><th>الحالة</th><th>Action</th></tr></thead><tbody>${rows}</tbody></table></div></div>
  <div class="request-mobile-list">${cards}</div>`;
 }
-function actionForfunction actionFor(r,mode){
+function actionFor(r,mode){
  if(mode==="approval"&&r.status==="approval")return `<button class="green" onclick="approveRequest('${r.id}')">Approve</button> <button class="red" onclick="rejectRequest('${r.id}')">Reject</button>`;
  if(mode==="inbox"&&["pending","approved"].includes(r.status))return `<button class="green" onclick="openAssign('${r.id}')">مراجعة وتوزيع</button>`;
  if(mode==="jobs"&&r.status==="assigned")return `<button class="orange" onclick="openClose('${r.id}')">Close Request</button>`;
