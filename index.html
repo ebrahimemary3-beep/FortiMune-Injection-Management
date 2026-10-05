@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
-<title>FortiMune | Injection Management v3.5 Professional Mobile</title>
+<title>FortiMune | Injection Management v3.6 Professional Mobile</title>
 <style>
 :root{--blue:#056db7;--blue2:#0b4e80;--green:#119b5a;--orange:#ed7100;--red:#c93434;--purple:#6846c2;--bg:#f3f6f9;--card:#fff;--line:#dce5ec;--text:#17324d;--muted:#6d7d8b;--shadow:0 8px 24px #17324d12}
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Tahoma,sans-serif;background:var(--bg);color:var(--text)}
@@ -235,7 +235,7 @@ body[data-device="desktop"] .wrap{width:min(100% - 56px,var(--ui-max))}
 
 
 /* =========================================================
-   FORTIMUNE MOBILE PROFESSIONAL UI v3.5
+   FORTIMUNE MOBILE PROFESSIONAL UI v3.6
    Visual/presentation layer only. Business logic is unchanged.
    ========================================================= */
 :root{--v32-blue:#075f9e;--v32-blue2:#0b78bb;--v32-line:#dbe7ee;--v32-shadow:0 10px 28px rgba(18,61,91,.10)}
@@ -404,6 +404,166 @@ body{min-height:100dvh}
 @media(max-width:420px){
  .request-form-card .product-checklist{grid-template-columns:1fr}
  .request-page-head h2{font-size:22px}
+}
+</style>
+
+
+<style id="fortimune-v36-request-polish">
+.request-form-card .product-checklist{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.request-form-card .product-item{
+  position:relative;
+  min-height:0;
+  padding:11px 12px;
+  border:1px solid #dce7ef;
+  border-radius:14px;
+  background:linear-gradient(180deg,#fff,#f8fbfd);
+  transition:.15s ease;
+}
+.request-form-card .product-item.checked{
+  border-color:#1592cf;
+  background:#eef8fe;
+  box-shadow:0 4px 12px rgba(8,112,172,.10);
+}
+.request-form-card .product-head{
+  min-height:34px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  direction:rtl;
+}
+.request-form-card .product-head input[type="checkbox"]{
+  appearance:none;
+  -webkit-appearance:none;
+  width:24px;
+  height:24px;
+  min-width:24px;
+  margin:0;
+  border:2px solid #aabcca;
+  border-radius:7px;
+  background:#fff;
+  position:relative;
+  cursor:pointer;
+}
+.request-form-card .product-head input[type="checkbox"]:checked{
+  border-color:#087dc1;
+  background:#087dc1;
+}
+.request-form-card .product-head input[type="checkbox"]:checked::after{
+  content:"✓";
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-size:17px;
+  font-weight:900;
+}
+.request-form-card .product-head label{
+  flex:1;
+  text-align:right;
+  font-size:13px;
+  line-height:1.25;
+  color:#19364e;
+  font-weight:900;
+}
+.request-form-card .product-qty{
+  display:none;
+  margin-top:8px;
+  padding-top:8px;
+  border-top:1px solid #dbe9f2;
+}
+.request-form-card .product-item.checked .product-qty{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.request-form-card .product-qty label{
+  margin:0!important;
+  font-size:10px;
+  color:#6f8291;
+  font-weight:800;
+}
+.request-form-card .product-qty input{
+  width:92px;
+  min-width:92px;
+  height:38px;
+  padding:5px 9px;
+  text-align:center;
+  border-radius:10px;
+}
+.request-form-card .product-item:not(.checked) .product-qty{
+  display:none;
+}
+
+/* Compact date control */
+#batchAt{
+  height:48px;
+  font-size:15px;
+  direction:ltr;
+  text-align:right;
+}
+
+/* Native alert replacement */
+.fortimune-result-overlay{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(8,30,48,.52);
+  backdrop-filter:blur(5px);
+}
+.fortimune-result-card{
+  width:min(92vw,390px);
+  background:#fff;
+  border-radius:24px;
+  padding:25px 22px 21px;
+  text-align:center;
+  box-shadow:0 22px 60px rgba(0,0,0,.22);
+  animation:fmResultIn .18s ease-out;
+}
+.fortimune-result-icon{
+  width:68px;
+  height:68px;
+  margin:0 auto 13px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-size:36px;
+  font-weight:900;
+}
+.fortimune-result-card.success .fortimune-result-icon{background:#16a56b;box-shadow:0 8px 20px rgba(22,165,107,.25)}
+.fortimune-result-card.approval .fortimune-result-icon{background:#f28a2e;box-shadow:0 8px 20px rgba(242,138,46,.25)}
+.fortimune-result-card h3{margin:0 0 7px;color:#17324d;font-size:19px}
+.fortimune-result-card p{margin:0 0 18px;color:#6f8190;font-size:12px;line-height:1.7}
+.fortimune-result-card button{
+  width:100%;
+  border:0;
+  border-radius:12px;
+  padding:12px 15px;
+  color:#fff;
+  font-weight:900;
+  font-size:13px;
+}
+.fortimune-result-card.success button{background:#087d58}
+.fortimune-result-card.approval button{background:#e67d20}
+@keyframes fmResultIn{
+  from{opacity:0;transform:translateY(10px) scale(.97)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+@media(max-width:600px){
+  .request-form-card .product-checklist{grid-template-columns:1fr;}
+  .request-form-card .product-item{padding:10px 11px;}
+  .request-form-card .product-head label{font-size:12px;}
+  .request-form-card .product-qty input{width:88px;min-width:88px;}
 }
 </style>
 
@@ -1202,7 +1362,7 @@ function newRequestView(){
      <div class="request-form-grid">
        <div>
          <label>موعد الدفعة <span class="required">*</span></label>
-         <input id="batchAt" type="datetime-local">
+         <input id="batchAt" type="date">
        </div>
        <div>
          <label>اسم العميل كما يظهر في التقرير <span class="required">*</span></label>
@@ -1294,8 +1454,25 @@ function createRequest(){
    createdBy:session.name,createdByEmployeeId:session.employeeId,createdByEmail:session.email,createdAt:now(),actualItems:null,actualQty:null,comments:"",reportPhoto:null
  };
  db.requests.push(r);audit("Created multi-product request",r);save();
- alert(needsApproval?"تم تسجيل الطلب، لكنه يحتاج Approval من مدير الشركة/القطاع لعدم كفاية رصيد منتج واحد أو أكثر.":"تم تسجيل طلب الحقن بنجاح.");
  tab="requests";render();
+ showRequestResult(needsApproval);
+}
+
+function showRequestResult(needsApproval){
+ const approval=!!needsApproval;
+ const overlay=document.createElement("div");
+ overlay.className="fortimune-result-overlay";
+ overlay.innerHTML=`
+   <div class="fortimune-result-card ${approval?"approval":"success"}" role="dialog" aria-modal="true">
+     <div class="fortimune-result-icon">${approval?"!":"✓"}</div>
+     <h3>${approval?"تم تسجيل الطلب — Approval مطلوب":"تم تسجيل طلب الحقن بنجاح"}</h3>
+     <p>${approval
+       ?"تم تسجيل الطلب بنجاح، ولكن يوجد منتج أو أكثر يحتاج إلى Approval بسبب عدم كفاية الرصيد."
+       :"تم حفظ طلب الحقن وتحويله للخطوة التالية بنجاح."}</p>
+     <button onclick="this.closest('.fortimune-result-overlay').remove()">متابعة</button>
+   </div>`;
+ document.body.appendChild(overlay);
+ overlay.addEventListener("click",e=>{if(e.target===overlay) overlay.remove();});
 }
 function managementRequests(){return `<div class="section"><h2>كل الطلبات</h2></div>${requestTable(db.requests)}`}
 function myRequests(){return `<div class="section"><h2>طلباتي</h2></div>${requestTable(db.requests.filter(r=>r.createdByEmployeeId===session.employeeId || (!r.createdByEmployeeId && r.createdBy===session.name)))}`}
