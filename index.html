@@ -269,6 +269,9 @@ header{position:relative!important;display:block!important;min-height:112px!impo
 #tabs .tab{flex-basis:82px!important;min-width:82px!important;width:82px!important;height:68px!important}
 }
 @media(max-width:370px){.userbox #who{max-width:82px!important}.userbox .account-btn{max-width:90px!important}#tabs .tab{flex-basis:70px!important;min-width:70px!important;width:70px!important}}
+
+/* V5.2 second brand: original PNG preserved, transparent margins framed in CSS */
+.header-identity{display:flex;justify-content:center;align-items:center}.header-identity #who{display:none!important}.ift-logo{position:relative;width:60px;height:60px;overflow:hidden;flex:none}.ift-logo img{position:absolute!important;width:132px!important;height:74.25px!important;max-width:none!important;left:50%;top:50%;transform:translate(-50%,-53%);object-fit:contain}@media(max-width:640px){.ift-logo{width:52px;height:52px}.ift-logo img{width:114px!important;height:64.125px!important}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
@@ -730,8 +733,8 @@ button:focus-visible{outline:3px solid #64b5e6;outline-offset:3px}
   <div class="header-main">
     <div class="brand"><img src="fortimune-logo.png" alt="FortiMune" onerror="this.style.display='none';this.parentElement.classList.add('brand-fallback')"></div>
     <div class="header-identity">
-      <span class="header-kicker">FORTIMUNE • INJECTION MANAGEMENT</span>
-      <strong id="who"></strong>
+      <div class="ift-logo"><img src="secondary-logo.png" alt="IFT Corporation" width="2048" height="1152"></div>
+      <strong id="who" hidden></strong>
     </div>
     <div class="header-actions">
       <button class="header-icon-btn account-btn" onclick="openPasswordChange(false)" title="تغيير كلمة المرور" aria-label="تغيير كلمة المرور"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="4"/><path d="m11 11 10 10M17 17l3-3M14 14l3-3"/></svg></button>
