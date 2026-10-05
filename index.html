@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
-<title>FortiMune | Injection Management v3.4 Professional Mobile</title>
+<title>FortiMune | Injection Management v3.5 Professional Mobile</title>
 <style>
 :root{--blue:#056db7;--blue2:#0b4e80;--green:#119b5a;--orange:#ed7100;--red:#c93434;--purple:#6846c2;--bg:#f3f6f9;--card:#fff;--line:#dce5ec;--text:#17324d;--muted:#6d7d8b;--shadow:0 8px 24px #17324d12}
 *{box-sizing:border-box}body{margin:0;font-family:Arial,Tahoma,sans-serif;background:var(--bg);color:var(--text)}
@@ -235,7 +235,7 @@ body[data-device="desktop"] .wrap{width:min(100% - 56px,var(--ui-max))}
 
 
 /* =========================================================
-   FORTIMUNE MOBILE PROFESSIONAL UI v3.4
+   FORTIMUNE MOBILE PROFESSIONAL UI v3.5
    Visual/presentation layer only. Business logic is unchanged.
    ========================================================= */
 :root{--v32-blue:#075f9e;--v32-blue2:#0b78bb;--v32-line:#dbe7ee;--v32-shadow:0 10px 28px rgba(18,61,91,.10)}
@@ -361,6 +361,49 @@ body{min-height:100dvh}
   #tabs .tab{height:61px!important}
   #tabs .tab .tab-icon{width:32px!important;height:32px!important;font-size:17px!important}
   #tabs .tab .tab-label{font-size:9px!important}
+}
+</style>
+
+
+<style id="fortimune-v35-request-ui">
+.request-page{display:flex;flex-direction:column;gap:14px}
+.request-page-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:4px 2px;flex-wrap:wrap}
+.request-page-head h2{margin:4px 0 3px;font-size:clamp(22px,3vw,30px)}
+.request-page-head p{margin:0;color:#718394;font-size:12px}
+.eyebrow.dark{color:#577185;font-size:10px;letter-spacing:1.8px;font-weight:900}
+.assigned-scope-chip{display:flex;align-items:center;gap:9px;padding:10px 13px;border:1px solid #d6e6ef;background:#f7fbfd;border-radius:15px;color:#17324d}
+.assigned-scope-chip>span{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:#e6f4fb;font-size:16px}
+.assigned-scope-chip small{display:block;color:#708596;font-size:9px;font-weight:900}
+.assigned-scope-chip b{display:block;font-size:11px;margin-top:2px}
+.request-form-card{width:100%;background:#fff;border:1px solid #dce7ef;border-radius:22px;padding:20px;box-shadow:0 10px 28px rgba(23,50,77,.08)}
+.form-section-title{display:flex;align-items:center;gap:10px;margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid #edf2f6}
+.form-section-title>span{width:32px;height:32px;border-radius:10px;background:#eaf6fc;color:#0875b5;display:grid;place-items:center;font-size:11px;font-weight:900}
+.form-section-title b{display:block;font-size:15px}.form-section-title small{display:block;color:#7a8c9b;font-size:10px;margin-top:2px}
+.request-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 14px}
+.request-form-grid>div{min-width:0}
+.field-hint{font-size:10px;color:#748796;margin-top:5px}
+.product-section-title{margin-top:22px}
+.request-form-card .product-checklist{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.request-form-card .product-item{min-height:74px}
+.request-form-card .product-qty input{max-width:160px}
+.request-form-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding-top:15px;border-top:1px solid #edf2f6}
+.request-security-note{display:flex;align-items:center;gap:9px;color:#31516a}
+.request-security-note>span{width:32px;height:32px;border-radius:10px;background:#e4f8ed;color:#087744;display:grid;place-items:center;font-weight:900}
+.request-security-note b{display:block;font-size:11px}.request-security-note small{display:block;color:#7a8c9b;font-size:10px;margin-top:2px}
+.request-submit{min-width:190px;border-radius:13px;padding:13px 18px}
+.request-submit span{margin-right:7px}
+@media(max-width:800px){
+ .request-form-grid{grid-template-columns:1fr}
+ .request-form-card{padding:15px;border-radius:19px}
+ .request-page-head{align-items:stretch}
+ .assigned-scope-chip{width:100%}
+ .request-form-card .product-checklist{grid-template-columns:1fr 1fr}
+ .request-form-footer{align-items:stretch;flex-direction:column}
+ .request-submit{width:100%}
+}
+@media(max-width:420px){
+ .request-form-card .product-checklist{grid-template-columns:1fr}
+ .request-page-head h2{font-size:22px}
 }
 </style>
 
@@ -632,11 +675,15 @@ function appRoleFromUser(u){
 }
 function visibleCustomers(){
  if(!session) return [];
+ // Sales representatives are strictly limited to their Supabase profile_regions assignments.
+ if(session.role==="sales"){
+   const ids=Array.isArray(session.areaIds)?session.areaIds:[];
+   if(!ids.length) return [];
+   const regions=new Set(ids.map(id=>AREA_REGION_MAP[id]).filter(Boolean));
+   return db.customers.filter(c=>regions.has(c.region));
+ }
  if(["sales_manager","product_manager","executive_manager","company_manager","injection_manager","engineer","accounts"].includes(session.role)) return db.customers;
- const ids=Array.isArray(session.areaIds)?session.areaIds:[];
- if(!ids.length) return [];
- const regions=new Set(ids.map(id=>AREA_REGION_MAP[id]).filter(Boolean));
- return db.customers.filter(c=>regions.has(c.region));
+ return [];
 }
 function customerIsVisible(c){return visibleCustomers().some(x=>x.id===c.id)}
 async function loadProductionProfile(authUser){
@@ -695,6 +742,7 @@ async function loadProductionProfile(authUser){
     role,
     engineerId:matchedEngineer?.id||null,
     areaIds,
+    assignedAreas:areaIds.map(id=>AREA_REGION_MAP[id]).filter(Boolean),
     adminLevel:profile.admin_level||"",
     accessScope:profile.access_scope||"",
     additionalRole:profile.additional_role||"",
@@ -1129,42 +1177,74 @@ function openEngineerRequest(id){
  </div>`;
 }
 function newRequestView(){
- return `<div class="section"><h2>تسجيل طلب حقن دفعة</h2></div><div class="two">
- <div class="card">
- <label>موعد الدفعة <span class="required">*</span></label><input id="batchAt" type="datetime-local">
- <label>اسم العميل كما يظهر في التقرير <span class="required">*</span></label>
- <select id="customerId">${visibleCustomers().map(c=>`<option value="${c.id}">${esc(c.name)} — ${esc(c.id)} — ${esc(c.region)}</option>`).join("")}</select>
- ${session?.role==="sales"?`<div class="muted" style="margin-top:6px">يتم عرض العملاء داخل الـAssigned Areas فقط.</div>`:""}
- <label>اسم المعمل <span class="required">*</span></label>
- <input id="lab" type="text" placeholder="اكتب اسم المعمل يدويًا">
- <label>عدد الدفعة <span class="required">*</span></label>
- <input id="batchQty" type="number" min="1" placeholder="مثال: 5000">
- <label>المنتجات المطلوبة للدفعة <span class="required">*</span></label>
- <div class="muted">اختار أكثر من منتج لو الدفعة تحتاج أكثر من منتج، ولكل منتج أدخل عدد الأمبولات المطلوبة.</div>
- <div class="product-checklist">${PRODUCTS.map(p=>`
-   <div class="product-item" id="pi-${p.id}">
-     <div class="product-head">
-       <input type="checkbox" id="chk-${p.id}" value="${p.id}" onchange="toggleProduct('${p.id}')">
-       <label for="chk-${p.id}" style="margin:0;cursor:pointer">${esc(p.name)}</label>
+ const customers=visibleCustomers();
+ const assignedNames=(session?.areaIds||[]).map(id=>AREA_REGION_MAP[id]).filter(Boolean);
+ const customerOptions=customers.length
+   ? customers.map(c=>`<option value="${c.id}">${esc(c.name)} — ${esc(c.id)} — ${esc(c.region)}</option>`).join("")
+   : `<option value="">لا يوجد عملاء داخل الـ Assigned Areas</option>`;
+ return `
+ <section class="request-page">
+   <div class="request-page-head">
+     <div>
+       <div class="eyebrow dark">FORTIMUNE • NEW INJECTION REQUEST</div>
+       <h2>تسجيل طلب حقن دفعة</h2>
+       <p>إنشاء طلب جديد للعميل والدفعة والمنتجات المطلوبة</p>
      </div>
-     <div class="product-qty">
-       <label style="margin-top:8px">عدد الأمبولات المطلوبة</label>
-       <input id="qty-${p.id}" type="number" min="1" value="1" oninput="updateBalanceBox()">
+     <div class="assigned-scope-chip">
+       <span>📍</span>
+       <div><small>Assigned Area</small><b>${assignedNames.length?assignedNames.map(esc).join(" • "):"لا توجد منطقة مخصصة"}</b></div>
      </div>
-   </div>`).join("")}</div>
- <label>مصدر الأمبولات <span class="required">*</span></label>
- <select id="source"><option>الشركة</option><option>فريق الحقن</option><option>المعمل</option></select>
- <div class="preview" id="balanceBox">اختار منتجًا أو أكثر لعرض الرصيد المتاح لكل منتج.</div>
- <div class="actions"><button class="primary" onclick="createRequest()">تسجيل طلب الحقن</button></div>
- </div>
- <div class="card"><h3>Customer Balance Rule</h3>
- <p>يتم اختيار <b>Customer Balance Code</b> هنا فقط، ويرتبط بكل المنتجات المختارة.</p>
- <p>المهندس لاحقًا لن يرى هذا الحقل.</p>
- <p>لو كل المنتجات أرصدتها كافية، الطلب يمشي مباشرة للـInjection Team Manager.</p>
- <p>لو أي منتج رصيده غير كافٍ، الطلب كله يتحول إلى <b>Approval</b> لمدير الشركة/القطاع.</p>
- <div class="alert warning">الخصم النهائي يعتمد على <b>Actual Injected Quantity</b> لكل منتج عند Close Request، وليس Requested Quantity.</div>
- <div class="alert">يمكن أن يحتوي نفس الطلب على عدة Products لنفس الدفعة.</div>
- </div></div>`
+   </div>
+
+   <div class="request-form-card">
+     <div class="form-section-title"><span>01</span><div><b>بيانات الدفعة</b><small>الموعد والعميل والمعمل والكمية</small></div></div>
+
+     <div class="request-form-grid">
+       <div>
+         <label>موعد الدفعة <span class="required">*</span></label>
+         <input id="batchAt" type="datetime-local">
+       </div>
+       <div>
+         <label>اسم العميل كما يظهر في التقرير <span class="required">*</span></label>
+         <select id="customerId" ${customers.length?"":"disabled"}>${customerOptions}</select>
+         <div class="field-hint">يظهر هنا العملاء داخل الـAssigned Areas الخاصة بك فقط.</div>
+       </div>
+       <div>
+         <label>اسم المعمل <span class="required">*</span></label>
+         <input id="lab" type="text" placeholder="اكتب اسم المعمل يدويًا">
+       </div>
+       <div>
+         <label>عدد الدفعة <span class="required">*</span></label>
+         <input id="batchQty" type="number" min="1" placeholder="مثال: 5000">
+       </div>
+       <div>
+         <label>مصدر الأمبولات <span class="required">*</span></label>
+         <select id="source"><option>الشركة</option><option>فريق الحقن</option><option>المعمل</option></select>
+       </div>
+     </div>
+
+     <div class="form-section-title product-section-title"><span>02</span><div><b>المنتجات المطلوبة</b><small>يمكن اختيار أكثر من منتج وإدخال الكمية لكل منتج</small></div></div>
+
+     <div class="product-checklist">${PRODUCTS.map(p=>`
+       <div class="product-item" id="pi-${p.id}">
+         <div class="product-head">
+           <input type="checkbox" id="chk-${p.id}" value="${p.id}" onchange="toggleProduct('${p.id}')">
+           <label for="chk-${p.id}" style="margin:0;cursor:pointer">${esc(p.name)}</label>
+         </div>
+         <div class="product-qty">
+           <label style="margin-top:8px">عدد الأمبولات المطلوبة</label>
+           <input id="qty-${p.id}" type="number" min="1" value="1" oninput="updateBalanceBox()">
+         </div>
+       </div>`).join("")}</div>
+
+     <div class="preview" id="balanceBox">اختار منتجًا أو أكثر لعرض الرصيد المتاح لكل منتج.</div>
+
+     <div class="request-form-footer">
+       <div class="request-security-note"><span>✓</span><div><b>Customer Balance</b><small>سيتم التحقق من الرصيد تلقائيًا حسب العميل والمنتجات المختارة.</small></div></div>
+       <button class="primary request-submit" onclick="createRequest()">تسجيل طلب الحقن <span>←</span></button>
+     </div>
+   </div>
+ </section>`;
 }
 function toggleProduct(pid){
  const item=document.getElementById("pi-"+pid),chk=document.getElementById("chk-"+pid);
