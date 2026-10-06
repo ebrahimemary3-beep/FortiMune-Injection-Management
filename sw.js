@@ -12,11 +12,11 @@ self.addEventListener('push',event=>{
 });
 self.addEventListener('notificationclick',event=>{
  event.notification.close();const requestId=String(event.notification.data?.requestId||'');
- const target=new URL('./',self.registration.scope);if(requestId)target.searchParams.set('request',requestId);
+ const target=new URL('./',self.registration.scope);if(requestId)target.searchParams.set('request',requestId);const userId=String(event.notification.data?.userId||'');if(userId)target.searchParams.set('recipient',userId);
  event.waitUntil((async()=>{
   const clients=await self.clients.matchAll({type:'window',includeUncontrolled:true});
   const client=clients.find(c=>c.url.startsWith(self.registration.scope));
-  if(client){client.postMessage({type:'FORTIMUNE_OPEN_REQUEST',requestId});await client.focus()}
+  if(client){client.postMessage({type:'FORTIMUNE_OPEN_REQUEST',requestId,userId});await client.focus()}
   else await self.clients.openWindow(target.href);
  })());
 });

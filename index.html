@@ -2246,7 +2246,7 @@ render=function(){
 };
 function title5(k,t,p=''){return `<div class="v5-heading"><small>${k}</small><h2>${t}</h2>${p?`<p>${p}</p>`:''}</div>`}
 function tile5(icon,title,desc,page,color='blue'){return `<button class="v5-tile ${color}" onclick="go('${page}')"><span class="v5-tile-icon">${icon5(navGroup[page]||page)}</span><b>${title}</b><p>${desc}</p><span class="v5-arrow">←</span></button>`}
-function accessibleRequests(){return db.requests.filter(r=>session.role==='engineer'?isAssignedEngineer(r):session.role==='sales'?customerIsVisible(db.customers.find(c=>c.id===r.customerId)||{}):r.status!=='approval'||canSettleCustody()||r.createdByEmployeeId===session.employeeId)}
+function accessibleRequests(){return db.requests.filter(r=>session.role==='engineer'?isAssignedEngineer(r):session.role==='sales'?(r.createdByEmployeeId===session.employeeId||customerIsVisible(db.customers.find(c=>c.id===r.customerId)||{})):r.status!=='approval'||canSettleCustody()||r.createdByEmployeeId===session.employeeId)}
 function openFollow(status='ALL'){followFilter=status;go('follow')}
 function home5(){const rows=accessibleRequests(),counts=s=>rows.filter(r=>s.includes(r.status)).length;
  const stats=[['الدفعات المسجلة',['pending','approved'],'blue'],['تم التوزيع',['assigned'],'purple'],['قيد التنفيذ',['in_progress'],'yellow'],['تم الحقن والإغلاق',['done'],'green']];
@@ -2317,7 +2317,7 @@ let cloudReady=false,cloudBusy=false,cloudTimer=null,cloudRevision=0;
 const localSave=save;
 function cloudStatus(message,ok=false){let el=document.getElementById('sharedStatus');if(!el){el=document.createElement('div');el.id='sharedStatus';el.className='alert';document.querySelector('#app .wrap')?.prepend(el);}el.className='alert '+(ok?'success':'warning');el.textContent=message;}
 function applyCloudState(result){if(!result?.state)return;db=result.state;db.invoices||=[];db.returns||=[];db.notifications||=[];db.movements||=[];db.audit||=[];db.custodyTransactions||=[];db.teamBalances||={};db.usersMaster||=[];cloudRevision=result.revision||0;localSave();updateNotificationBadge();if(!document.getElementById('notificationPanel')?.classList.contains('hidden'))renderNotifications();}
-async function fetchCloudState(){const {data,error}=await fortimuneSupabase.rpc('fortimune_v4_read');if(error)throw error;if(!data?.state)throw new Error('NOT_INITIALIZED');applyCloudState(data);cloudReady=true;cloudStatus('متصل • الطلبات والإشعارات مشتركة بين الحسابات',true);return data;}
+async function fetchCloudState(){const owner63=session?.authUserId;const {data,error}=await fortimuneSupabase.rpc('fortimune_v4_read');if(error)throw error;if(!data?.state)throw new Error('NOT_INITIALIZED');if(session?.authUserId!==owner63)throw new Error('ACCOUNT_CHANGED');applyCloudState(data);cloudReady=true;cloudStatus('متصل • الطلبات والإشعارات مشتركة بين الحسابات',true);return data;}
 async function connectSharedWorkflow(){
  clearInterval(cloudTimer);cloudReady=false;
  try{await fetchCloudState();render();cloudTimer=setInterval(async()=>{if(!session||cloudBusy)return;try{const before=cloudRevision;await fetchCloudState();if(before!==cloudRevision&&document.querySelector('#content .request-mobile-list, #content .request-desktop-table, #content > .services-page')&&!document.querySelector('#content input, #content textarea'))render();}catch(e){cloudReady=false;cloudStatus('تعذر تحديث البيانات المشتركة. أعد الاتصال قبل الحفظ.');}},8000);}
@@ -2474,8 +2474,87 @@ async function pushAPI62(body){if(!session?.authUserId||!fortimuneSupabase)throw
 async function enablePush62(){if(pushBusy62)return;pushBusy62=true;try{if(!pushSupported62())throw new Error('افتح التطبيق في متصفح يدعم Push عبر HTTPS.');const permission=await Notification.requestPermission();if(permission!=='granted')throw new Error('لم يتم السماح بإشعارات الموبايل.');const config=await pushAPI62({action:'config'});if(!config?.publicKey)throw new Error('إعداد خدمة الإشعارات غير مكتمل.');const reg=await navigator.serviceWorker.register('./sw.js',{scope:'./'});await navigator.serviceWorker.ready;let sub=await reg.pushManager.getSubscription();if(sub&&JSON.stringify(Array.from(new Uint8Array(sub.options.applicationServerKey||[])))!==JSON.stringify(Array.from(bytes62(config.publicKey)))){await sub.unsubscribe();sub=null}sub||=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:bytes62(config.publicKey)});await pushAPI62({action:'subscribe',subscription:sub.toJSON()});pushStatus62='تم تفعيل إشعارات الموبايل على هذا الجهاز.';appMessage(pushStatus62,'success')}catch(e){pushStatus62=e.message;appMessage(pushStatus62,'warning')}finally{pushBusy62=false;if(tab==='push62')render()}}
 async function disablePush62(show=true){if(!navigator.serviceWorker)return;const reg=await navigator.serviceWorker.getRegistration('./');const sub=await reg?.pushManager?.getSubscription();if(sub){if(session?.authUserId)await pushAPI62({action:'unsubscribe',endpoint:sub.endpoint});await sub.unsubscribe()}pushStatus62='تم إيقاف إشعارات هذا الجهاز.';if(show){appMessage(pushStatus62,'success');if(tab==='push62')render()}}
 async function testPush62(){try{const reg=await navigator.serviceWorker?.getRegistration('./');const sub=await reg?.pushManager?.getSubscription();if(!sub)throw new Error('فعّل الإشعارات أولًا.');await pushAPI62({action:'test',endpoint:sub.endpoint});appMessage('تم إرسال إشعار الاختبار. راجع إشعارات الموبايل.','success')}catch(e){appMessage(e.message,'warning')}}
-async function handlePushLink62(){const params=new URLSearchParams(location.search||''),id=params.get('request');if(!id||!session||!cloudReady||pushLinkBusy62)return;pushLinkBusy62=true;try{const r=accessibleRequests().find(r=>r.id===id);params.delete('request');history.replaceState(null,'',location.pathname+(params.size?'?'+params:'')+location.hash);if(!r)return appMessage('الدفعة غير متاحة ضمن صلاحيات حسابك.','warning');if(r.status==='done')viewCompletedRequest(r.id);else{followDay61='';followFilter='ALL';go('follow')}}finally{pushLinkBusy62=false}}
-if(navigator.serviceWorker){navigator.serviceWorker.addEventListener('message',event=>{if(event.data?.type==='FORTIMUNE_OPEN_REQUEST'){const u=new URL(location.href);u.searchParams.set('request',event.data.requestId);history.replaceState(null,'',u);if(session)handlePushLink62()}})}
+async function handlePushLink62(){
+ const params=new URLSearchParams(location.search||''),id=params.get('request'),recipient=params.get('recipient');
+ if(!id||!session?.authUserId||!cloudReady||cloudBusy||pushLinkBusy62)return;
+ pushLinkBusy62=true;const owner=session.authUserId;
+ try{
+  if(recipient&&recipient!==owner){params.delete('request');params.delete('recipient');history.replaceState(null,'',location.pathname+(params.size?'?'+params:'')+location.hash);return appMessage('الإشعار يخص حسابًا آخر. ادخل بالحساب المستلم لمراجعة الطلب.','warning')}
+  // Refresh the server-filtered state before deciding whether the request is available.
+  await fetchCloudState();if(session?.authUserId!==owner)return;
+  const r=accessibleRequests().find(r=>r.id===id);
+  params.delete('request');params.delete('recipient');history.replaceState(null,'',location.pathname+(params.size?'?'+params:'')+location.hash);
+  if(!r)return appMessage('الدفعة غير متاحة ضمن صلاحيات حسابك الحالية أو تم حذفها.','warning');
+  closeNotificationPanel();followDay61='';followFilter='ALL';tab='follow';
+  if(r.status==='done')viewCompletedRequest(r.id);
+  else {const mode=session.role==='engineer'?'jobs':session.role==='injection_manager'?'inbox':'';document.getElementById('content').innerHTML=title5('','تفاصيل الدفعة',r.id)+requestTable([r],mode);bind();footer62();window.scrollTo?.(0,0)}
+ }catch(e){appMessage('تعذر تحديث الطلب. أعد الاتصال واضغط الإشعار مرة أخرى.','warning')}
+ finally{pushLinkBusy62=false}
+}
+if(navigator.serviceWorker){navigator.serviceWorker.addEventListener('message',event=>{if(event.data?.type==='FORTIMUNE_OPEN_REQUEST'){const u=new URL(location.href);u.searchParams.set('request',event.data.requestId);if(event.data.userId)u.searchParams.set('recipient',event.data.userId);else u.searchParams.delete('recipient');history.replaceState(null,'',u);if(session)handlePushLink62()}})}
+
+// V6.3 native Android: origin-restricted message bridge, server-authenticated device binding.
+const nativeCalls63=new Map();let nativeBound63='',nativeBinding63=false,nativeRetry63=0;
+function hasNative63(){return !!window.FortiMuneNative?.postMessage}
+function nativeCall63(action='status',extra={}){
+ return new Promise((resolve,reject)=>{
+  if(!hasNative63())return reject(new Error('هذه النسخة تحتاج تحديث تطبيق أندرويد.'));
+  const id=crypto.randomUUID(),timer=setTimeout(()=>{nativeCalls63.delete(id);reject(new Error('تعذر التواصل مع إشعارات التطبيق.'))},6000);
+  nativeCalls63.set(id,{resolve,reject,timer});
+  window.FortiMuneNative.onmessage=event=>{try{const data=JSON.parse(event.data),call=nativeCalls63.get(data.id);if(call){clearTimeout(call.timer);nativeCalls63.delete(data.id);call.resolve(data)}}catch(_e){}};
+  window.FortiMuneNative.postMessage(JSON.stringify({id,action,...extra}));
+ });
+}
+window.receiveNativeOpen63=function(data){
+ if(!data?.requestId)return;
+ const u=new URL(location.href);u.searchParams.set('request',String(data.requestId));
+ if(data.userId)u.searchParams.set('recipient',String(data.userId));else u.searchParams.delete('recipient');
+ history.replaceState(null,'',u);if(session)handlePushLink62();
+};
+async function bindNative63(explicit=false){
+ if(!hasNative63()||!session?.authUserId||nativeBinding63||Date.now()<nativeRetry63)return;
+ if(!explicit&&localStorage.getItem('fortimune-native-disabled63')==='1')return;
+ const owner=session.authUserId;nativeBinding63=true;
+ try{
+  let device=await nativeCall63(explicit?'enable':'status');
+  if(!explicit&&device.permission&&!device.optedIn)device=await nativeCall63('enable');
+  if(!device.permission||!device.optedIn){pushStatus62='اسمح بإشعارات التطبيق لاستقبال التنبيهات.';return}
+  if(!device.subscriptionId||!device.onesignalId||!device.token)return;
+  const binding=owner+':'+device.subscriptionId;if(nativeBound63===binding)return;
+  const challenge=await pushAPI62({action:'native-start',subscriptionId:device.subscriptionId,onesignalId:device.onesignalId,token:device.token});
+  // A random proof must arrive through this device's native push channel, not an API response.
+  let proof=null;
+  for(let attempt=0;attempt<45;attempt++){
+   if(session?.authUserId!==owner) return;
+   device=await nativeCall63();
+   if(device.proof?.userId===owner&&device.proof.subscriptionId===device.subscriptionId&&device.proof.challengeId===challenge.challengeId){proof=device.proof.proof;break}
+   await new Promise(resolve=>setTimeout(resolve,1000));
+  }
+  if(!proof)throw new Error('تعذر تأكيد اشتراك الموبايل. اترك التطبيق مفتوحًا وأعد التفعيل.');
+  await pushAPI62({action:'native-confirm',subscriptionId:device.subscriptionId,proof});
+  if(session?.authUserId!==owner)return;
+  await nativeCall63('bound',{userId:owner});nativeBound63=binding;
+  localStorage.removeItem('fortimune-native-disabled63');
+  pushStatus62='إشعارات التطبيق مرتبطة بالحساب الحالي.';
+  if(explicit)appMessage(pushStatus62,'success');
+ }catch(e){nativeRetry63=Date.now()+35000;pushStatus62=e.message;if(explicit)appMessage(e.message,'warning')}
+ finally{nativeBinding63=false;if(tab==='push62'&&session)render()}
+}
+const webEnable63=enablePush62;enablePush62=async function(){if(!hasNative63())return webEnable63();nativeRetry63=0;nativeBound63='';await bindNative63(true)};
+const webDisable63=disablePush62;disablePush62=async function(show=true){
+ if(!hasNative63())return webDisable63(show);
+ const device=await nativeCall63('disable');nativeBound63='';localStorage.setItem('fortimune-native-disabled63','1');
+ if(device.subscriptionId&&session?.authUserId)await pushAPI62({action:'unsubscribe',endpoint:'onesignal:'+device.subscriptionId});
+ pushStatus62='تم إيقاف إشعارات هذا الجهاز.';if(show){appMessage(pushStatus62,'success');if(tab==='push62')render()}
+};
+const webTest63=testPush62;testPush62=async function(){
+ if(!hasNative63())return webTest63();
+ try{const device=await nativeCall63();await pushAPI62({action:'test',endpoint:'onesignal:'+device.subscriptionId});appMessage('تم إرسال إشعار الاختبار من التطبيق.','success')}catch(e){appMessage(e.message,'warning')}
+};
+const pushView63=VIEWS.push62;VIEWS.push62=function(){if(!hasNative63())return pushView63();return title5('','إشعارات التطبيق','الإشعارات تصل من FortiMune على هذا الموبايل')+`<div class="card"><p class="scope62">${esc(pushStatus62||'جارٍ تأكيد اشتراك الجهاز بالحساب الحالي…')}</p><div class="actions"><button class="primary" onclick="enablePush62()" ${nativeBinding63?'disabled':''}>تفعيل الإشعارات</button><button class="ghost" onclick="testPush62()">اختبار إشعار</button><button class="ghost" onclick="disablePush62()">إيقاف على هذا الجهاز</button></div></div>`};
+// Poll only the local bridge; a confirmed account does not make repeated server requests.
+setInterval(()=>{if(hasNative63()){nativeCall63().catch(()=>{});if(session?.authUserId&&!nativeBinding63)bindNative63()}},5000);
+const logout63=logout;logout=async function(){await logout63();if(!session){nativeBound63='';nativeRetry63=0;localStorage.removeItem('fortimune-native-disabled63')}};
 
 </script>
 </body></html>
