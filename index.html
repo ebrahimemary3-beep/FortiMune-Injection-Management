@@ -697,7 +697,10 @@ button:focus-visible{outline:3px solid #64b5e6;outline-offset:3px}
 #app{padding-top:var(--v51-header-height,76px)!important}.app-header{position:fixed!important;top:0!important;left:0!important;right:0!important;width:100%!important;z-index:60!important;box-sizing:border-box!important}.notification-panel{top:calc(var(--v51-header-height,76px) + 12px)!important;max-height:calc(100dvh - var(--v51-header-height,76px) - 24px)!important}#actualInjectionMethod{width:100%;margin-bottom:8px}
 </style><style>.controls6{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.controls6 small,.controls6 .alert{width:100%}.table-scroll6{overflow:auto;max-width:100%}.table-scroll6 table{min-width:800px}.negative6{background:#ffe0e2!important;color:#a11827!important;font-weight:700}.thread6>div{padding:14px;background:#f1f7fb;border-radius:14px;margin:10px 0}.thread6 small,td small{display:block}.row input[id^="t6-"]{max-width:110px}</style><style>.day61{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px!important}.day61>div{text-align:center}.day61 b{display:block}.menu-entry61{display:flex;align-items:center;gap:16px;width:100%;padding:20px 8px;background:transparent;border:0;border-bottom:1px solid #e5edf2;text-align:right;color:#183848}.menu-entry61>span:nth-child(2){flex:1}.menu-entry61 small{display:block;color:#6e8593;margin-top:6px}.bar61{display:flex;align-items:center;gap:12px;margin:16px 0}.bar61 span{min-width:95px}.bar61 i{height:14px;background:linear-gradient(90deg,#087ca8,#24ac9a);border-radius:8px;max-width:65%}.v5-hero{min-height:0!important}.date-range54{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:12px}.date-range54 input{min-width:0;width:100%}</style><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#086caa"><style>
 .menu-grid62{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:12px}.menu-entry62{display:flex;align-items:center;gap:15px;background:#fff;border:1px solid #dce8ef;border-radius:20px;padding:20px;color:#193447;text-align:right;min-height:98px;box-shadow:0 5px 18px #19344706}.menu-entry62>span:nth-child(2){flex:1}.menu-entry62 small{display:block;margin-top:7px;color:#698292;line-height:1.7}.menu-entry62:hover{border-color:#0780ba}.menu-icon62{background:#eaf5fb;color:#0877ad;width:50px;height:50px;display:grid;place-items:center;border-radius:16px;flex-shrink:0}.menu-icon62 svg{width:25px;height:25px}.footer62{display:flex;justify-content:center;gap:12px;margin:30px 0 10px;padding:20px 0;border-top:1px solid #dce7ef}.footer62 button{display:flex;align-items:center;gap:8px;min-height:46px}.footer62 svg,.adjustment62 svg{width:20px;height:20px}.movement-controls62{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin:16px 0}.movement-controls62 .v5-segments{margin:0}.adjustment62{background:#fff;color:#60409c;border:1px solid #d5c6ed;border-radius:14px;padding:12px;display:flex;gap:8px;align-items:center}.adjustment62.selected{background:#60409c;color:#fff}.scope62{padding:12px;background:#edf6fb;border-radius:12px;color:#24566e}.signed-green62{color:#087744!important;background:#e6f7ed!important;font-weight:700;direction:ltr}.partial62{background:#fff1db!important;color:#975700!important;border:1px solid #f0c77b}.movement-adjustment{background:#f2ecfb}.menu-entry62:focus-visible{outline:3px solid #6fc5ef;outline-offset:3px}@media(max-width:600px){.menu-grid62{grid-template-columns:1fr}.menu-entry62{padding:17px;min-height:90px}.footer62{flex-wrap:wrap}.movement-controls62{gap:12px}}
-</style><style>.settlement62{font-size:11px;margin-top:8px;padding:7px;border-radius:8px}.complete62{background:#dff7ea;color:#087744}.pending62{background:#fff6df;color:#946400}</style></head>
+</style><style>.settlement62{font-size:11px;margin-top:8px;padding:7px;border-radius:8px}.complete62{background:#dff7ea;color:#087744}.pending62{background:#fff6df;color:#946400}</style><style>/* FortiMune v6.4 notification centre */
+.notice-summary64{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:0;background:transparent;color:var(--navy);text-align:right;border:0;min-height:44px}
+.notice-summary64 .notification-item-title{flex:1}.notice-triangle64{flex-shrink:0;font-size:22px;color:#0571bc}.notice-summary64:focus-visible{outline:2px solid #0571bc;outline-offset:3px}.notice-older64{display:block;width:100%;margin-top:12px;min-height:44px}
+</style></head>
 <body>
 <div id="login" class="login">
   <img src="fortimune-logo.png" alt="FortiMune" onerror="this.style.display='none'">
@@ -836,48 +839,55 @@ function markNotificationRead(id){
  const n=db.notifications.find(x=>x.id===id);if(n&&!n.readAt){n.readAt=now();save();renderNotifications();updateNotificationBadge();}
 }
 function markAllNotificationsRead(){
- currentNotifications().forEach(n=>{if(!n.readAt)n.readAt=now()});save();renderNotifications();updateNotificationBadge();
+ currentNotifications().forEach(n=>{noticeExpanded64.set(n.id,false);if(!n.readAt)n.readAt=now()});save();renderNotifications();updateNotificationBadge();
 }
 function updateNotificationBadge(){
  const el=document.getElementById("notifyCount");if(!el)return;const count=unreadNotifications().length;el.textContent=count;el.classList.toggle("hidden",count===0);
 }
 function notificationAction(n){
- const r=n?.requestId?db.requests.find(x=>x.id===n.requestId):null;
- if(!r)return "";
- if(["assigned","in_progress","postponed","not_executed"].includes(r.status) && isAssignedEngineer(r))
-   return `<button class="primary" onclick="markNotificationRead('${n.id}');closeNotificationPanel();openEngineerRequest('${n.requestId}')">View Request</button>`;
- if(r.status==="approval"&&canSettleCustody())return `<button class="primary" onclick="markNotificationRead('${n.id}');closeNotificationPanel();tab='approvals';render()">مراجعة الموافقة</button>`;
- if(r.status==="done")
-   return `<button class="primary" onclick="markNotificationRead('${n.id}');closeNotificationPanel();viewCompletedRequest('${n.requestId}')">View Report</button>`;
- if(session?.role==="injection_manager" && ["pending","approved"].includes(r.status))
-   return `<button class="primary" onclick="markNotificationRead('${n.id}');closeNotificationPanel();openAssign('${n.requestId}')">مراجعة وتوزيع</button>`;
- return `<button class="primary" onclick="markNotificationRead('${n.id}');tab='requests';closeNotificationPanel();render()">View Request</button>`;
+ if(!n?.requestId)return '';
+ return `<button class="primary" data-notice-id="${esc(n.id)}" onclick="openNotice64(this.dataset.noticeId)">فتح الطلب</button>`;
+}
+let noticeOwner64='',noticeLimit64=10;
+const noticeExpanded64=new Map();
+function noticeState64(){const owner=session?.authUserId||session?.employeeId||session?.email||'';if(owner!==noticeOwner64){noticeOwner64=owner;noticeLimit64=10;noticeExpanded64.clear()}}
+function noticeRows64(){noticeState64();return currentNotifications().slice().sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt)).slice(0,noticeLimit64)}
+function toggleNotice64(id){noticeState64();const n=currentNotifications().find(n=>n.id===id);if(!n)return;const open=noticeExpanded64.has(id)?noticeExpanded64.get(id):!n.readAt;noticeExpanded64.set(id,!open);if(!n.readAt)markNotificationRead(id);renderNotifications()}
+function showOlderNotices64(){const firstOlder=noticeRows64().length;noticeLimit64+=10;renderNotifications();const list=document.querySelector('#notificationPanel .notification-list');const rows=list?.querySelectorAll('article');rows?.[firstOlder]?.scrollIntoView?.({block:'start',behavior:'smooth'})}
+async function openNotice64(id){
+ const n=currentNotifications().find(n=>n.id===id);if(!n?.requestId||!session?.authUserId)return;
+ if(cloudBusy||pushLinkBusy62)return appMessage('انتظر انتهاء العملية الحالية ثم افتح الطلب.','warning');
+ const u=new URL(location.href);u.searchParams.set('request',n.requestId);u.searchParams.set('recipient',session.authUserId);history.replaceState(null,'',u);
+ await handlePushLink62();
 }
 function notificationDetails53(n){
  const r=db.requests.find(r=>r.id===n.requestId)||n;
  const customer=r.customerName,farm=r.farmName,creator=r.createdBy||r.requestedByName;
  const fields=[['العميل',customer],['المزرعة',farm],['سجّل الطلب',creator],['رقم الطلب',n.requestId]].filter(([,v])=>v);
- return fields.length?'<div class="notice-details53">'+fields.map(([k,v])=>`<div><span>${k}</span><b>${esc(v)}</b></div>`).join('')+'</div>':`<p class="notification-message">${esc(n.message||'')}</p>`;
+ return (fields.length?'<div class="notice-details53">'+fields.map(([k,v])=>`<div><span>${k}</span><b>${esc(v)}</b></div>`).join('')+'</div>':'')+`<p class="notification-message">${esc(n.message||'')}</p>`;
 }
 function renderNotifications(){
  const panel=document.getElementById("notificationPanel");if(!panel)return;
- const ns=currentNotifications().slice().sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+ noticeState64();const previousScroll=panel.querySelector('.notification-list')?.scrollTop||0;
+ const total=currentNotifications().length,ns=noticeRows64();
  const unread=unreadNotifications().length;
  panel.innerHTML=`<div class="notification-heading"><div class="notification-heading-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></div><div><h3 id="notificationTitle">الإشعارات</h3><p>${unread?`${unread} إشعار غير مقروء`:"أنت متابع كل التحديثات"}</p></div><button class="notification-close" onclick="closeNotificationPanel(true)" aria-label="إغلاق الإشعارات">×</button></div>
- ${ns.length?`<div class="notification-toolbar"><span>${ns.length} إشعار</span><button class="ghost" onclick="markAllNotificationsRead()" ${unread?"":"disabled"}>تحديد الكل كمقروء</button></div>`:""}
+ ${ns.length?`<div class="notification-toolbar"><span>${ns.length} من ${total} إشعار</span><button class="ghost" onclick="markAllNotificationsRead()" ${unread?"":"disabled"}>تحديد الكل كمقروء</button></div>`:""}
  <div class="notification-list">`+
  (ns.length?ns.map(n=>`<article class="notification-item notice-${notificationType(n)} ${n.readAt?"":"unread"}">
  ${notificationType(n)==='approval'?'<span class="notice-kind">موافقة على الرصيد</span>':''}
- <div class="notification-item-title"><b>${esc(n.title)}</b>${!n.readAt?'<span class="notification-unread-dot" title="غير مقروء"></span>':""}</div>
+ <button class="notice-summary64" data-notice-id="${esc(n.id)}" onclick="toggleNotice64(this.dataset.noticeId)" aria-expanded="${noticeExpanded64.has(n.id)?noticeExpanded64.get(n.id):!n.readAt}"><span class="notification-item-title"><b>${esc(n.title)}</b>${!n.readAt?'<span class="notification-unread-dot" title="غير مقروء"></span>':""}</span><span class="notice-triangle64" aria-hidden="true">${(noticeExpanded64.has(n.id)?noticeExpanded64.get(n.id):!n.readAt)?'▾':'◂'}</span></button>
  <time class="notification-time">${fmtDate(n.createdAt)}</time>
+ <div ${(noticeExpanded64.has(n.id)?noticeExpanded64.get(n.id):!n.readAt)?'':'hidden'}>
  ${notificationDetails53(n)}
- <div class="notification-actions">${notificationAction(n)}${!n.readAt?`<button class="ghost" onclick="markNotificationRead('${n.id}')">تحديد كمقروء</button>`:""}</div>
- </article>`).join(""):`<div class="notification-empty"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></div><h4>لا توجد إشعارات حاليًا</h4><p>ستظهر هنا تحديثات الطلبات والمهام الخاصة بك.</p></div>`)+`</div>`;
+ <div class="notification-actions">${notificationAction(n)}${!n.readAt?`<button class="ghost" data-notice-id="${esc(n.id)}" onclick="noticeExpanded64.set(this.dataset.noticeId,false);markNotificationRead(this.dataset.noticeId)">تحديد كمقروء</button>`:""}</div></div>
+ </article>`).join(""):`<div class="notification-empty"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></div><h4>لا توجد إشعارات حاليًا</h4><p>ستظهر هنا تحديثات الطلبات والمهام الخاصة بك.</p></div>`)+`${ns.length<total?'<button class="ghost notice-older64" onclick="showOlderNotices64()">عرض الأقدم / Show older</button>':''}</div>`;
+ panel.querySelector('.notification-list').scrollTop=previousScroll;
 }
 function toggleNotifications(){
  const panel=document.getElementById("notificationPanel");if(!panel)return;
  if(!panel.classList.contains("hidden")){closeNotificationPanel();return;}
- renderNotifications();panel.classList.remove("hidden");
+ noticeLimit64=10;noticeExpanded64.clear();renderNotifications();panel.querySelector('.notification-list').scrollTop=0;panel.classList.remove("hidden");
  document.getElementById("notificationToggle")?.setAttribute("aria-expanded","true");
  updateNotificationBadge();
 }
@@ -2488,6 +2498,7 @@ async function handlePushLink62(){
   closeNotificationPanel();followDay61='';followFilter='ALL';tab='follow';
   if(r.status==='done')viewCompletedRequest(r.id);
   else {const mode=session.role==='engineer'?'jobs':session.role==='injection_manager'?'inbox':'';document.getElementById('content').innerHTML=title5('','تفاصيل الدفعة',r.id)+requestTable([r],mode);bind();footer62();window.scrollTo?.(0,0)}
+  for(const notice of currentNotifications().filter(n=>n.requestId===id)){if(session?.authUserId!==owner)break;noticeExpanded64.set(notice.id,false);if(!notice.readAt)await markNotificationRead(notice.id)}
  }catch(e){appMessage('تعذر تحديث الطلب. أعد الاتصال واضغط الإشعار مرة أخرى.','warning')}
  finally{pushLinkBusy62=false}
 }
