@@ -5,7 +5,7 @@ self.addEventListener('push',event=>{
  let data={};try{data=event.data?.json()||{}}catch(_e){}
  event.waitUntil(self.registration.showNotification(data.title||'FortiMune',{
   body:data.body||'لديك تنبيه جديد. افتح التطبيق للمراجعة.',
-  tag:data.id||'fortimune-notice',dir:'rtl',lang:'ar',
+  tag:data.collapseKey73||(data.requestId?('fortimune:'+data.userId+':'+data.requestId):data.id||'fortimune-notice'),dir:'rtl',lang:'ar',
   data:{requestId:data.requestId||'',userId:data.userId||''},
   icon:new URL('./push-icon.png',self.registration.scope).href,
  }));
