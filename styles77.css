@@ -1,0 +1,28 @@
+/* Scoped refinements: preserve the existing visual system. */
+#imageViewer54{z-index:10000;padding:max(12px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom))}
+#imageViewer54>section{display:flex;flex-direction:column;max-height:calc(100dvh - 32px);overflow:hidden;width:min(1050px,100%)}
+#imageViewer54 .image-viewer-head54,#imageViewer54 .actions{flex-shrink:0}
+#imageViewer54 .image-viewer-body54{min-height:0;flex:1;max-height:64dvh;overflow:auto;display:flex;align-items:center;justify-content:center}
+#imageViewer54 img{object-fit:contain;max-height:60dvh;max-width:100%;width:auto;height:auto}
+#imageViewer54 .actions{display:flex;flex-wrap:wrap;gap:8px}
+.number77{direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular-nums}
+.creator77{font-size:13px;color:#546975;display:block;flex-basis:100%}
+.batch74>summary{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.batch74>summary b{display:block;color:#17384b;line-height:1.7;overflow-wrap:anywhere}
+.batch74>summary small{display:block;margin-top:6px;color:#607681;font-size:12px;line-height:1.6}
+.batch74.status-acknowledged{border-inline-end:5px solid #075c3e}.batch74.status-injected{border-inline-end:5px solid #15945a}
+.batch74.status-registered{border-inline-end:5px solid #17799e}.batch74.status-distributed{border-inline-end:5px solid #7952a6}
+.batch74.status-approval{border-inline-end:5px solid #d48c19}.batch74.status-working{border-inline-end:5px solid #2778b5}
+.batch74.status-rejected{border-inline-end:5px solid #ba3345}
+.status-acknowledged .arrow67{color:#075c3e}.status-injected .arrow67{color:#15945a}.status-distributed .arrow67{color:#7952a6}.status-approval .arrow67{color:#a36509}.status-working .arrow67,.status-registered .arrow67{color:#17799e}.status-rejected .arrow67{color:#ba3345}
+.day77>summary{display:flex;align-items:center;justify-content:space-between;gap:12px}.day77 time{display:inline-block}.day77>summary b{display:flex;flex-wrap:wrap;gap:12px}.day77 .batch74:last-child{margin-bottom:0}
+.statement77 td:nth-child(6),.statement77 td:nth-child(7){direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular-nums}
+.reopen77{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:10px 0;padding:12px;background:#fff4e0;border-radius:12px}
+#notificationPanel .notice-injected,#notificationPanel .notice-injected b,#notificationPanel .notice-injected small{color:#176347!important}
+#notificationPanel .notice-acknowledged{background:#075c3e!important;color:#fff!important}#notificationPanel .notice-acknowledged b,#notificationPanel .notice-acknowledged small,#notificationPanel .notice-acknowledged time{color:#fff!important}
+.batch74>summary{display:grid;grid-template-columns:minmax(0,1fr) auto}.batch74>summary>.phases73,.batch74>summary>.without74,.batch74>summary>.action73{grid-column:1/-1}.batch74>summary>.phases73{width:100%;min-width:0}.batch74 .mobile-request-products{font-size:13px}.batch74 .mobile-request-products th,.batch74 .mobile-request-products td{padding:8px;white-space:normal}.mobile-request-products .table-scroll6{overflow-x:auto} .day77>summary{padding:8px}
+
+.batch74>summary .phase73 b{font-size:11px;line-height:1.65;color:inherit}.batch74>summary .phase73.acknowledged.passed b,.batch74>summary .phase73.acknowledged.passed i{color:white!important}.batch74>summary .phase73.future b{color:#697987}.batch74>summary .phase73{min-height:90px}
+.products77{display:grid;gap:10px}.product77{background:#edf6fb;border:1px solid #dbe7ed;border-radius:12px;padding:12px;color:#17384b}.product77>b{display:block;font-size:14px;line-height:1.6;margin-bottom:9px}.product77>div{display:grid;grid-template-columns:1fr 1fr;gap:8px}.product77 span{background:white;padding:9px;border-radius:9px;min-width:0}.product77 small{display:block;font-size:11px;color:#526b78}.product77 strong{display:block;font-size:18px;color:#17384b;overflow-wrap:anywhere}.product77 .number77{direction:ltr}
+
+.batch74>summary .late77{grid-column:1/-1;color:#aa4310;font-weight:700;background:#fff0dc;padding:8px;border-radius:8px}
